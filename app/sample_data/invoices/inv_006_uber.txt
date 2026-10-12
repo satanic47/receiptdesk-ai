@@ -1,0 +1,14 @@
+UBER TECHNOLOGIES, INC.
+Trip Receipt: October 10, 2026
+Rider: Sudhir | Driver: David
+
+Trip Breakdown:
+Pick up: 100 Main St (Home Office)
+Drop off: 500 Market St (Client On-Site Demo)
+Base Fare: $4.50
+Distance & Time (11.2 miles, 24 min): $24.80
+Tolls & Surcharges: $3.10
+Total: $32.40
+
+Payment Method: Personal Visa (Business Reimbursable)
+Trip ID: 9481a8-8429-4bce-9284

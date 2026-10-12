@@ -1,0 +1,15 @@
+AMAZON WEB SERVICES, INC.
+INVOICE SUMMARY #AWS-84920491
+Invoice Date: 2026-10-05
+Account ID: 9482-1049-5830
+
+SERVICE CHARGES:
+Amazon Elastic Compute Cloud (EC2) instances $185.20
+Amazon Simple Storage Service (S3) bucket storage $42.30
+Amazon CloudFront Content Delivery $18.00
+
+Subtotal: $245.50
+Estimated Tax: $0.00
+Total: $245.50
+
+Payment: Automatic charge to MasterCard ending in 9042

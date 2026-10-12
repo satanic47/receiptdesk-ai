@@ -1,0 +1,13 @@
+WEWORK MANAGEMENT LLC
+Membership Receipt & Tax Invoice #WW-202610-09
+Date of Charge: 2026-10-01
+Location: WeWork Financial District
+
+Monthly Dedicated Hot Desk Membership (Oct 2026) 1x $350.00
+High-Speed Fiber Internet & Conference Room Credits included
+
+Subtotal: $350.00
+Sales Tax: $0.00
+Total Amount: $350.00
+
+Payment Processed via Stripe ACH

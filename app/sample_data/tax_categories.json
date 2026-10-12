@@ -1,0 +1,72 @@
+[
+  {
+    "category_id": "software_saas",
+    "name": "Software & SaaS Subscriptions",
+    "schedule_c_line": "Line 27a (Other Expenses - Software)",
+    "deductible_percentage": 100.0,
+    "audit_risk": "Low"
+  },
+  {
+    "category_id": "office_supplies",
+    "name": "Office Supplies & Stationery",
+    "schedule_c_line": "Line 18 (Office Expense)",
+    "deductible_percentage": 100.0,
+    "audit_risk": "Low"
+  },
+  {
+    "category_id": "hardware_equipment",
+    "name": "Equipment & Technology (De Minimis)",
+    "schedule_c_line": "Line 27a (Other Expenses - Equipment under $2,500)",
+    "deductible_percentage": 100.0,
+    "audit_risk": "Medium"
+  },
+  {
+    "category_id": "legal_professional",
+    "name": "Legal & Professional Fees",
+    "schedule_c_line": "Line 17 (Legal and Professional Services)",
+    "deductible_percentage": 100.0,
+    "audit_risk": "Low"
+  },
+  {
+    "category_id": "advertising_marketing",
+    "name": "Advertising & Marketing",
+    "schedule_c_line": "Line 8 (Advertising)",
+    "deductible_percentage": 100.0,
+    "audit_risk": "Low"
+  },
+  {
+    "category_id": "rent_coworking",
+    "name": "Rent & Coworking Spaces",
+    "schedule_c_line": "Line 20b (Rent or Lease - Other Business Property)",
+    "deductible_percentage": 100.0,
+    "audit_risk": "Low"
+  },
+  {
+    "category_id": "travel",
+    "name": "Business Travel",
+    "schedule_c_line": "Line 24a (Travel)",
+    "deductible_percentage": 100.0,
+    "audit_risk": "Medium"
+  },
+  {
+    "category_id": "meals",
+    "name": "Business Meals & Client Dining",
+    "schedule_c_line": "Line 24b (Deductible Meals - 50% limit)",
+    "deductible_percentage": 50.0,
+    "audit_risk": "High"
+  },
+  {
+    "category_id": "car_truck",
+    "name": "Local Transit & Rideshare",
+    "schedule_c_line": "Line 9 (Car and Truck Expenses)",
+    "deductible_percentage": 100.0,
+    "audit_risk": "Medium"
+  },
+  {
+    "category_id": "utilities_internet",
+    "name": "Internet & Telecom (Business Portion)",
+    "schedule_c_line": "Line 25 (Utilities)",
+    "deductible_percentage": 80.0,
+    "audit_risk": "Medium"
+  }
+]

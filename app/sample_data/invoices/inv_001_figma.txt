@@ -1,0 +1,14 @@
+FIGMA, INC.
+INVOICE #FIG-928410
+Date: 2026-10-02
+Billed To: Sudhir (Freelance Design & Engineering)
+
+ITEMS:
+Figma Professional Annual License Seat 1x $180.00
+Subtotal: $180.00
+Tax: $0.00
+Total Amount: $180.00
+
+Payment Method: Visa ending in 4182
+Status: Paid in Full
+Thank you for designing with Figma!

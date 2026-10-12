@@ -1,0 +1,15 @@
+BISTRO BISTRO RESTAURANT
+742 Evergreen Terrace
+Server: Marcus | Table 14
+Date: 2026-10-08 13:24 PM
+
+1x Business Lunch Special $32.00
+1x Grilled Salmon Fillet $34.00
+2x Sparkling Water $10.00
+Subtotal: $76.00
+Tax (8.5%): $6.46
+Tip: $12.00
+Grand Total: $94.46
+
+Purpose: Q4 Product Strategy discussion with Client Acquired Co.
+Paid: Visa ending in 4182
