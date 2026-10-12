@@ -124,13 +124,11 @@ Open-source AI isn't just an alternative to closed models — for financial appl
 
 This entire project — from the IRS tax categorization rules and Tiger Data pgvector integration to the FastAPI backend, Chart.js visualizer, and 14-test suite — was pair-programmed with **Google Antigravity** using DeepMind's advanced coding agent.
 
-{% agent_session 4839620 %}
-
-The agent helped:
-- Architect the hybrid vector store supporting both Tiger Data pgvector and local offline SQLite.
-- Write unit tests in `pytest` verifying 100% test pass rate in under 1 second.
-- Containerize the application with `Dockerfile` and `render.yaml` for 1-click cloud deployment.
-- Wire custom DNS and SSL routing for `shivysidinfo.tech`.
+Key milestones achieved in the agent pairing session:
+- **Architecture Design:** Built the hybrid vector store supporting both Tiger Data pgvector and local offline SQLite.
+- **Test-Driven Verification:** Wrote 14 comprehensive unit tests in `pytest` verifying a 100% test pass rate in under 1 second.
+- **Cloud Infrastructure:** Containerized the application with `Dockerfile` and declarative `render.yaml` Blueprint for automated cloud deployment.
+- **Production DNS & Security:** Configured custom DNS records, dynamic port binding, and automated Let's Encrypt SSL routing for `shivysidinfo.tech`.
 
 ---
 
