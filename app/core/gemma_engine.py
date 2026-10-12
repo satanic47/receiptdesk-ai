@@ -181,12 +181,13 @@ RECEIPT CONTENT:
         
         # Look for explicit total lines
         total_patterns = [
-            r'(?:total|amount due|grand total|balance due)\s*[:$€£]?\s*(\d+[.,]\d{2})',
-            r'(?:total)\s*[:$€£]?\s*(\d+)'
+            r'(?:total\s*amount|grand\s*total|amount\s*due|balance\s*due|total|amount)[\s:=]*[$€£]?\s*(\d+[.,]\d{2})',
+            r'(?:total\s*amount|grand\s*total|amount\s*due|balance\s*due|total|amount)[\s:=]*[$€£]?\s*(\d+)',
+            r'(\d+[.,]\d{2})\s*(?:usd|eur|gbp)'
         ]
         for pattern in total_patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
+            matches = re.finditer(pattern, text, re.IGNORECASE)
+            for match in matches:
                 try:
                     val = float(match.group(1).replace(",", "."))
                     if val > total:
@@ -195,7 +196,7 @@ RECEIPT CONTENT:
                     pass
                     
         # Subtotal
-        subtotal_match = re.search(r'(?:subtotal|net amount|sub-total)\s*[:$€£]?\s*(\d+[.,]\d{2})', text, re.IGNORECASE)
+        subtotal_match = re.search(r'(?:subtotal|net amount|sub-total)[\s:=]*[$€£]?\s*(\d+[.,]\d{2})', text, re.IGNORECASE)
         if subtotal_match:
             try:
                 subtotal = float(subtotal_match.group(1).replace(",", "."))
@@ -203,7 +204,7 @@ RECEIPT CONTENT:
                 pass
                 
         # Tax
-        tax_match = re.search(r'(?:tax|vat|gst|sales tax)\s*[:$€£]?\s*(\d+[.,]\d{2})', text, re.IGNORECASE)
+        tax_match = re.search(r'(?:tax|vat|gst|sales tax)[\s:=]*[$€£]?\s*(\d+[.,]\d{2})', text, re.IGNORECASE)
         if tax_match:
             try:
                 tax = float(tax_match.group(1).replace(",", "."))
