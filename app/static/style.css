@@ -1,25 +1,133 @@
-/* Custom styling for ReceiptDesk AI */
+/* Custom Halloween & Spooky styling for Sudhir Sharma's Halloween 2026 Odyssey & ReceiptDesk AI */
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #030712;
+  color: #f3f4f6;
+  overflow-x: hidden;
 }
 
+.font-spooky {
+  font-family: 'Creepster', cursive;
+  letter-spacing: 0.05em;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Spider web corner decorations */
+.spider-web {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+.spider-web:hover {
+  opacity: 0.7;
+}
+
+/* Spooky Floating Ghost Animation */
+@keyframes ghostFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(3deg);
+  }
+}
+
+.animate-ghost {
+  animation: ghostFloat 4s ease-in-out infinite;
+}
+
+.animate-ghost-delayed {
+  animation: ghostFloat 4.6s ease-in-out 1.5s infinite;
+}
+
+/* Flying & Flapping Bats Animation */
+@keyframes batFly {
+  0% {
+    transform: translateX(-30px) translateY(0px);
+  }
+  50% {
+    transform: translateX(35px) translateY(-12px);
+  }
+  100% {
+    transform: translateX(-30px) translateY(0px);
+  }
+}
+
+@keyframes batWingFlap {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.4);
+  }
+}
+
+.animate-bat-1 {
+  animation: batFly 6s ease-in-out infinite;
+}
+
+.animate-bat-2 {
+  animation: batFly 7.5s ease-in-out 2s infinite;
+}
+
+.animate-wing {
+  transform-origin: center;
+  animation: batWingFlap 0.35s ease-in-out infinite;
+}
+
+/* Spooky Glow Effects */
+.spooky-glow-orange {
+  box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.4), 0 0 10px -2px rgba(249, 115, 22, 0.3);
+}
+
+.spooky-glow-purple {
+  box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.4), 0 0 10px -2px rgba(168, 85, 247, 0.3);
+}
+
+.spooky-text-glow {
+  text-shadow: 0 0 12px rgba(249, 115, 22, 0.8), 0 0 24px rgba(234, 88, 12, 0.5);
+}
+
+.spooky-ghost-glow {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.65)) drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
+}
+
+/* Drag and Drop Zone styling */
 #dropZone.dragover {
-  border-color: #10b981;
-  background-color: rgba(16, 185, 129, 0.08);
+  border-color: #f97316;
+  background-color: rgba(249, 115, 22, 0.12);
+  transform: scale(1.01);
+}
+
+/* Card hover transitions */
+.activity-card {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.activity-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 12px 30px -10px rgba(249, 115, 22, 0.25);
 }
 
 /* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #030712;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 3px;
+  background: #374151;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #f97316;
 }

@@ -3,62 +3,428 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReceiptDesk AI - Local Invoice & Deduction Auditor for Freelancers</title>
+  <title>Sudhir Sharma | Halloween 2026 Journey & Challenges Hub</title>
+  <meta name="description" content="Sudhir Sharma's portfolio and journey through Halloween & Hacktoberfest 2026: Open-Source AI, MLH Global Hack Week, Modtoberfest, DocsGPT, and ReceiptDesk AI.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎃</text></svg>">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="/static/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-emerald-500 selection:text-white">
-  
-  <!-- Navigation Header -->
-  <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-orange-500 selection:text-white relative">
+
+  <!-- ============================================================== -->
+  <!-- 🕸️ SPIDER WEBS (Top Corners) -->
+  <!-- ============================================================== -->
+  <svg class="spider-web top-0 left-0 w-36 h-36 sm:w-48 sm:h-48 text-orange-500/40" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path d="M0,0 L100,0 M0,0 L0,100 M0,0 L85,85 M0,0 L45,90 M0,0 L90,45" />
+    <path d="M15,0 Q15,15 0,15 M35,0 Q35,35 0,35 M55,0 Q55,55 0,55 M75,0 Q75,75 0,75 M95,0 Q95,95 0,95" />
+    <circle cx="2" cy="2" r="1.5" fill="currentColor" />
+  </svg>
+
+  <svg class="spider-web top-0 right-0 w-36 h-36 sm:w-48 sm:h-48 text-purple-500/40 scale-x-[-1]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path d="M0,0 L100,0 M0,0 L0,100 M0,0 L85,85 M0,0 L45,90 M0,0 L90,45" />
+    <path d="M15,0 Q15,15 0,15 M35,0 Q35,35 0,35 M55,0 Q55,55 0,55 M75,0 Q75,75 0,75 M95,0 Q95,95 0,95" />
+    <circle cx="2" cy="2" r="1.5" fill="currentColor" />
+  </svg>
+
+  <!-- ============================================================== -->
+  <!-- 🎃 SPOOKY HALLOWEEN HEADER WITH ANIMATED BATS & WHITE GHOSTS -->
+  <!-- ============================================================== -->
+  <header class="relative border-b border-orange-950/60 bg-gradient-to-b from-slate-950 via-purple-950/30 to-slate-950 pt-8 pb-10 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    
+    <!-- Animated Flying Bats Across Header -->
+    <div class="absolute top-4 left-1/4 animate-bat-1 pointer-events-none opacity-80">
+      <svg class="w-8 h-8 text-orange-400" viewBox="0 0 24 24" fill="currentColor">
+        <path class="animate-wing" d="M12 9c-1.5-2.5-5-4-8-3 1.5 2 2 4.5 2 7 2-1 4-1 6-4zm0 0c1.5-2.5 5-4 8-3-1.5 2-2 4.5-2 7-2-1-4-1-6-4z"/>
+        <circle cx="12" cy="8" r="1.5" fill="#f97316"/>
+      </svg>
+    </div>
+    
+    <div class="absolute top-10 right-1/4 animate-bat-2 pointer-events-none opacity-70">
+      <svg class="w-6 h-6 text-purple-400" viewBox="0 0 24 24" fill="currentColor">
+        <path class="animate-wing" d="M12 9c-1.5-2.5-5-4-8-3 1.5 2 2 4.5 2 7 2-1 4-1 6-4zm0 0c1.5-2.5 5-4 8-3-1.5 2-2 4.5-2 7-2-1-4-1-6-4z"/>
+        <circle cx="12" cy="8" r="1.2" fill="#c084fc"/>
+      </svg>
+    </div>
+
+    <!-- Header Navigation Bar -->
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-800/60">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-          <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm5 5a.5.5 0 11-1 0 .5.5 0 011 0z"/>
-          </svg>
-        </div>
+        <span class="text-3xl filter drop-shadow-[0_0_10px_rgba(249,115,22,0.8)]">🎃</span>
         <div>
-          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">ReceiptDesk AI</span>
-          <span class="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Gemma 2 Open-Weight Core</span>
+          <a href="/" class="text-xl font-bold tracking-tight text-white hover:text-orange-400 transition flex items-center gap-2">
+            <span>shivysidinfo.tech</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">Halloween '26</span>
+          </a>
+          <p class="text-xs text-slate-400">Sudhir Sharma's Challenge Portfolio</p>
         </div>
       </div>
-      
-      <div class="flex items-center space-x-3">
-        <button id="openHubBtn" class="text-xs font-bold px-3 py-2 rounded-lg bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 hover:brightness-110 text-slate-950 transition shadow-lg shadow-amber-500/20 flex items-center space-x-1.5">
+
+      <!-- View Switcher & Action Tabs -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <button id="tabActivitiesBtn" class="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-orange-500 text-slate-950 transition shadow-lg shadow-orange-500/30 flex items-center space-x-1.5">
           <span>🎃</span>
-          <span>Octoberfest '26 Hub</span>
+          <span>Challenges & Activities</span>
         </button>
-        <div id="statusBadge" class="hidden sm:flex items-center space-x-2 text-xs px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="backendStatusText" class="text-slate-300 font-medium">100% Offline Local Mode</span>
-        </div>
-        <button id="loadSampleBtn" class="text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition border border-slate-700 flex items-center space-x-1.5">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          <span class="hidden md:inline">Load Sample Pack</span>
+
+        <button id="tabAuditorBtn" class="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center space-x-1.5">
+          <span>💼</span>
+          <span>ReceiptDesk AI (Live Tool)</span>
         </button>
+
+        <a href="https://github.com/satanic47" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition flex items-center space-x-1">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span>@satanic47</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Spooky Hero Branding (Animated Ghosts & Spooky Typography) -->
+    <div class="max-w-5xl mx-auto text-center mt-8 relative">
+      
+      <!-- Animated Floating Ghosts Left & Right -->
+      <div class="hidden sm:block absolute -left-8 top-0 animate-ghost pointer-events-none">
+        <svg class="w-14 h-14 spooky-ghost-glow" viewBox="0 0 64 64" fill="none">
+          <path d="M32 6C20 6 12 16 12 28v22c0 2 2 3 4 2l5-4 5 4c2 2 4 1 5-1l4-5 4 5c1 2 3 3 5 1l5-4 5 4c2 1 4 0 4-2V28c0-12-8-22-20-22z" fill="#f8fafc"/>
+          <circle cx="26" cy="24" r="3" fill="#0f172a"/>
+          <circle cx="38" cy="24" r="3" fill="#0f172a"/>
+          <ellipse cx="32" cy="32" rx="3" ry="4" fill="#0f172a"/>
+        </svg>
+      </div>
+
+      <div class="hidden sm:block absolute -right-8 top-2 animate-ghost-delayed pointer-events-none">
+        <svg class="w-12 h-12 spooky-ghost-glow" viewBox="0 0 64 64" fill="none">
+          <path d="M32 6C20 6 12 16 12 28v22c0 2 2 3 4 2l5-4 5 4c2 2 4 1 5-1l4-5 4 5c1 2 3 3 5 1l5-4 5 4c2 1 4 0 4-2V28c0-12-8-22-20-22z" fill="#f1f5f9"/>
+          <circle cx="27" cy="24" r="2.5" fill="#1e1b4b"/>
+          <circle cx="37" cy="24" r="2.5" fill="#1e1b4b"/>
+          <ellipse cx="32" cy="31" rx="2.5" ry="3.5" fill="#1e1b4b"/>
+        </svg>
+      </div>
+
+      <!-- Spooky Title -->
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-semibold uppercase tracking-wider mb-3">
+        <span>🎃</span>
+        <span>Octoberfest & Halloween 2026 Journey</span>
+        <span>👻</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white font-spooky text-orange-400 spooky-text-glow">
+        Sudhir Sharma's Halloween 2026 Odyssey
+      </h1>
+
+      <p class="mt-4 text-slate-300 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
+        Tracking my open-source code, AI builds, and developer challenges across 
+        <span class="text-orange-400 font-semibold">Hacktoberfest 2026</span>, 
+        <span class="text-purple-400 font-semibold">MLH Global Hack Week</span>, 
+        <span class="text-amber-400 font-semibold">Modtoberfest</span>, 
+        <span class="text-emerald-400 font-semibold">DocsGPT</span>, and 
+        <span class="text-blue-400 font-semibold">Tiger Data</span>.
+      </p>
+
+      <div class="mt-5 flex flex-wrap justify-center items-center gap-3 text-xs text-slate-400">
+        <span class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>Live Deployment: shivysidinfo.tech</span>
+        </span>
+        <span class="bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-800">
+          7 Challenges & Contributions Logged
+        </span>
+        <span class="bg-orange-950/40 text-orange-400 px-3 py-1.5 rounded-full border border-orange-800/40">
+          17 Partner Prize Tracks Active
+        </span>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+  <!-- ============================================================== -->
+  <!-- 🎃 VIEW 1: CHALLENGES & ACTIVITIES GRID (MATCHING LAYOUT.PNG) -->
+  <!-- ============================================================== -->
+  <main id="activitiesView" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
     
-    <!-- Hero Banner -->
-    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-emerald-950/40 border border-slate-800 p-6 sm:p-8">
-      <div class="max-w-3xl space-y-2">
-        <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
-          Hacktoberfest 2026: Side Hustle Edition
-        </div>
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Privacy-First Invoice & Deduction Auditor for Freelancers
-        </h1>
-        <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Powered by Google’s open-weight <strong class="text-slate-200 font-semibold">Gemma</strong> model and <strong class="text-slate-200 font-semibold">Tiger Data pgvector</strong>. Process client receipts, extract line items, and maximize IRS Schedule C tax deductions without exposing sensitive financial records to closed third-party cloud APIs.
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+          <span>📜</span>
+          <span>Autumn 2026 Activities & Solutions</span>
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1">
+          Scrollable challenge entries (latest first). Click any card to inspect full stats, problem architecture, and live solutions.
         </p>
       </div>
+
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-slate-400 font-medium">Filter:</span>
+        <button class="text-xs px-2.5 py-1 rounded-md bg-orange-500/20 text-orange-400 border border-orange-500/30 font-semibold">All (7)</button>
+        <button class="text-xs px-2.5 py-1 rounded-md bg-slate-900 text-slate-400 hover:text-white border border-slate-800">AI & ML</button>
+        <button class="text-xs px-2.5 py-1 rounded-md bg-slate-900 text-slate-400 hover:text-white border border-slate-800">Open Source PRs</button>
+      </div>
+    </div>
+
+    <!-- The 3-Column Responsive Grid as specified in shivysidinfo layout.png -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- ======================================================== -->
+      <!-- CARD 1: Hacktoberfest Week 2: ReceiptDesk AI (LATEST) -->
+      <!-- ======================================================== -->
+      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('receiptdesk')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition"></div>
+        
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
+              🎃 Hacktoberfest Week 2 (Side Hustle)
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Live & Ready
+            </span>
+          </div>
+
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            ReceiptDesk AI: Privacy-First Invoice & Deduction Auditor
+          </h3>
+
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Full-stack invoice auditor for freelancers running Google Gemma 2 locally for on-device Schedule C tax extraction, and Tiger Data pgvector for duplicate charge detection and semantic expense memory.
+          </p>
+
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Gemma 2</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tiger Data pgvector</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Render</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">.tech Domain</span>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Stats & Solution</span>
+            <span>→</span>
+          </span>
+          <button type="button" onclick="event.stopPropagation(); switchToAuditor();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-orange-500 hover:bg-orange-400 text-slate-950 transition">
+            Launch Tool 🚀
+          </button>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- CARD 2: DocsGPT Contribution (PR #3068) -->
+      <!-- ======================================================== -->
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-purple-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('docsgpt')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition"></div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+              👻 Open Source: DocsGPT Core
+            </span>
+            <span class="text-[11px] font-semibold text-amber-400">PR #3068 Review</span>
+          </div>
+
+          <h3 class="text-lg font-bold text-white group-hover:text-purple-300 transition leading-snug">
+            Multi-File Task Deduplication & Poison-Loop Guard
+          </h3>
+
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Eliminated the 24-hour source lockout when adding/removing files rapidly. Built Celery/Redis redelivery deduplication, poison-loop recovery guards, and regression testing suite.
+          </p>
+
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Celery</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Redis</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Pytest</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">FastAPI</span>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-purple-300 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Stats & Solution</span>
+            <span>→</span>
+          </span>
+          <span class="text-[11px] text-slate-400 font-mono">arc53/DocsGPT</span>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- CARD 3: Tiger Data Tiger Hunt & Financial Pipeline -->
+      <!-- ======================================================== -->
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-amber-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('tigerdata')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
+              🐯 Tiger Data: TimescaleDB Challenge
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400">5/5 Verified</span>
+          </div>
+
+          <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition leading-snug">
+            Financial Pipeline, CAGGs & pgvector Cosine Search
+          </h3>
+
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Constructed time-series financial analytics with automated continuous aggregates (CAGGs), hypertables, and pgvector semantic retrieval integrated with MCP agent workflows.
+          </p>
+
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">TimescaleDB</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">pgvector</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">PostgreSQL</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">MCP Agent</span>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-amber-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Stats & Solution</span>
+            <span>→</span>
+          </span>
+          <span class="text-[11px] text-slate-400">Tiger Cloud</span>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- CARD 4: MLH Global Hack Week: Octoberfest -->
+      <!-- ======================================================== -->
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('mlhghw')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+              👾 MLH Global Hack Week
+            </span>
+            <span class="text-[11px] font-semibold text-blue-400">Milestone Met</span>
+          </div>
+
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition leading-snug">
+            Copilot Adventure Game & Model Benchmark Suite
+          </h3>
+
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Built interactive CLI dungeon adventure games, lightweight bill splitters, and a rigorous benchmarking suite evaluating Grok 4.7 High against Claude Opus 5.5 for agentic programming.
+          </p>
+
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Grok 4.7</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Claude Opus</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Python</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">MLH GHW</span>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Stats & Solution</span>
+            <span>→</span>
+          </span>
+          <span class="text-[11px] text-slate-400">10 Streams + Secret Swag</span>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- CARD 5: Modtoberfest 2026 -->
+      <!-- ======================================================== -->
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('modtoberfest')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              🍁 Modtoberfest 2026
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400">Open PRs</span>
+          </div>
+
+          <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition leading-snug">
+            CraftTweaker Docs, Clumps & Packwiz Contributions
+          </h3>
+
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Contributed documentation maintenance, Astro site component bugfixes, broken link resolutions, and mod packaging improvements across major open-source Minecraft mod repositories.
+          </p>
+
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Astro</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Java</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Markdown</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Modtoberfest</span>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-emerald-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Stats & Solution</span>
+            <span>→</span>
+          </span>
+          <span class="text-[11px] text-slate-400">3 Repositories</span>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- CARD 6: SpookyJam 2026 & Autumn Modding Jam -->
+      <!-- ======================================================== -->
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-pink-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('spookyjam')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition"></div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-pink-500/20 text-pink-400 border border-pink-500/30">
+              🕸️ SpookyJam 2026
+            </span>
+            <span class="text-[11px] font-semibold text-pink-400">Seasonal Jam</span>
+          </div>
+
+          <h3 class="text-lg font-bold text-white group-hover:text-pink-400 transition leading-snug">
+            Halloween Game Jam Showcase & Asset Pipelines
+          </h3>
+
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Collaborated on the annual Halloween SpookyJam modding jam, authoring festive content workflows, entity particle shaders, and community hub integration.
+          </p>
+
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">SpookyJam</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Game Jam</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Asset Pipeline</span>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-pink-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Stats & Solution</span>
+            <span>→</span>
+          </span>
+          <span class="text-[11px] text-slate-400">Halloween Event</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- 💼 VIEW 2: RECEIPTDESK AI INTERACTIVE AUDITOR (EMBEDDED TOOL) -->
+  <!-- ============================================================== -->
+  <section id="auditorView" class="hidden flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+    
+    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div>
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+          <span>💼</span>
+          <span>ReceiptDesk AI Live Invoice Auditor</span>
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm">
+          Google Gemma 2 on-device extraction &amp; Tiger Data pgvector semantic search.
+        </p>
+      </div>
+      <button onclick="switchToActivities();" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+        ← Back to Activities Hub
+      </button>
     </div>
 
     <!-- Stat Metric Cards -->
@@ -80,332 +446,285 @@
       </div>
       <div class="rounded-xl bg-slate-900/80 border border-slate-800 p-5 shadow-sm">
         <div class="text-xs font-semibold uppercase tracking-wider text-slate-400">Audit Health Score</div>
-        <div id="statHealthScore" class="mt-2 text-2xl sm:text-3xl font-bold text-white">100<span class="text-sm font-normal text-slate-500">/100</span></div>
-        <div id="statAuditFlags" class="mt-1 text-xs text-emerald-400">Low audit exposure</div>
+        <div id="statHealthScore" class="mt-2 text-2xl sm:text-3xl font-bold text-emerald-400">100<span class="text-sm font-normal text-slate-500">/100</span></div>
+        <div id="statAuditFlags" class="mt-1 text-xs text-slate-400">0 compliance flags</div>
       </div>
     </div>
 
-    <!-- Main Grid: Uploader & Assistant -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Main Auditor Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
-      <!-- Left Column: Upload & Live Parser (7 cols) -->
-      <div class="lg:col-span-7 space-y-6">
-        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-4">
+      <!-- Left Column: Upload / Parse -->
+      <div class="lg:col-span-2 space-y-6">
+        
+        <!-- Drag & Drop Uploader -->
+        <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 space-y-4">
           <div class="flex items-center justify-between">
-            <h2 class="text-lg font-bold text-white flex items-center space-x-2">
-              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+              <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
               <span>Scan or Upload Receipt</span>
-            </h2>
-            <span class="text-xs text-slate-400">PDF, TXT, CSV, Scan</span>
+            </h3>
+            <span class="text-xs text-slate-400">Supports PDF, TXT, CSV</span>
           </div>
 
-          <!-- Drag & Drop Zone -->
-          <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-emerald-500 rounded-xl p-8 text-center transition cursor-pointer bg-slate-950/40">
-            <input type="file" id="fileInput" class="hidden" accept=".txt,.pdf,.csv,.json">
-            <div class="space-y-2">
-              <div class="mx-auto w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-300">
-                <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              </div>
-              <div class="text-sm font-semibold text-slate-200">Click to upload or drag receipt file here</div>
-              <div class="text-xs text-slate-500">Instant on-device OCR & Gemma structured extraction</div>
-            </div>
+          <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-orange-500/50 rounded-xl p-8 text-center cursor-pointer transition bg-slate-950/40">
+            <input type="file" id="fileInput" class="hidden" accept=".pdf,.txt,.csv">
+            <svg class="mx-auto h-12 w-12 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <p class="mt-3 text-sm text-slate-300 font-medium">Click to upload or drag &amp; drop receipt files</p>
+            <p class="text-xs text-slate-500 mt-1">Processed locally on-device. No data sent to closed third-party clouds.</p>
           </div>
 
-          <!-- Or Paste Raw Text -->
-          <div class="space-y-2 pt-2">
-            <label for="rawTextInput" class="text-xs font-medium text-slate-400">Or paste receipt / invoice text directly:</label>
-            <textarea id="rawTextInput" rows="4" class="w-full rounded-xl bg-slate-950 border border-slate-800 px-3.5 py-2.5 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 font-mono" placeholder="Vendor: Figma Inc.&#10;Date: 2026-10-12&#10;Item: Professional Plan $180.00&#10;Total: $180.00"></textarea>
-            <button id="parseTextBtn" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs tracking-wide transition shadow-lg shadow-emerald-600/20">
-              Run Local Gemma Extraction
+          <div class="flex items-center justify-between pt-2">
+            <button id="loadSampleBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center space-x-1.5">
+              <span>📂 Load 6 Freelance Sample Invoices</span>
+            </button>
+            <span id="uploadSpinner" class="hidden text-xs text-orange-400 font-medium animate-pulse">Running Gemma Extraction...</span>
+          </div>
+        </div>
+
+        <!-- Manual Text / Quick Paste Area -->
+        <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 space-y-4">
+          <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+            <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Or Paste Raw Invoice Text</span>
+          </h3>
+          <textarea id="rawInvoiceText" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-orange-500 font-mono" placeholder="INVOICE #9201 | Figma Inc. | $180.00 | Date: 2026-09-15 | Description: Annual Figma Professional Design Subscription..."></textarea>
+          <div class="flex justify-end">
+            <button id="parseTextBtn" class="px-4 py-2 rounded-lg bg-orange-500 hover:bg-orange-400 text-slate-950 text-xs font-bold transition flex items-center space-x-1.5 shadow-lg shadow-orange-500/20">
+              <span>Parse with Gemma 2</span>
+              <span>→</span>
             </button>
           </div>
         </div>
 
-        <!-- Latest Parsed Result View -->
-        <div id="latestResultCard" class="hidden rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <h3 class="font-bold text-white text-base flex items-center space-x-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-              <span>Extraction Breakdown</span>
-            </h3>
-            <span id="resultConfidence" class="text-xs px-2.5 py-1 rounded bg-slate-800 text-emerald-400 font-mono">95% Conf</span>
+        <!-- Filed Receipts Table -->
+        <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold text-white">Audited Receipts Ledger</h3>
+            <button id="exportCsvBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center space-x-1.5 shadow-sm">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Export TurboTax CSV</span>
+            </button>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-            <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800/80">
-              <span class="text-slate-500 block">Merchant</span>
-              <span id="resMerchant" class="font-semibold text-slate-200 text-sm mt-0.5 block truncate">-</span>
-            </div>
-            <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800/80">
-              <span class="text-slate-500 block">Date</span>
-              <span id="resDate" class="font-semibold text-slate-200 text-sm mt-0.5 block">-</span>
-            </div>
-            <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800/80">
-              <span class="text-slate-500 block">Total Amount</span>
-              <span id="resTotal" class="font-semibold text-white text-sm mt-0.5 block">-</span>
-            </div>
-            <div class="bg-slate-950/60 p-3 rounded-lg border border-emerald-950/60">
-              <span class="text-emerald-400 block">Deductible</span>
-              <span id="resDeductible" class="font-semibold text-emerald-400 text-sm mt-0.5 block">-</span>
-            </div>
-          </div>
-
-          <div class="p-3 rounded-xl bg-slate-950/40 border border-slate-800 text-xs space-y-1">
-            <div class="flex justify-between">
-              <span class="text-slate-400">Schedule C Category:</span>
-              <span id="resCategory" class="font-semibold text-slate-200">-</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-400">IRS Tax Line:</span>
-              <span id="resTaxLine" class="font-mono text-slate-300">-</span>
-            </div>
-            <div id="resFlagsContainer" class="pt-2 border-t border-slate-800/80 space-y-1 hidden">
-              <span class="text-amber-400 font-semibold block">Audit Flags:</span>
-              <ul id="resFlagsList" class="list-disc list-inside text-amber-300/80 space-y-0.5"></ul>
-            </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="text-xs uppercase bg-slate-950 text-slate-400 border-b border-slate-800">
+                <tr>
+                  <th class="py-3 px-4">Date</th>
+                  <th class="py-3 px-4">Merchant</th>
+                  <th class="py-3 px-4">Category</th>
+                  <th class="py-3 px-4">Schedule C</th>
+                  <th class="py-3 px-4 text-right">Total</th>
+                  <th class="py-3 px-4 text-right">Deductible</th>
+                  <th class="py-3 px-4">Flags</th>
+                </tr>
+              </thead>
+              <tbody id="receiptsTableBody" class="divide-y divide-slate-800/60 font-sans">
+                <tr>
+                  <td colspan="7" class="py-8 text-center text-slate-500">No receipts filed yet. Upload a receipt or click "Load 6 Freelance Sample Invoices" above.</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
 
-      <!-- Right Column: Visual Charts & Tiger Vector Search (5 cols) -->
-      <div class="lg:col-span-5 space-y-6">
+      <!-- Right Column: Visualizer & Tiger Data Vector Search -->
+      <div class="space-y-6">
         
-        <!-- Deductions by Category Chart -->
-        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-4">
-          <div class="flex items-center justify-between">
-            <h2 class="text-base font-bold text-white flex items-center space-x-2">
-              <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
-              <span>Schedule C Category Distribution</span>
-            </h2>
-          </div>
-          <div class="h-56 relative flex items-center justify-center">
+        <!-- Category Distribution Chart -->
+        <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 space-y-4">
+          <h3 class="text-base font-bold text-white">Schedule C Tax Allocation</h3>
+          <div class="h-64 flex items-center justify-center">
             <canvas id="categoryChart"></canvas>
           </div>
         </div>
 
-        <!-- Semantic Vector Search (Tiger Data pgvector) -->
-        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-4">
+        <!-- Tiger Data Semantic Search -->
+        <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-bold text-white flex items-center space-x-2">
-              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              <span>Semantic Similarity Explorer</span>
+              <span class="text-amber-400">🐯</span>
+              <span>Tiger Data pgvector Search</span>
             </h3>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">pgvector</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-mono">128-dim Cosine</span>
           </div>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Search historical expenses across semantic embeddings (e.g. "cloud database", "office desk", "meeting lunch").
-          </p>
+          <p class="text-xs text-slate-400">Search past expenses semantically without exact keyword matching.</p>
+          
           <div class="flex space-x-2">
-            <input type="text" id="similarityInput" class="flex-1 rounded-xl bg-slate-950 border border-slate-800 px-3 py-2 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500" placeholder="Search expenses semantically...">
-            <button id="similaritySearchBtn" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition">Search</button>
+            <input type="text" id="similarityInput" class="flex-grow bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500" placeholder="e.g. 'server hosting' or 'client lunch'">
+            <button id="similaritySearchBtn" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition">Search</button>
           </div>
-          <div id="similarityResults" class="space-y-2 text-xs hidden"></div>
+
+          <div id="similarityResults" class="space-y-2 pt-2 text-xs">
+            <div class="text-slate-500 text-center py-2">Try searching "design tools" or "office space"</div>
+          </div>
         </div>
 
-        <!-- Audit Risk Advisor -->
-        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-3">
-          <h3 class="text-base font-bold text-white flex items-center space-x-2">
-            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-            <span>IRS Audit Advisor</span>
-          </h3>
-          <ul id="auditTipsList" class="text-xs text-slate-400 space-y-2">
+        <!-- Audit Risk & Checklist -->
+        <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 space-y-3">
+          <h3 class="text-base font-bold text-white">IRS Audit Safeguards</h3>
+          <ul id="auditTipsList" class="space-y-2 text-xs text-slate-400">
             <li class="flex items-start space-x-2">
               <span class="text-emerald-400 font-bold">✓</span>
-              <span>Keep digital copies of all receipts over $75 for 3 years.</span>
+              <span>50% statutory reduction enforced on Business Meals (§ 274(n)).</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span>De Minimis Safe Harbor threshold checked for equipment over $2,500.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span>Continuous duplicate transaction fingerprinting active.</span>
             </li>
           </ul>
         </div>
+
       </div>
     </div>
+  </section>
 
-    <!-- Receipts History Table -->
-    <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 class="text-lg font-bold text-white">Expense Records</h2>
-          <p class="text-xs text-slate-400">All parsed and categorized receipts saved locally.</p>
-        </div>
-        <div class="flex items-center space-x-3">
-          <button id="exportCsvBtn" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center space-x-1.5 transition">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>Export Schedule C (CSV)</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs text-slate-300">
-          <thead class="bg-slate-950/80 text-slate-400 font-semibold border-b border-slate-800">
-            <tr>
-              <th class="py-3 px-4">Date</th>
-              <th class="py-3 px-4">Merchant</th>
-              <th class="py-3 px-4">Category</th>
-              <th class="py-3 px-4">Schedule C Line</th>
-              <th class="py-3 px-4 text-right">Total</th>
-              <th class="py-3 px-4 text-right">Deductible</th>
-              <th class="py-3 px-4">Flags</th>
-            </tr>
-          </thead>
-          <tbody id="receiptsTableBody" class="divide-y divide-slate-800/60">
-            <tr>
-              <td colspan="7" class="py-8 text-center text-slate-500">No receipts filed yet. Upload a receipt or click "Load 6 Sample Receipts" above.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Octoberfest 2026 Swag & Activity Hub Modal -->
-  <div id="hubModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6">
-    <div class="relative w-full max-w-5xl rounded-3xl bg-slate-900 border border-slate-700 shadow-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+  <!-- ============================================================== -->
+  <!-- 🔍 INTERACTIVE ACTIVITY DETAILS MODAL (POPUP) -->
+  <!-- ============================================================== -->
+  <div id="activityModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-3xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto spooky-glow-orange relative">
       
+      <!-- Close Button -->
+      <button onclick="closeActivityModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-lg bg-slate-800/80 border border-slate-700 transition">
+        ✕
+      </button>
+
       <!-- Modal Header -->
-      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-        <div>
-          <div class="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold uppercase tracking-wider mb-1">
-            <span>🎃</span>
-            <span>Octoberfest 2026 Verified Showcase</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Activities, Open Source PRs & Swags Hub</h2>
-          <p class="text-xs sm:text-sm text-slate-400">Builder: <strong class="text-slate-200">@satanic47 (Sudhir)</strong> &bull; Custom Domain: <span class="text-emerald-400 font-mono">shivysidinfo.tech</span></p>
+      <div class="space-y-2 pr-10">
+        <div id="modalBadge" class="inline-block text-xs font-bold px-2.5 py-1 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
+          🎃 Challenge Details
         </div>
-        <button id="closeHubBtn" class="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+        <h2 id="modalTitle" class="text-2xl sm:text-3xl font-extrabold text-white">
+          Activity Title
+        </h2>
+        <p id="modalSubtitle" class="text-xs sm:text-sm text-slate-400 font-mono">
+          Technology &amp; Track Metadata
+        </p>
       </div>
 
-      <!-- Quick Metrics Strip -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <span class="text-xs text-slate-400 block">Total PRs Submitted</span>
-          <span class="text-xl sm:text-2xl font-bold text-emerald-400">6 PRs</span>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <span class="text-xs text-slate-400 block">Swag Unlocked</span>
-          <span class="text-xl sm:text-2xl font-bold text-amber-400">4+ Perks</span>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <span class="text-xs text-slate-400 block">Render Credits</span>
-          <span class="text-xl sm:text-2xl font-bold text-teal-400">$50 Active</span>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <span class="text-xs text-slate-400 block">Domain Registered</span>
-          <span class="text-xl sm:text-2xl font-bold text-indigo-400">.tech Active</span>
+      <!-- Stats Metric Row -->
+      <div id="modalStatsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-2 border-y border-slate-800">
+        <!-- Dynamic Stat Chips Inserted via JS -->
+      </div>
+
+      <!-- Problem / Challenge Statement -->
+      <div class="space-y-1.5">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-orange-400">The Problem &amp; Requirements</h4>
+        <p id="modalProblem" class="text-sm text-slate-300 leading-relaxed bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+          Problem description goes here.
+        </p>
+      </div>
+
+      <!-- Solution & Architecture -->
+      <div class="space-y-1.5">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Solution &amp; Implementation Architecture</h4>
+        <div id="modalSolution" class="text-sm text-slate-300 leading-relaxed bg-slate-950/50 p-4 rounded-xl border border-slate-800 space-y-2">
+          Solution content goes here.
         </div>
       </div>
 
-      <!-- 6 Event Activity Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        <!-- Card 1: Modtoberfest 2026 -->
-        <div class="rounded-2xl bg-slate-950 border border-amber-900/40 p-5 space-y-3 relative overflow-hidden">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">Modtoberfest 2026</span>
-            <span class="text-xs font-bold text-emerald-400">✓ 5 / 4 PRs (125% Complete)</span>
-          </div>
-          <h3 class="font-bold text-white text-base">Minecraft Modding Open-Source Sprint</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Exceeded the 4 PR goal! 1 Tree Planted in partnership with Ecologi + Physical Sticker Pack unlocked.
-          </p>
-          <div class="space-y-1.5 text-[11px] font-mono text-slate-300 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
-            <div>&bull; <a href="https://github.com/Mycelium-Mod-Network/Modtoberfest-Site/pull/45" target="_blank" class="text-emerald-400 hover:underline">Modtoberfest-Site #45</a>: Localize PR timestamps</div>
-            <div>&bull; <a href="https://github.com/Mycelium-Mod-Network/Modtoberfest-Site/pull/46" target="_blank" class="text-emerald-400 hover:underline">Modtoberfest-Site #46</a>: Fix post-event timer state</div>
-            <div>&bull; <a href="https://github.com/Mycelium-Mod-Network/SpookyJam-Site/pull/7" target="_blank" class="text-emerald-400 hover:underline">SpookyJam-Site #7</a>: OpenAPI 3.1 schema specification</div>
-            <div>&bull; <a href="https://github.com/CraftTweaker/CraftTweaker-Documentation/pull/599" target="_blank" class="text-emerald-400 hover:underline">CraftTweaker-Doc #599</a>: Fix entity ID return & docs</div>
-            <div>&bull; <a href="https://github.com/jaredlll08/Clumps/pull/181" target="_blank" class="text-emerald-400 hover:underline">Clumps #181</a>: Fabric event handler checks</div>
-          </div>
-          <div class="text-[11px] text-amber-300 font-medium">🎁 Rewards: Physical Stickers mailed + Tree Planted in Madagascar</div>
+      <!-- Reference Media / Screenshot Container -->
+      <div id="modalImageContainer" class="space-y-2">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-purple-400">Task Reference Media &amp; Verified Output</h4>
+        <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 max-h-72 flex items-center justify-center">
+          <img id="modalImage" src="" alt="Task Reference" class="w-full h-auto object-contain max-h-72">
         </div>
-
-        <!-- Card 2: Hacktoberfest 2026 Week 2 -->
-        <div class="rounded-2xl bg-slate-950 border border-emerald-900/40 p-5 space-y-3 relative overflow-hidden">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Hacktoberfest 2026</span>
-            <span class="text-xs font-bold text-teal-400">Week 2: Side Hustle</span>
-          </div>
-          <h3 class="font-bold text-white text-base">ReceiptDesk AI (Open-Source AI Core)</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            100% privacy-first invoice & tax deduction auditor for freelancers. Built with Google Gemma 2 and Tiger Data pgvector.
-          </p>
-          <div class="space-y-1 text-[11px] text-slate-300 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
-            <div>&bull; <strong class="text-slate-100">Gemma 2:</strong> Open-weight on-device line-item extraction</div>
-            <div>&bull; <strong class="text-slate-100">Tiger Data:</strong> pgvector semantic similarity search</div>
-            <div>&bull; <strong class="text-slate-100">Render:</strong> Deployed with zero-downtime starter plan</div>
-            <div>&bull; <strong class="text-slate-100">.tech Domain:</strong> Custom domain at <span class="text-emerald-400">shivysidinfo.tech</span></div>
-          </div>
-          <div class="text-[11px] text-emerald-300 font-medium">🏆 Competing for: $1,000 Grand Prize + 4x $200 Partner Awards</div>
-        </div>
-
-        <!-- Card 3: Tiger Data Tiger Hunt -->
-        <div class="rounded-2xl bg-slate-950 border border-purple-900/40 p-5 space-y-3 relative overflow-hidden">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">Tiger Data</span>
-            <span class="text-xs font-bold text-purple-300">Tasks 1–4 Complete</span>
-          </div>
-          <h3 class="font-bold text-white text-base">Tiger Hunt Cloud Challenge</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            PostgreSQL + pgvector cloud database instance <code class="text-purple-300 bg-slate-900 px-1 py-0.5 rounded">sudhir-83938</code> configured for vector similarity search.
-          </p>
-          <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-[11px] text-slate-300 space-y-1">
-            <div class="text-amber-300 font-semibold">📅 Live Webinar Scheduled:</div>
-            <div>Wednesday, Oct 14, 2026 at 9:30 PM IST (12:00 PM EDT)</div>
-            <div class="text-slate-400">Registered Email: sudhir@elitepccleaner.com</div>
-          </div>
-          <div class="text-[11px] text-purple-300 font-medium">🎁 Rewards: Tiger Data T-shirt & Swag Pack upon webinar completion</div>
-        </div>
-
-        <!-- Card 4: DocsGPT -->
-        <div class="rounded-2xl bg-slate-950 border border-blue-900/40 p-5 space-y-3 relative overflow-hidden">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">DocsGPT</span>
-            <span class="text-xs font-bold text-blue-300">Review In Progress</span>
-          </div>
-          <h3 class="font-bold text-white text-base">File Management Idempotency Guard</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Submitted pull request <a href="https://github.com/arc53/DocsGPT/pull/3068" target="_blank" class="text-blue-400 hover:underline font-mono">arc53/DocsGPT#3068</a> fixing the 24-hour file re-upload lockout and task redelivery deduplication.
-          </p>
-          <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-[11px] text-slate-300 space-y-1">
-            <div>&bull; Commit: <code class="text-blue-300 font-mono">143be0b5</code> on branch <code class="text-slate-400">fix/manage-source-files-idempotency</code></div>
-            <div>&bull; Verified by triage bot <span class="text-slate-100">@arc53-machine</span>; awaiting maintainer merge</div>
-          </div>
-          <div class="text-[11px] text-blue-300 font-medium">🛠️ Impact: Prevents accidental data locking for thousands of DocsGPT users</div>
-        </div>
-
-        <!-- Card 5: Kestra Workflows -->
-        <div class="rounded-2xl bg-slate-950 border border-teal-900/40 p-5 space-y-3 relative overflow-hidden">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">Kestra</span>
-            <span class="text-xs font-bold text-teal-300">Orchestration</span>
-          </div>
-          <h3 class="font-bold text-white text-base">Declarative Automation Pipelines</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Explored enterprise declarative orchestration pipelines, building event-driven workflow automation.
-          </p>
-          <div class="text-[11px] text-teal-300 font-medium">⚡ Real-time scheduled data pipelines and webhooks</div>
-        </div>
-
-        <!-- Card 6: MLH Global Hack Week -->
-        <div class="rounded-2xl bg-slate-950 border border-pink-900/40 p-5 space-y-3 relative overflow-hidden">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">Major League Hacking</span>
-            <span class="text-xs font-bold text-pink-300">GHW Hacktoberfest</span>
-          </div>
-          <h3 class="font-bold text-white text-base">Global Community & Sticker Collector</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Joined Discord community, checked into livestreams, and tracking progress towards the Hacktoberfest Completionist tier (15 stickers).
-          </p>
-          <div class="text-[11px] text-pink-300 font-medium">📦 Swag: MLH Hex stickers, Postcard, and Character Sheet</div>
-        </div>
-
       </div>
 
+      <!-- Modal Action Buttons -->
+      <div id="modalActions" class="pt-2 flex flex-wrap items-center justify-end gap-3">
+        <!-- Buttons injected by JS -->
+      </div>
     </div>
   </div>
 
-  <footer class="border-t border-slate-900 mt-16 py-8 text-center text-xs text-slate-500">
-    <p>ReceiptDesk AI &bull; Built for Hacktoberfest 2026 Week 2 Challenge &bull; Open-Source AI (Google Gemma &bull; Tiger Data pgvector &bull; Render)</p>
+  <!-- ============================================================== -->
+  <!-- 🎃 SPOOKY HALLOWEEN FOOTER (WITH PROFILE LINKS, EMAIL & PHONE) -->
+  <!-- ============================================================== -->
+  <footer class="mt-auto border-t border-orange-950/80 bg-gradient-to-t from-slate-950 via-slate-950 to-purple-950/20 py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto space-y-8">
+      
+      <!-- Top Row: Name, Bio, and Contact -->
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-800/80 text-center md:text-left">
+        <div>
+          <div class="flex items-center justify-center md:justify-start gap-2">
+            <span class="text-2xl">🎃</span>
+            <span class="text-xl font-black text-white font-spooky text-orange-400 text-lg sm:text-xl">Sudhir Sharma</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">@satanic47</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Full-Stack Software Engineer &amp; Open-Source AI Builder | Participant in Hacktoberfest 2026, MLH GHW &amp; Modtoberfest.
+          </p>
+        </div>
+
+        <!-- Direct Contact (Email & Phone Number) -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 text-xs font-mono text-slate-300">
+          <a href="mailto:satanic47@gmail.com" class="flex items-center gap-1.5 hover:text-orange-400 transition bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+            <span>✉️</span>
+            <span>satanic47@gmail.com</span>
+          </a>
+          <a href="tel:+919871654321" class="flex items-center gap-1.5 hover:text-orange-400 transition bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+            <span>📞</span>
+            <span>+91 98716 54321</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Middle Row: Spooky Profile Links Row (All requested profiles) -->
+      <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold">
+        
+        <!-- GitHub -->
+        <a href="https://github.com/satanic47" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-orange-500/50 transition flex items-center space-x-2">
+          <span>🐙</span>
+          <span>GitHub: @satanic47</span>
+        </a>
+
+        <!-- MLH Profile -->
+        <a href="https://my.mlh.io/" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-blue-500/50 transition flex items-center space-x-2">
+          <span>👾</span>
+          <span>MLH Profile</span>
+        </a>
+
+        <!-- DEV Profile -->
+        <a href="https://dev.to/satanic47" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-purple-500/50 transition flex items-center space-x-2">
+          <span>✍️</span>
+          <span>DEV.to Profile</span>
+        </a>
+
+        <!-- Google Cloud Skills Profile -->
+        <a href="https://www.cloudskillsboost.google/public_profiles/" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-amber-500/50 transition flex items-center space-x-2">
+          <span>☁️</span>
+          <span>Google Skills Profile</span>
+        </a>
+
+        <!-- Credly Profile -->
+        <a href="https://www.credly.com/users/sudhir-sharma" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-emerald-500/50 transition flex items-center space-x-2">
+          <span>🏅</span>
+          <span>Credly Badges</span>
+        </a>
+
+      </div>
+
+      <!-- Bottom Note: Spooky Tagline & Domain Attribution -->
+      <div class="pt-4 border-t border-slate-900 text-center text-xs text-slate-500 space-y-1">
+        <p>
+          👻 Hosted on <strong class="text-slate-400">Render</strong> with a custom <strong class="text-orange-400">.tech</strong> domain claimed via the Hacktoberfest partner promotion.
+        </p>
+        <p>
+          &copy; 2026 Sudhir Sharma (shivysidinfo.tech). Built with open-source AI, open weights, and Halloween festive spirit.
+        </p>
+      </div>
+
+    </div>
   </footer>
 
   <script src="/static/app.js"></script>
