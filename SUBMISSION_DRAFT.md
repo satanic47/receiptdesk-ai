@@ -33,8 +33,9 @@ ReceiptDesk AI automatically:
 
 ## Demo
 
-- **Live Dashboard:** [https://receiptdesk-ai.onrender.com](https://receiptdesk-ai.onrender.com) *(or run locally at `http://localhost:8000`)*
-- **Demo Walkthrough Video:** *(Drop a 2-minute Loom/YouTube screen recording showcasing receipt upload, real-time Schedule C classification, and semantic vector search)*
+- **Live Deployed App (Custom .tech Domain):** [https://shivysidinfo.tech](https://shivysidinfo.tech)
+- **Render Cloud Service:** [https://receiptdesk-ai.onrender.com](https://receiptdesk-ai.onrender.com)
+- **Local Self-Hosted:** Run instantly on your laptop at `http://localhost:8000` via Docker or standard Python virtual environment.
 
 ### Screenshot Preview
 
