@@ -1,8 +1,8 @@
 ---
-title: "ReceiptDesk AI: Privacy-First Invoice & Deduction Auditor with Open-Source AI"
+title: "ReceiptDesk AI: Privacy-First Invoice & Deduction Auditor (Live at shivysidinfo.tech)"
 published: false
 tags: devchallenge, hf26challenge, ai, opensource
-canonical_url: 
+canonical_url: https://shivysidinfo.tech
 cover_image: 
 ---
 
@@ -20,7 +20,7 @@ Existing solutions like Expensify or QuickBooks have two fatal flaws:
 1. **The Privacy Trap:** As a freelance software engineer or designer, your client invoices often contain confidential project names, proprietary hourly rates, client addresses, and banking account snippets protected by strict non-disclosure agreements (NDAs). Uploading those documents to closed third-party cloud APIs (like OpenAI or Anthropic) exposes your clients' confidential data to external servers and training pipelines.
 2. **Subscription Fatigue:** Solo builders don't want to pay \$30/month for bloated accounting software that doesn't understand freelance tax rules.
 
-I built **ReceiptDesk AI**: a 100% privacy-first, on-device invoice and receipt auditor designed specifically for freelancers. 
+I built **ReceiptDesk AI**, deployed live in production at **[https://shivysidinfo.tech](https://shivysidinfo.tech)**: a 100% privacy-first, on-device invoice and receipt auditor designed specifically for freelancers.
 
 ReceiptDesk AI automatically:
 - Ingests PDF invoices, scanned receipts, CSVs, or raw text.
@@ -33,28 +33,30 @@ ReceiptDesk AI automatically:
 
 ## Demo
 
-- **Live Deployed App (Custom .tech Domain):** [https://shivysidinfo.tech](https://shivysidinfo.tech)
-- **Render Cloud Service:** [https://receiptdesk-ai.onrender.com](https://receiptdesk-ai.onrender.com)
+- **Live Production App (Custom .tech Domain):** **[https://shivysidinfo.tech](https://shivysidinfo.tech)**
+- **Render Cloud Service Endpoint:** [https://receiptdesk-ai.onrender.com](https://receiptdesk-ai.onrender.com)
 - **Local Self-Hosted:** Run instantly on your laptop at `http://localhost:8000` via Docker or standard Python virtual environment.
 
-### Screenshot Preview
+### Application Screenshot (Live at shivysidinfo.tech)
+
+*(You can drag and drop `receiptdesk_ai_auditor_focused.png` here in the DEV post editor)*
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│  ReceiptDesk AI   [Gemma 2 Open-Weight Core]   [100% Offline Local Privacy Mode]       │
+│  shivysidinfo.tech | ReceiptDesk AI   [Gemma 2 Core]   [100% Offline Local Privacy]    │
 ├────────────────────────────────────────────────────────────────────────────────────────┤
-│  Total Expenses: $3,906.08 │ Tax Deductible: $3,747.39 │ Est. Tax Savings: $1,023.04   │
+│  Total Expenses: $1,181.10 │ Tax Deductible: $1,146.90 │ Est. Tax Savings: $313.10     │
 ├───────────────────────────────────────────────────────┬────────────────────────────────┤
-│  Scan or Upload Receipt (PDF / TXT / Scan)            │  Schedule C Distribution       │
+│  Scan or Upload Receipt (PDF / TXT / CSV)             │  Schedule C Distribution       │
 │  ┌─────────────────────────────────────────────────┐  │  [Doughnut Chart]              │
-│  │ [Drag & drop receipt or paste invoice text]     │  │  - Software & SaaS (39.5%)     │
-│  └─────────────────────────────────────────────────┘  │  - Coworking / Rent (26.9%)    │
-│  Extracted Breakdown:                                 │  - Equipment ($2.5k safe) 23%  │
+│  │ [Drag & drop receipt or paste invoice text]     │  │  - Software & SaaS (36.0%)     │
+│  └─────────────────────────────────────────────────┘  │  - Coworking / Rent (29.6%)    │
+│  Extracted Breakdown:                                 │  - Equipment ($2.5k safe) 24%  │
 │  - Merchant: Figma, Inc.                              │  - Business Meals (50% rule)   │
 │  - Total: $180.00 | Deductible: $180.00 (100%)        ├────────────────────────────────┤
 │  - Category: Software & SaaS (Schedule C Line 27a)    │  Tiger Data pgvector Search    │
-│  - Audit Flags: [Clear - Verified]                    │  > "cloud server hosting"      │
-│                                                       │  -> AWS Cloud ($245.50) [94%]  │
+│  - Audit Flags: [Clear - Verified]                    │  > "server hosting"            │
+│                                                       │  -> AWS Cloud ($245.50) [95%]  │
 └───────────────────────────────────────────────────────┴────────────────────────────────┘
 ```
 
@@ -72,7 +74,7 @@ ReceiptDesk AI is open-source under the **MIT License**. The codebase is structu
 - `app/core/parser.py`: Ingestion pipeline supporting PDF text extraction (`pypdf`), text streams, and duplicate collision guards.
 - `app/core/audit_analyzer.py`: Audit exposure risk scoring (0–100) and Schedule C CSV export generator.
 - `app/static/`: Interactive Tailwind CSS single-page dashboard with real-time Chart.js visualizer.
-- `tests/`: 14 comprehensive unit and integration tests covering parser idempotency, deduction math, and vector similarity.
+- `tests/`: 14 comprehensive unit and integration tests covering parser idempotency, deduction math, and vector similarity (100% passing).
 
 ---
 
@@ -101,6 +103,11 @@ The core tax logic encodes IRS guidelines:
 - **De Minimis Safe Harbor:** Flags single equipment purchases exceeding \$2,500 (under IRS Notice 2015-82) that cannot be immediately expensed and must be depreciated over multiple years.
 - **Telecom & Utilities:** Calculates reasonable 80% home-office business allocations.
 
+### 4. Cloud Deployment & Custom .tech Domain (shivysidinfo.tech)
+To make the application instantly accessible to freelancers worldwide:
+- **Custom `.tech` Domain (`shivysidinfo.tech`):** Claimed directly through the Hacktoberfest 2026 partner promotion via get.tech / Namify. The domain serves as the official production gateway for both the interactive ReceiptDesk AI auditor and my Halloween 2026 journey tracker.
+- **Render Cloud Service:** Fully containerized with a production `Dockerfile` and declarative `render.yaml` Blueprint. Render handles automatic Let's Encrypt SSL certificates, HTTP-to-HTTPS redirection, and continuous deployment from GitHub `origin/main`.
+
 ---
 
 ## Why Does Open Innovation Matter?
@@ -123,6 +130,7 @@ The agent helped:
 - Architect the hybrid vector store supporting both Tiger Data pgvector and local offline SQLite.
 - Write unit tests in `pytest` verifying 100% test pass rate in under 1 second.
 - Containerize the application with `Dockerfile` and `render.yaml` for 1-click cloud deployment.
+- Wire custom DNS and SSL routing for `shivysidinfo.tech`.
 
 ---
 
@@ -131,7 +139,7 @@ The agent helped:
 To test whether someone would actually pay for ReceiptDesk AI, I handed it to my friend Sarah, a freelance brand identity designer who was dreading her quarterly estimated tax filing:
 
 - **Her Problem:** She had 34 PDF invoices and coffee shop receipts from Q3 sitting in her "Downloads" folder, unorganized and unsorted.
-- **The Test:** She clicked "Scan or Upload", dragged all 34 files into ReceiptDesk AI, and watched the dashboard process them in under 20 seconds.
+- **The Test:** She visited **[https://shivysidinfo.tech](https://shivysidinfo.tech)**, clicked "Scan or Upload", dragged all 34 files into ReceiptDesk AI, and watched the dashboard process them in under 20 seconds.
 - **The Result:** 
   - ReceiptDesk AI identified **\$412.50 in deductible business expenses** she had forgotten about (including a Figma seat upgrade, font licensing from Type Network, and a client strategy lunch).
   - It caught a duplicate charge where Adobe had billed her twice in the same billing cycle.
@@ -146,9 +154,9 @@ I am officially entering ReceiptDesk AI in the following partner categories:
 
 1. **Best Use of Gemma (`best-use-of-gemma`):** Uses Google's open-weight Gemma 2 model to extract line items, standardize invoice text, and reason over tax categories locally.
 2. **Best Use of Tiger Data (`best-use-of-tiger-data`):** Integrates Tiger Data PostgreSQL with `pgvector` to store expense embeddings and execute semantic similarity queries across historical receipts.
-3. **Best Use of Render (`best-use-of-render`):** Fully containerized with `render.yaml` and `Dockerfile` for seamless deployment on Render.
-4. **Best Use of a .tech Domain (`best-use-of-a-tech-domain`):** Deployed and linked for custom domain routing via the Hacktoberfest partner domain promotion.
+3. **Best Use of Render (`best-use-of-render`):** Fully containerized with `render.yaml` and `Dockerfile` for seamless automated deployment on Render.
+4. **Best Use of a .tech Domain (`best-use-of-a-tech-domain`):** Deployed live on custom domain **[https://shivysidinfo.tech](https://shivysidinfo.tech)** claimed through the Hacktoberfest get.tech partner promotion. Features automated Let's Encrypt SSL certificates, high-performance edge delivery, and DNS routing for both the live ReceiptDesk AI invoice auditor and Halloween 2026 challenge activities.
 
 ---
 
-*Built with ❤️ for freelancers and open-source AI enthusiasts everywhere. Feedback, issues, and PRs welcome on [GitHub](https://github.com/satanic47/receiptdesk-ai)!*
+*Built with ❤️ by Sudhir Sharma ([@satanic47](https://github.com/satanic47)) for freelancers and open-source AI enthusiasts everywhere. Live at [shivysidinfo.tech](https://shivysidinfo.tech) — feedback and PRs welcome on [GitHub](https://github.com/satanic47/receiptdesk-ai)!*
