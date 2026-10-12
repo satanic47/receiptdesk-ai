@@ -54,6 +54,18 @@ function initEventListeners() {
   document.getElementById("exportCsvBtn").addEventListener("click", () => {
     window.location.href = "/api/export/csv";
   });
+
+  // Octoberfest Hub Modal Handlers
+  const hubModal = document.getElementById("hubModal");
+  document.getElementById("openHubBtn").addEventListener("click", () => {
+    hubModal.classList.remove("hidden");
+  });
+  document.getElementById("closeHubBtn").addEventListener("click", () => {
+    hubModal.classList.add("hidden");
+  });
+  hubModal.addEventListener("click", (e) => {
+    if (e.target === hubModal) hubModal.classList.add("hidden");
+  });
 }
 
 async function loadBackendStatus() {
