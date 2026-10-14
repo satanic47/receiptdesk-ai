@@ -4,6 +4,30 @@ let categoryChart = null;
 
 // Activity data store for the modal popups
 const ACTIVITIES_DATA = {
+  civicpulse: {
+    badge: "🏛️ Code for Communities Chandigarh (GDG Cloud Chandigarh)",
+    title: "CivicPulse Tricity: NagrikSetu AI Platform",
+    subtitle: "Google Gemini 1.5 Flash • Digital Public Infrastructure • Chandigarh, Mohali & Panchkula",
+    stats: [
+      { label: "Unit Tests", val: "21 / 21 Pass" },
+      { label: "AI Core", val: "Google Gemini 1.5" },
+      { label: "Languages", val: "Punjabi, Hindi, Eng" },
+      { label: "Sector Grids", val: "Sectors 1-60 + Tricity" }
+    ],
+    problem: "Indian municipal corporations struggle with fragmented citizen feedback systems. In Chandigarh Tricity, over 70% of grassroots citizens speak Punjabi or Hindi, while legacy complaint portals require rigid English forms. Moreover, municipal ward budgets lack real-time geospatial demand hotspot intelligence, leaving critical hazards unaddressed.",
+    solution: `
+      <p>• <strong>Omnichannel Voice & Text Ingestion:</strong> Citizens speak or text in Punjabi Gurmukhi, Devanagari Hindi, or English via Voice Notes, WhatsApp, and Web.</p>
+      <p>• <strong>Google Gemini Multilingual Normalization:</strong> Normalizes colloquial dialect input into canonical structured schemas with automated 1-10 hazard urgency scoring and municipal department routing (B&R Roads, Water, Power, Sanitation).</p>
+      <p>• <strong>Le Corbusier Sector Grid Geocoding:</strong> Maps colloquial landmarks (Kiran Cinema, Patel Market, PU Gate 2) directly to Chandigarh sector centroids, wards, and demographics.</p>
+      <p>• <strong>Municipal Capital DPR Copilot:</strong> Gemini AI synthesizes demand hotspots with ward census data and budgets to generate executive Detailed Project Reports (DPRs) with cost estimates for smart city engineers.</p>
+    `,
+    image: "/static/images/cursor_mini_app_running_screenshot.png",
+    actions: [
+      { text: "View GitHub Repo 🐙", primary: true, href: "https://github.com/satanic47/civicpulse-tricity" },
+      { text: "Code for Communities Hub 🏛️", href: "https://hackculture.io/hackathons/code-for-communities-chandigarh" }
+    ]
+  },
+
   receiptdesk: {
     badge: "🎃 Hacktoberfest Week 2: Side Hustle Edition",
     title: "ReceiptDesk AI: Privacy-First Invoice & Deduction Auditor",
