@@ -44,6 +44,20 @@ async def serve_index():
     index_file = static_dir / "index.html"
     return FileResponse(index_file)
 
+@app.get("/civicpulse", response_class=HTMLResponse)
+async def serve_civicpulse():
+    civicpulse_file = static_dir / "civicpulse.html"
+    if civicpulse_file.exists():
+        return FileResponse(civicpulse_file)
+    return FileResponse(static_dir / "index.html")
+
+@app.get("/civicpulse/deck", response_class=HTMLResponse)
+async def serve_civicpulse_deck():
+    deck_file = static_dir / "civicpulse_deck.html"
+    if deck_file.exists():
+        return FileResponse(deck_file)
+    return FileResponse(static_dir / "index.html")
+
 @app.get("/api/status")
 async def get_system_status():
     status = vector_store.get_status()

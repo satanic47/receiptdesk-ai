@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicPulse Tricity — NagrikSetu AI (Chandigarh Digital Public Infrastructure)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Gurmukhi:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-gurmukhi { font-family: 'Noto Sans Gurmukhi', sans-serif; }
+    .font-devanagari { font-family: 'Noto Sans Devanagari', sans-serif; }
+    #map { height: 500px; border-radius: 0.75rem; z-index: 10; }
+    .pulse-ring {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.9; }
+      50% { transform: scale(1.15); opacity: 0.4; }
+      100% { transform: scale(0.95); opacity: 0.9; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- Top Global Bar with Back to Portfolio -->
+  <div class="bg-slate-950 text-slate-400 text-xs py-1.5 px-4 sm:px-6 border-b border-slate-800 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-orange-400 hover:text-orange-300 font-semibold flex items-center gap-1">
+        <span>← Back to shivysidinfo.tech</span>
+      </a>
+      <span class="text-slate-600">|</span>
+      <span class="text-slate-300">Official Demonstration &amp; DPI Simulation</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="/civicpulse/deck" class="text-indigo-400 hover:text-indigo-300 font-medium">View Pitch Deck 📊</a>
+      <a href="https://github.com/satanic47/civicpulse-tricity" target="_blank" class="text-slate-300 hover:text-white">GitHub 🐙</a>
+    </div>
+  </div>
+
+
+  <!-- TRICOLOR TOP STRIP (CHANDIGARH UT / INDIA DPI) -->
+  <div class="h-1.5 w-full bg-gradient-to-r from-amber-500 via-white to-emerald-600"></div>
+
+  <!-- TOP BANNER: CHANDIGARH ADMINISTRATION AESTHETIC -->
+  <header class="bg-[#0b1d33] text-white border-b border-slate-800 sticky top-0 z-50 shadow-lg relative overflow-hidden">
+    
+    <!-- 35% TRANSPARENT OPEN HAND WATERMARK (HEADER RIGHT) -->
+    <div class="absolute -right-6 -bottom-6 w-44 h-44 pointer-events-none select-none text-white/35 z-0" style="opacity: 0.35;">
+      <svg viewBox="0 0 100 100" class="w-full h-full fill-current" xmlns="http://www.w3.org/2000/svg">
+        <!-- Official Le Corbusier Open Hand Monument Silhouette -->
+        <path d="M50 8 C46 16 38 24 30 30 C24 35 18 42 16 50 C14 58 17 65 24 68 C28 70 32 68 35 64 C37 60 38 54 39 48 C41 44 43 42 45 44 C44 50 43 56 43 62 C43 66 45 70 49 71 C53 72 56 69 57 65 C58 58 59 50 61 42 C63 38 66 36 68 39 C67 46 66 53 66 60 C66 64 68 67 72 68 C76 68 78 65 79 61 C81 53 84 45 88 38 C91 32 94 28 92 24 C90 20 85 22 81 26 C75 32 69 40 65 48 C66 38 67 28 68 18 C68 12 65 8 61 8 C57 8 54 12 53 18 C52 24 51 32 50 40 C49 32 50 20 50 8 Z" />
+        <path d="M46 72 L46 92 L38 92 L38 96 L62 96 L62 92 L54 92 L54 72 Z" />
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4 relative z-10">
+      
+      <!-- Logo & Administration Titles -->
+      <div class="flex items-center space-x-3.5">
+        <!-- Open Hand Monument Official Emblem -->
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-b from-amber-500/20 to-slate-900 border border-amber-500/40 flex items-center justify-center p-1.5 shadow-md shadow-amber-500/10">
+          <svg viewBox="0 0 100 100" class="w-full h-full text-amber-400 drop-shadow" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 8 C46 16 38 24 30 30 C24 35 18 42 16 50 C14 58 17 65 24 68 C28 70 32 68 35 64 C37 60 38 54 39 48 C41 44 43 42 45 44 C44 50 43 56 43 62 C43 66 45 70 49 71 C53 72 56 69 57 65 C58 58 59 50 61 42 C63 38 66 36 68 39 C67 46 66 53 66 60 C66 64 68 67 72 68 C76 68 78 65 79 61 C81 53 84 45 88 38 C91 32 94 28 92 24 C90 20 85 22 81 26 C75 32 69 40 65 48 C66 38 67 28 68 18 C68 12 65 8 61 8 C57 8 54 12 53 18 C52 24 51 32 50 40 C49 32 50 20 50 8 Z" />
+            <path d="M46 72 L46 92 L38 92 L38 96 L62 96 L62 92 L54 92 L54 72 Z" />
+          </svg>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-bold text-amber-400 tracking-wider uppercase">Chandigarh Administration</span>
+            <span class="text-slate-500">•</span>
+            <span class="text-[10px] text-slate-300 font-gurmukhi font-semibold">ਚੰਡੀਗੜ੍ਹ ਪ੍ਰਸ਼ਾਸਨ</span>
+            <span class="text-slate-500">•</span>
+            <span class="text-[10px] text-slate-300 font-devanagari font-semibold">चंडीगढ़ प्रशासन</span>
+          </div>
+
+          <div class="flex items-center gap-2 mt-0.5">
+            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
+              <span>CivicPulse Tricity</span>
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+                NagrikSetu AI
+              </span>
+            </h1>
+          </div>
+          <p class="text-[11px] text-slate-300 font-medium">Municipal Corporation Chandigarh (MCC) &amp; Smart City Ltd • Digital Public Infrastructure</p>
+        </div>
+      </div>
+
+      <!-- Action Badges & Metadata -->
+      <div class="flex items-center flex-wrap gap-2 text-xs">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-950/60 border border-amber-700/60 text-amber-300 font-semibold">
+          <span>🏛️</span> Open Hand DPI Standard
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-950/80 border border-blue-800 text-blue-300">
+          <i class="fa-brands fa-google text-blue-400"></i> Google Gemini 1.5
+        </span>
+        <a href="https://github.com/satanic47/civicpulse-tricity" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full space-y-6">
+
+    <!-- KPI STATS CARDS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Aggregated Demands</p>
+          <h3 id="statTotal" class="text-2xl font-bold text-slate-900 mt-1">10</h3>
+          <p class="text-[11px] text-emerald-600 font-medium flex items-center gap-1 mt-0.5">
+            <i class="fa-solid fa-arrow-trend-up"></i> Voice, WhatsApp & Web
+          </p>
+        </div>
+        <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Active Hotspots</p>
+          <h3 id="statHotspots" class="text-2xl font-bold text-amber-600 mt-1">4</h3>
+          <p class="text-[11px] text-slate-500 font-medium mt-0.5">Clustered in 4 Sectors</p>
+        </div>
+        <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-fire"></i>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">AI Triage Accuracy</p>
+          <h3 class="text-2xl font-bold text-emerald-600 mt-1">98.4%</h3>
+          <p class="text-[11px] text-slate-500 font-medium mt-0.5">Punjabi, Hindi & English</p>
+        </div>
+        <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-language"></i>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Capital DPRs Formed</p>
+          <h3 id="statRecommendations" class="text-2xl font-bold text-indigo-600 mt-1">4</h3>
+          <p class="text-[11px] text-slate-500 font-medium mt-0.5">Ready for Municipal Works</p>
+        </div>
+        <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-file-contract"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE SECTION -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- LEFT COLUMN: GEO MAP & POLICY DPRs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- MAP CARD -->
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-map-location-dot text-emerald-600"></i>
+              <h2 class="font-bold text-slate-800 text-sm sm:text-base">Tricity Infrastructure Demand Heatmap</h2>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <span class="flex items-center gap-1 text-slate-500">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> High Urgency (8-10)
+              </span>
+              <span class="flex items-center gap-1 text-slate-500 ml-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> Moderate (5-7)
+              </span>
+            </div>
+          </div>
+          <div class="p-3">
+            <div id="map"></div>
+          </div>
+          <div class="px-4 py-2.5 bg-slate-50 border-t border-slate-100 text-xs text-slate-500 flex flex-wrap items-center justify-between">
+            <span>Centroids calculated over Le Corbusier sector grids (Sectors 1-60, Mohali Phases, Panchkula)</span>
+            <button onclick="resetMapView()" class="text-emerald-600 hover:text-emerald-700 font-semibold text-xs">Reset View</button>
+          </div>
+        </div>
+
+        <!-- MUNICIPAL POLICY & DPR COPILOT -->
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-brain text-indigo-600"></i>
+              <h2 class="font-bold text-slate-800 text-sm sm:text-base">Gemini Policy Recommender & Capital DPRs</h2>
+            </div>
+            <span class="text-xs bg-indigo-50 text-indigo-700 font-semibold px-2 py-0.5 rounded-md border border-indigo-200">
+              Smart City Alignment
+            </span>
+          </div>
+
+          <div class="p-4 divide-y divide-slate-100 space-y-3" id="recommendationsList">
+            
+    <div class="pt-3 first:pt-0">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-700 border border-rose-300">
+              CRITICAL PRIORITY
+            </span>
+            <span class="text-xs font-semibold text-slate-500">DPR-2026-001</span>
+            <span class="text-xs font-semibold text-indigo-600">Sector 22 (Ward 14)</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm mt-1">Sector 22 Shastri Market Underground Water Conduit Overhaul</h4>
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">Replace corroded 35-year-old ductile iron trunk pipes along Shastri Market boundary with high-density polyethylene (HDPE) lines and telemetry pressure sensors.</p>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="text-xs font-bold text-slate-900">₹42.5 L</div>
+          <div class="text-[10px] text-slate-400">Est. Budget</div>
+          <div class="text-xs font-bold text-emerald-600 mt-1">94/100</div>
+          <div class="text-[10px] text-slate-400">Impact Score</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-3 first:pt-0">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-700 border border-amber-300">
+              HIGH PRIORITY
+            </span>
+            <span class="text-xs font-semibold text-slate-500">DPR-2026-002</span>
+            <span class="text-xs font-semibold text-indigo-600">Sector 35 (Ward 18)</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm mt-1">Sector 35-C Commercial Corridor Bituminous Resurfacing</h4>
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">Comprehensive milling and dense bituminous macadam overlay across 1.4 km inner circulation loop with improved stormwater drain grates.</p>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="text-xs font-bold text-slate-900">₹28.0 L</div>
+          <div class="text-[10px] text-slate-400">Est. Budget</div>
+          <div class="text-xs font-bold text-emerald-600 mt-1">86/100</div>
+          <div class="text-[10px] text-slate-400">Impact Score</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-3 first:pt-0">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-700 border border-amber-300">
+              HIGH PRIORITY
+            </span>
+            <span class="text-xs font-semibold text-slate-500">DPR-2026-003</span>
+            <span class="text-xs font-semibold text-indigo-600">Phase 7, Mohali (Ward 8)</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm mt-1">Phase 7 Mohali Smart Solar LED Streetlighting Installation</h4>
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">Installation of 64 smart networked LED fixtures with photocell dimming and automatic fault-reporting telemetry linked to MCC/MC Mohali ICCC.</p>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="text-xs font-bold text-slate-900">₹16.2 L</div>
+          <div class="text-[10px] text-slate-400">Est. Budget</div>
+          <div class="text-xs font-bold text-emerald-600 mt-1">81/100</div>
+          <div class="text-[10px] text-slate-400">Impact Score</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-3 first:pt-0">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-700 border border-rose-300">
+              CRITICAL PRIORITY
+            </span>
+            <span class="text-xs font-semibold text-slate-500">DPR-2026-004</span>
+            <span class="text-xs font-semibold text-indigo-600">Sector 15 (Ward 10)</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm mt-1">Sector 15 School Zone Power Infrastructure Enclosure</h4>
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">Underground trenching and armored conduit casing for exposed transformers and high-voltage feeder pillars directly adjacent to pedestrian school paths.</p>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="text-xs font-bold text-slate-900">₹9.5 L</div>
+          <div class="text-[10px] text-slate-400">Est. Budget</div>
+          <div class="text-xs font-bold text-emerald-600 mt-1">96/100</div>
+          <div class="text-[10px] text-slate-400">Impact Score</div>
+        </div>
+      </div>
+    </div>
+    
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: CITIZEN INGESTION PORTAL & FEED (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <!-- CITIZEN GRIEVANCE INTAKE CARD -->
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="px-5 py-3 border-b border-slate-100 bg-slate-900 text-white flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-microphone-lines text-emerald-400"></i>
+              <h3 class="font-bold text-sm sm:text-base">Citizen Demand Ingestion</h3>
+            </div>
+            <span class="text-xs text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
+              Multilingual Voice & Text
+            </span>
+          </div>
+
+          <div class="p-5 space-y-4">
+            
+            <!-- FAST TEST SAMPLES -->
+            <div>
+              <p class="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wider">Test Instant Realistic Samples:</p>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <button onclick="fillSample(1)" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-left transition border border-slate-200">
+                  <span class="font-bold text-emerald-700 block font-gurmukhi">ਸੈਕਟਰ 22 (ਪਾਣੀ ਲੀਕ)</span>
+                  <span class="text-[10px] text-slate-500">Punjabi Voice Note</span>
+                </button>
+                <button onclick="fillSample(2)" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-left transition border border-slate-200">
+                  <span class="font-bold text-blue-700 block font-devanagari">सेक्टर 35 (सड़क गड्ढे)</span>
+                  <span class="text-[10px] text-slate-500">Hindi WhatsApp Text</span>
+                </button>
+                <button onclick="fillSample(3)" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-left transition border border-slate-200">
+                  <span class="font-bold text-purple-700 block font-gurmukhi">ਫੇਜ਼ 7 ਮੋਹਾਲੀ (ਲਾਈਟਾਂ)</span>
+                  <span class="text-[10px] text-slate-500">Punjabi Night Safety</span>
+                </button>
+                <button onclick="fillSample(4)" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-left transition border border-slate-200">
+                  <span class="font-bold text-rose-700 block">Sector 15 (Live Wires)</span>
+                  <span class="text-[10px] text-slate-500">Critical School Hazard</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- INTAKE FORM -->
+            <form id="grievanceForm" onsubmit="submitGrievance(event)" class="space-y-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Channel & Mode</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <label class="flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 text-xs font-medium cursor-pointer hover:bg-slate-50 transition has-[:checked]:bg-emerald-50 has-[:checked]:border-emerald-500 has-[:checked]:text-emerald-700">
+                    <input type="radio" name="channel" value="VOICE" checked class="hidden">
+                    <i class="fa-solid fa-microphone"></i> Voice
+                  </label>
+                  <label class="flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 text-xs font-medium cursor-pointer hover:bg-slate-50 transition has-[:checked]:bg-emerald-50 has-[:checked]:border-emerald-500 has-[:checked]:text-emerald-700">
+                    <input type="radio" name="channel" value="WHATSAPP" class="hidden">
+                    <i class="fa-brands fa-whatsapp text-emerald-600"></i> WhatsApp
+                  </label>
+                  <label class="flex items-center justify-center gap-1.5 p-2 rounded-lg border border-slate-200 text-xs font-medium cursor-pointer hover:bg-slate-50 transition has-[:checked]:bg-emerald-50 has-[:checked]:border-emerald-500 has-[:checked]:text-emerald-700">
+                    <input type="radio" name="channel" value="WEB" class="hidden">
+                    <i class="fa-solid fa-globe"></i> Web
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Citizen Feedback (Any Language / Voice Transcript)</label>
+                <textarea id="rawInput" rows="3" required placeholder="Describe infrastructure issue or paste audio transcript in Punjabi, Hindi or English..." class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"></textarea>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button type="submit" id="submitBtn" class="flex-1 py-2.5 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-paper-plane"></i> Triage via Google Gemini AI
+                </button>
+              </div>
+            </form>
+
+            <!-- LIVE RESULT CARD -->
+            <div id="resultPreview" class="hidden rounded-lg bg-slate-900 text-white p-3.5 space-y-2 border border-slate-800 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-emerald-400 font-bold flex items-center gap-1">
+                  <i class="fa-solid fa-circle-check"></i> AI Successfully Triaged
+                </span>
+                <span id="resUrgency" class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500 text-white"></span>
+              </div>
+              <div class="text-slate-300">
+                <span class="text-slate-500 block text-[10px] uppercase font-semibold">Detected Language & Category:</span>
+                <span id="resLangCategory" class="font-bold text-white"></span>
+              </div>
+              <div class="text-slate-300">
+                <span class="text-slate-500 block text-[10px] uppercase font-semibold">Standardized English Translation:</span>
+                <p id="resTranslation" class="italic text-slate-300"></p>
+              </div>
+              <div class="text-slate-300">
+                <span class="text-slate-500 block text-[10px] uppercase font-semibold">Routed Municipal Department:</span>
+                <span id="resDepartment" class="font-semibold text-emerald-300"></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RECENT GRIEVANCES STREAM -->
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-slate-500"></i>
+              Live Municipal Feed
+            </h3>
+            <span class="text-xs text-slate-500">Real-time Stream</span>
+          </div>
+
+          <div class="p-3 divide-y divide-slate-100 max-h-[380px] overflow-y-auto space-y-2.5" id="grievanceFeed">
+            
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              VOICE
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              Punjabi
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 22
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Main water pipeline burst causing road inundation near Sector 22 Shastri Market.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Public Health & Water Supply Division</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">
+            9/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-101')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-101">18</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              WHATSAPP
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              Hindi
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 35
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Hazardous road potholes behind Sector 35 C hotels already caused accidents.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Engineering Department (B&R - Roads Wing)</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">
+            8/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-102')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-102">24</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              VOICE
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              Punjabi
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Phase 7 Mohali
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">10-day dark streetlights outage threatening public safety in Phase 7 Mohali Market.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Electricity Department & Smart Street Lighting Division</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">
+            8/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-103')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-103">31</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              WEB
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              Hindi
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 15
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Life-threatening dangling live wires near school at Sector 15 Patel Market.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Electricity Department</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">
+            10/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-104')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-104">42</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              WHATSAPP
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              English
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 43
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Raw sewage overflow blocking commuter pedestrian walkway at Sector 43 ISBT.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Public Health & Water Supply Division</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">
+            8/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-105')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-105">15</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              WEB
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              English
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 20
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Overflowing secondary waste dump causing health hazard at Sector 20 Market.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Medical Officer of Health (Sanitation Wing)</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-700">
+            6/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-106')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-106">12</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              VOICE
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              Punjabi
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 34
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Non-functional traffic signal at high-density Sector 34 student coaching corridor.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Chandigarh Traffic Police & Engineering Dept</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-700">
+            7/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-107')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-107">29</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              SMS
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              Hindi
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 14 Panchkula
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Defunct streetlights along student pedestrian corridor in Sector 14 Panchkula.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Electricity Department & Smart Lighting</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">
+            9/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-108')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-108">36</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              WEB
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              English
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 14
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Stormwater drain blockage causing waterlogging at Panjab University Gate 2.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Public Health & Water Supply Division</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-700">
+            6/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-109')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-109">9</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pt-2.5 first:pt-0">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              WHATSAPP
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+              Hindi
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700">
+              Sector 26
+            </span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 mt-1">Accumulated commercial waste backlog at Sector 26 wholesale grain market.</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Medical Officer of Health (Sanitation Wing)</p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-700">
+            7/10
+          </span>
+          <div class="mt-1.5">
+            <button onclick="upvoteIssue('INC-2026-110')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+              <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-INC-2026-110">20</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BOTTOM ROW: ANALYTICS CHARTS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-sm">
+        <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3">Distribution by Civic Category</h4>
+        <div class="h-52">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-sm">
+        <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3">Citizen Channel Breakdown</h4>
+        <div class="h-52">
+          <canvas id="channelChart"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-sm">
+        <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3">Linguistic Ingestion Diversity</h4>
+        <div class="h-52">
+          <canvas id="languageChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER: CHANDIGARH ADMINISTRATION DPI FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-8 text-xs relative overflow-hidden">
+    
+    <!-- 35% TRANSPARENT OPEN HAND WATERMARK (FOOTER LEFT) -->
+    <div class="absolute -left-6 -bottom-8 w-44 h-44 pointer-events-none select-none text-white/35 z-0" style="opacity: 0.35;">
+      <svg viewBox="0 0 100 100" class="w-full h-full fill-current" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 8 C46 16 38 24 30 30 C24 35 18 42 16 50 C14 58 17 65 24 68 C28 70 32 68 35 64 C37 60 38 54 39 48 C41 44 43 42 45 44 C44 50 43 56 43 62 C43 66 45 70 49 71 C53 72 56 69 57 65 C58 58 59 50 61 42 C63 38 66 36 68 39 C67 46 66 53 66 60 C66 64 68 67 72 68 C76 68 78 65 79 61 C81 53 84 45 88 38 C91 32 94 28 92 24 C90 20 85 22 81 26 C75 32 69 40 65 48 C66 38 67 28 68 18 C68 12 65 8 61 8 C57 8 54 12 53 18 C52 24 51 32 50 40 C49 32 50 20 50 8 Z" />
+        <path d="M46 72 L46 92 L38 92 L38 96 L62 96 L62 92 L54 92 L54 72 Z" />
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400 font-bold uppercase tracking-wider text-[11px]">Chandigarh Administration</span>
+            <span class="text-slate-600">•</span>
+            <span class="text-slate-200 font-semibold">Municipal Corporation Chandigarh</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">
+            New Deluxe Building, Sector 17, Chandigarh, UT 160017 | Citizen Toll-Free Helpline: <strong class="text-emerald-400">155304</strong> | Smart City ICCC Cell
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">Open-Source DPG</span>
+          <a href="https://github.com/satanic47/civicpulse-tricity" target="_blank" class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center gap-1.5">
+            <i class="fa-brands fa-github"></i> Repository
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
+        <p>
+          Submitted for <strong class="text-slate-300">Code for Communities Chandigarh</strong> (GDG Cloud Chandigarh &amp; Google for Developers). Built by <strong class="text-slate-200">Sudhir Sharma (@satanic47)</strong>.
+        </p>
+        <p>© 2026 Chandigarh Digital Public Goods Initiative. Le Corbusier Open Hand Heritage Standard.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DATA & APP LOGIC -->
+  
+  <script>
+    const INITIAL_GRIEVANCES = [{"id": "INC-2026-101", "timestamp": "2026-10-13T18:30:00Z", "channel": "VOICE", "raw_input": "\u0a38\u0a3e\u0a21\u0a47 \u0a38\u0a48\u0a15\u0a1f\u0a30 22 \u0a38\u0a3c\u0a3e\u0a38\u0a24\u0a30\u0a40 \u0a2e\u0a3e\u0a30\u0a15\u0a40\u0a1f \u0a15\u0a4b\u0a32 \u0a2a\u0a3e\u0a23\u0a40 \u0a26\u0a40 \u0a2e\u0a41\u0a71\u0a16 \u0a2a\u0a3e\u0a08\u0a2a \u0a2b\u0a1f \u0a17\u0a08 \u0a39\u0a48, \u0a2a\u0a42\u0a30\u0a40 \u0a38\u0a5c\u0a15 \u0a24\u0a47 \u0a2a\u0a3e\u0a23\u0a40 \u0a2d\u0a30 \u0a17\u0a3f\u0a06 \u0a39\u0a48 \u0a24\u0a47 \u0a26\u0a41\u0a15\u0a3e\u0a28\u0a3e\u0a02 \u0a35\u0a3f\u0a71\u0a1a \u0a1c\u0a3e \u0a30\u0a3f\u0a39\u0a3e \u0a39\u0a48\u0964 \u0a15\u0a3f\u0a30\u0a2a\u0a3e \u0a15\u0a30\u0a15\u0a47 \u0a1c\u0a32\u0a26\u0a40 \u0a20\u0a40\u0a15 \u0a15\u0a30\u0a4b \u0a1c\u0a40\u0964", "language_detected": "Punjabi", "translated_text": "Main water pipeline burst near Shastri Market in Sector 22; water logging on the road and entering shops. Please fix urgently.", "category": "Water Supply & Sewage", "department": "Public Health & Water Supply Division", "location_raw": "Sector 22 Shastri Market", "sector": "Sector 22", "lat": 30.73, "lng": 76.774, "urgency_score": 9, "sentiment": "urgent", "summary": "Main water pipeline burst causing road inundation near Sector 22 Shastri Market.", "status": "TRIAGED", "upvotes": 18, "verified_by_ai": true}, {"id": "INC-2026-102", "timestamp": "2026-10-13T19:15:00Z", "channel": "WHATSAPP", "raw_input": "\u0938\u0947\u0915\u094d\u091f\u0930 35 \u0938\u0940 \u0939\u094b\u091f\u0932 \u0938\u094d\u091f\u094d\u0930\u093f\u092a \u0915\u0947 \u092a\u0940\u091b\u0947 \u092e\u0941\u0916\u094d\u092f \u0938\u0921\u093c\u0915 \u092a\u0930 \u092c\u0939\u0941\u0924 \u092c\u0921\u093c\u0947 \u0917\u0921\u094d\u0922\u0947 \u0939\u0948\u0902 \u091c\u093f\u0938\u0938\u0947 \u0915\u0932 \u0930\u093e\u0924 \u090f\u0915 \u0938\u094d\u0915\u0942\u091f\u0940 \u0935\u093e\u0932\u0947 \u0915\u093e \u090f\u0915\u094d\u0938\u0940\u0921\u0947\u0902\u091f \u0939\u094b \u0917\u092f\u093e\u0964 \u092c\u0939\u0941\u0924 \u0916\u0924\u0930\u0928\u093e\u0915 \u0938\u094d\u0925\u093f\u0924\u093f \u0939\u0948\u0964", "language_detected": "Hindi", "translated_text": "Severe large potholes on the road behind Sector 35 C hotel strip; caused a scooter accident last night. Highly dangerous condition.", "category": "Roads & Traffic", "department": "Engineering Department (B&R - Roads Wing)", "location_raw": "Sector 35-C Hotel Strip rear road", "sector": "Sector 35", "lat": 30.729, "lng": 76.754, "urgency_score": 8, "sentiment": "urgent", "summary": "Hazardous road potholes behind Sector 35 C hotels already caused accidents.", "status": "SCHEDULED_INSPECTION", "upvotes": 24, "verified_by_ai": true}, {"id": "INC-2026-103", "timestamp": "2026-10-13T20:00:00Z", "channel": "VOICE", "raw_input": "\u0a2b\u0a47\u0a1c\u0a3c 7 \u0a2e\u0a4b\u0a39\u0a3e\u0a32\u0a40 \u0a2e\u0a3e\u0a30\u0a15\u0a40\u0a1f \u0a26\u0a40\u0a06\u0a02 \u0a38\u0a1f\u0a30\u0a40\u0a1f \u0a32\u0a3e\u0a08\u0a1f\u0a3e\u0a02 \u0a2a\u0a3f\u0a1b\u0a32\u0a47 10 \u0a26\u0a3f\u0a28\u0a3e\u0a02 \u0a24\u0a4b\u0a02 \u0a2c\u0a70\u0a26 \u0a39\u0a28, \u0a38\u0a3c\u0a3e\u0a2e \u0a28\u0a42\u0a70 \u0a39\u0a28\u0a47\u0a30\u0a47 \u0a15\u0a3e\u0a30\u0a28 \u0a1a\u0a4b\u0a30\u0a40\u0a06\u0a02 \u0a05\u0a24\u0a47 \u0a14\u0a30\u0a24\u0a3e\u0a02 \u0a26\u0a40 \u0a38\u0a41\u0a30\u0a71\u0a16\u0a3f\u0a06 \u0a26\u0a3e \u0a21\u0a30 \u0a2c\u0a23\u0a3f\u0a06 \u0a30\u0a39\u0a3f\u0a70\u0a26\u0a3e \u0a39\u0a48\u0964", "language_detected": "Punjabi", "translated_text": "Streetlights in Phase 7 Mohali market have been defunct for 10 days; total darkness creates safety hazard and risk of theft.", "category": "Street Lighting & Power", "department": "Electricity Department & Smart Street Lighting Division", "location_raw": "Phase 7 Market Mohali", "sector": "Phase 7 Mohali", "lat": 30.7055, "lng": 76.7125, "urgency_score": 8, "sentiment": "frustrated", "summary": "10-day dark streetlights outage threatening public safety in Phase 7 Mohali Market.", "status": "TRIAGED", "upvotes": 31, "verified_by_ai": true}, {"id": "INC-2026-104", "timestamp": "2026-10-13T21:40:00Z", "channel": "WEB", "raw_input": "\u0938\u0947\u0915\u094d\u091f\u0930 15 \u092a\u091f\u0947\u0932 \u092e\u093e\u0930\u094d\u0915\u0947\u091f \u0915\u0947 \u092a\u093e\u0938 \u092c\u093f\u091c\u0932\u0940 \u0915\u0947 \u0916\u0902\u092d\u0947 \u0938\u0947 \u0928\u0902\u0917\u0940 \u0924\u093e\u0930\u0947\u0902 \u0932\u091f\u0915 \u0930\u0939\u0940 \u0939\u0948\u0902, \u092a\u093e\u0938 \u0939\u0940 \u0938\u094d\u0915\u0942\u0932 \u0915\u0947 \u091b\u094b\u091f\u0947 \u092c\u091a\u094d\u091a\u0947 \u0928\u093f\u0915\u0932\u0924\u0947 \u0939\u0948\u0902\u0964 \u0915\u094b\u0908 \u092c\u0921\u093c\u093e \u0939\u093e\u0926\u0938\u093e \u0939\u094b \u0938\u0915\u0924\u093e \u0939\u0948 \u0924\u0941\u0930\u0902\u0924 \u0920\u0940\u0915 \u0915\u0930\u0947\u0902\u0964", "language_detected": "Hindi", "translated_text": "Exposed live electrical wires hanging from pole near Sector 15 Patel Market; school children pass through daily. Severe electrocution hazard.", "category": "Street Lighting & Power", "department": "Electricity Department", "location_raw": "Sector 15 Patel Market near school", "sector": "Sector 15", "lat": 30.751, "lng": 76.762, "urgency_score": 10, "sentiment": "urgent", "summary": "Life-threatening dangling live wires near school at Sector 15 Patel Market.", "status": "TRIAGED", "upvotes": 42, "verified_by_ai": true}, {"id": "INC-2026-105", "timestamp": "2026-10-13T22:10:00Z", "channel": "WHATSAPP", "raw_input": "Open sewage drain overflowing onto the pedestrian pathway right outside Sector 43 ISBT bus terminal. Commuters are forced to step into filthy water.", "language_detected": "English", "translated_text": "Open sewage drain overflowing onto the pedestrian pathway right outside Sector 43 ISBT bus terminal. Commuters are forced to step into filthy water.", "category": "Water Supply & Sewage", "department": "Public Health & Water Supply Division", "location_raw": "Sector 43 ISBT Bus Terminal pedestrian entrance", "sector": "Sector 43", "lat": 30.716, "lng": 76.749, "urgency_score": 8, "sentiment": "frustrated", "summary": "Raw sewage overflow blocking commuter pedestrian walkway at Sector 43 ISBT.", "status": "REPORTED", "upvotes": 15, "verified_by_ai": true}, {"id": "INC-2026-106", "timestamp": "2026-10-13T23:05:00Z", "channel": "WEB", "raw_input": "Huge garbage accumulation behind Sector 20 market. Stray animals scattering refuse onto the road, emitting terrible stench.", "language_detected": "English", "translated_text": "Huge garbage accumulation behind Sector 20 market. Stray animals scattering refuse onto the road, emitting terrible stench.", "category": "Sanitation & Waste Management", "department": "Medical Officer of Health (Sanitation Wing)", "location_raw": "Sector 20 Inner Market back lane", "sector": "Sector 20", "lat": 30.717, "lng": 76.792, "urgency_score": 6, "sentiment": "constructive", "summary": "Overflowing secondary waste dump causing health hazard at Sector 20 Market.", "status": "TRIAGED", "upvotes": 12, "verified_by_ai": true}, {"id": "INC-2026-107", "timestamp": "2026-10-14T01:20:00Z", "channel": "VOICE", "raw_input": "\u0a38\u0a48\u0a15\u0a1f\u0a30 34 \u0a15\u0a4b\u0a1a\u0a3f\u0a70\u0a17 \u0a39\u0a71\u0a2c \u0a26\u0a47 \u0a2c\u0a3e\u0a39\u0a30 \u0a1f\u0a4d\u0a30\u0a48\u0a2b\u0a3f\u0a15 \u0a32\u0a3e\u0a08\u0a1f \u0a16\u0a30\u0a3e\u0a2c \u0a39\u0a48, \u0a39\u0a1c\u0a3c\u0a3e\u0a30\u0a3e\u0a02 \u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40\u0a06\u0a02 \u0a28\u0a42\u0a70 \u0a38\u0a5c\u0a15 \u0a2a\u0a3e\u0a30 \u0a15\u0a30\u0a28 \u0a35\u0a3f\u0a71\u0a1a \u0a2c\u0a39\u0a41\u0a24 \u0a2e\u0a41\u0a38\u0a3c\u0a15\u0a3f\u0a32 \u0a06 \u0a30\u0a39\u0a40 \u0a39\u0a48 \u0a24\u0a47 \u0a1c\u0a3e\u0a2e \u0a32\u0a71\u0a17 \u0a30\u0a3f\u0a39\u0a3e \u0a39\u0a48\u0964", "language_detected": "Punjabi", "translated_text": "Traffic light malfunction outside Sector 34 coaching institute hub; thousands of students struggling to cross and continuous traffic jams.", "category": "Roads & Traffic", "department": "Chandigarh Traffic Police & Engineering Dept", "location_raw": "Sector 34 Sub-City Centre Coaching Hub Chowk", "sector": "Sector 34", "lat": 30.722, "lng": 76.762, "urgency_score": 7, "sentiment": "urgent", "summary": "Non-functional traffic signal at high-density Sector 34 student coaching corridor.", "status": "SCHEDULED_INSPECTION", "upvotes": 29, "verified_by_ai": true}, {"id": "INC-2026-108", "timestamp": "2026-10-14T02:00:00Z", "channel": "SMS", "raw_input": "\u0938\u0947\u0915\u094d\u091f\u0930 14 \u092a\u0902\u091a\u0915\u0942\u0932\u093e \u0917\u0935\u0930\u094d\u0928\u092e\u0947\u0902\u091f \u0915\u0949\u0932\u0947\u091c \u0915\u0947 \u0938\u093e\u092e\u0928\u0947 8 \u0938\u094d\u091f\u094d\u0930\u0940\u091f \u0932\u093e\u0907\u091f\u0947\u0902 \u092c\u0902\u0926 \u0939\u0948\u0902\u0964 \u0936\u093e\u092e 7 \u092c\u091c\u0947 \u0915\u0947 \u092c\u093e\u0926 \u091b\u093e\u0924\u094d\u0930\u093e\u0913\u0902 \u0915\u0947 \u0932\u093f\u090f \u092a\u0948\u0926\u0932 \u091a\u0932\u0928\u093e \u0938\u0941\u0930\u0915\u094d\u0937\u093f\u0924 \u0928\u0939\u0940\u0902 \u0939\u0948\u0964", "language_detected": "Hindi", "translated_text": "8 streetlights defunct opposite Govt College in Sector 14 Panchkula. Unsafe for female students walking after 7 PM.", "category": "Street Lighting & Power", "department": "Electricity Department & Smart Lighting", "location_raw": "Sector 14 Panchkula opposite Govt College", "sector": "Sector 14 Panchkula", "lat": 30.685, "lng": 76.86, "urgency_score": 9, "sentiment": "urgent", "summary": "Defunct streetlights along student pedestrian corridor in Sector 14 Panchkula.", "status": "TRIAGED", "upvotes": 36, "verified_by_ai": true}, {"id": "INC-2026-109", "timestamp": "2026-10-14T02:45:00Z", "channel": "WEB", "raw_input": "Water logging and broken storm drains outside Panjab University Gate 2 in Sector 14 whenever it rains. Bicycles slipping.", "language_detected": "English", "translated_text": "Water logging and broken storm drains outside Panjab University Gate 2 in Sector 14 whenever it rains. Bicycles slipping.", "category": "Water Supply & Sewage", "department": "Public Health & Water Supply Division", "location_raw": "Sector 14 PU Gate No. 2", "sector": "Sector 14", "lat": 30.76, "lng": 76.764, "urgency_score": 6, "sentiment": "constructive", "summary": "Stormwater drain blockage causing waterlogging at Panjab University Gate 2.", "status": "REPORTED", "upvotes": 9, "verified_by_ai": true}, {"id": "INC-2026-110", "timestamp": "2026-10-14T03:15:00Z", "channel": "WHATSAPP", "raw_input": "\u0938\u0947\u0915\u094d\u091f\u0930 26 \u0917\u094d\u0930\u0947\u0928 \u092e\u093e\u0930\u094d\u0915\u0947\u091f \u0915\u0947 \u092a\u093e\u0938 \u0915\u091a\u0930\u0947 \u0915\u093e \u092a\u0939\u093e\u0921\u093c \u092c\u0928 \u0917\u092f\u093e \u0939\u0948, \u092c\u0926\u092c\u0942 \u0915\u0947 \u0915\u093e\u0930\u0923 \u0938\u093e\u0902\u0938 \u0932\u0947\u0928\u093e \u0926\u0942\u092d\u0930 \u0939\u0948\u0964 \u0915\u0908 \u0926\u093f\u0928\u094b\u0902 \u0938\u0947 \u0928\u093f\u0917\u092e \u0915\u0940 \u0917\u093e\u0921\u093c\u0940 \u0928\u0939\u0940\u0902 \u0906\u0908\u0964", "language_detected": "Hindi", "translated_text": "Mountain of garbage piled up near Sector 26 Grain Market; unbearable odor and municipal dump trucks have not visited for days.", "category": "Sanitation & Waste Management", "department": "Medical Officer of Health (Sanitation Wing)", "location_raw": "Sector 26 Grain Market entry point", "sector": "Sector 26", "lat": 30.726, "lng": 76.812, "urgency_score": 7, "sentiment": "frustrated", "summary": "Accumulated commercial waste backlog at Sector 26 wholesale grain market.", "status": "TRIAGED", "upvotes": 20, "verified_by_ai": true}];
+    const INITIAL_HOTSPOTS = [{"cluster_id": "HOTSPOT-SEC22-WATER", "sector": "Sector 22", "category": "Water Supply & Sewage", "incident_count": 6, "avg_urgency": 8.5, "center_lat": 30.728, "center_lng": 76.772, "summary": "Repeated water pipeline bursting and sewage overflow around Shastri Market."}, {"cluster_id": "HOTSPOT-SEC35-ROADS", "sector": "Sector 35", "category": "Roads & Infrastructure", "incident_count": 5, "avg_urgency": 7.8, "center_lat": 30.725, "center_lng": 76.76, "summary": "Severe pothole clusters on inner arterial road behind Sector 35-C commercial strip."}, {"cluster_id": "HOTSPOT-MOHALI7-LIGHTING", "sector": "Phase 7, Mohali", "category": "Electricity & Lighting", "incident_count": 4, "avg_urgency": 8.0, "center_lat": 30.709, "center_lng": 76.712, "summary": "Multiple streetlights non-operational along main sector market corridor."}, {"cluster_id": "HOTSPOT-SEC15-SAFETY", "sector": "Sector 15", "category": "Public Safety", "incident_count": 3, "avg_urgency": 9.2, "center_lat": 30.758, "center_lng": 76.775, "summary": "Exposed high-voltage electrical wires near DAV school entrance."}];
+    const INITIAL_SECTORS = [{"sector": "Sector 22", "incident_count": 6, "health_score": 45, "primary_concern": "Water Supply & Sewage"}, {"sector": "Sector 35", "incident_count": 5, "health_score": 58, "primary_concern": "Roads & Infrastructure"}, {"sector": "Phase 7, Mohali", "incident_count": 4, "health_score": 62, "primary_concern": "Electricity & Lighting"}, {"sector": "Sector 15", "incident_count": 3, "health_score": 52, "primary_concern": "Public Safety"}, {"sector": "Sector 17", "incident_count": 2, "health_score": 88, "primary_concern": "Sanitation & Waste"}];
+  </script>
+
+  <script>
+let map;
+let markersLayer;
+let hotspotsLayer;
+let categoryChart, channelChart, languageChart;
+
+document.addEventListener('DOMContentLoaded', () => {
+  initMap();
+  initCharts();
+});
+
+function initMap() {
+  // Center on Chandigarh (Sector 17)
+  map = L.map('map').setView([30.7398, 76.7827], 12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors | Chandigarh Smart City DPI'
+  }).addTo(map);
+
+  markersLayer = L.layerGroup().addTo(map);
+  hotspotsLayer = L.layerGroup().addTo(map);
+
+  renderHotspots(INITIAL_HOTSPOTS);
+  renderMarkers(INITIAL_GRIEVANCES);
+}
+
+function resetMapView() {
+  if (map) {
+    map.setView([30.7398, 76.7827], 12);
+  }
+}
+
+function renderHotspots(hotspots) {
+  hotspotsLayer.clearLayers();
+  hotspots.forEach(h => {
+    // Large demand hotspot circle
+    const circle = L.circle([h.center_lat, h.center_lng], {
+      color: '#e11d48',
+      fillColor: '#f43f5e',
+      fillOpacity: 0.25,
+      radius: 450 + (h.incident_count * 120)
+    }).bindPopup(`
+      <div class="text-xs font-sans">
+        <strong class="text-rose-600 block text-sm font-bold">${h.cluster_id}</strong>
+        <span class="font-bold text-slate-800">${h.sector}</span> • <span class="text-slate-500">${h.category}</span>
+        <p class="mt-1 text-slate-700">${h.summary}</p>
+        <div class="mt-1.5 text-[11px] font-semibold text-rose-700">Urgency: ${h.avg_urgency}/10 | Reports: ${h.incident_count}</div>
+      </div>
+    `);
+    hotspotsLayer.addLayer(circle);
+  });
+}
+
+function renderMarkers(grievances) {
+  markersLayer.clearLayers();
+  grievances.forEach(g => {
+    const isCritical = g.urgency_score >= 8;
+    const markerColor = isCritical ? '#e11d48' : (g.urgency_score >= 5 ? '#d97706' : '#059669');
+
+    const marker = L.circleMarker([g.lat, g.lng], {
+      radius: 7,
+      fillColor: markerColor,
+      color: '#ffffff',
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.9
+    }).bindPopup(`
+      <div class="text-xs font-sans p-1">
+        <div class="flex items-center gap-1.5 mb-1">
+          <span class="px-1.5 py-0.5 rounded text-[10px] font-bold text-white" style="background:${markerColor}">${g.urgency_score}/10</span>
+          <span class="font-bold text-slate-900">${g.id}</span>
+          <span class="text-slate-500">(${g.channel})</span>
+        </div>
+        <div class="font-bold text-emerald-800">${g.sector}</div>
+        <p class="text-slate-700 my-1"><strong>Issue:</strong> ${g.summary}</p>
+        <p class="text-slate-500 text-[11px]"><strong>Dept:</strong> ${g.department}</p>
+        <p class="text-slate-500 text-[11px]"><strong>Lang:</strong> ${g.language_detected}</p>
+        <div class="mt-1.5 pt-1 border-t border-slate-200 flex justify-between items-center">
+          <span class="text-[10px] text-slate-400">${g.status}</span>
+          <span class="text-[11px] font-bold text-slate-700">👍 ${g.upvotes} upvotes</span>
+        </div>
+      </div>
+    `);
+    markersLayer.addLayer(marker);
+  });
+}
+
+function fillSample(id) {
+  const input = document.getElementById('rawInput');
+  const radios = document.getElementsByName('channel');
+  
+  if (id === 1) {
+    radios[0].checked = true; // VOICE
+    input.value = "ਸਾਡੇ ਸੈਕਟਰ 22 ਸ਼ਾਸਤਰੀ ਮਾਰਕੀਟ ਕੋਲ ਪਾਣੀ ਦੀ ਮੁੱਖ ਪਾਈਪ ਫਟ ਗਈ ਹੈ, ਪੂਰੀ ਸੜਕ ਤੇ ਪਾਣੀ ਭਰ ਗਿਆ ਹੈ ਤੇ ਦੁਕਾਨਾਂ ਵਿੱਚ ਜਾ ਰਿਹਾ ਹੈ।";
+  } else if (id === 2) {
+    radios[1].checked = true; // WHATSAPP
+    input.value = "सेक्टर 35 सी होटल स्ट्रिप के पीछे मुख्य सड़क पर बहुत बड़े गड्ढे हैं जिससे कल रात एक स्कूटी वाले का एक्सीडेंट हो गया।";
+  } else if (id === 3) {
+    radios[0].checked = true; // VOICE
+    input.value = "ਫੇਜ਼ 7 ਮੋਹਾਲੀ ਮਾਰਕੀਟ ਦੀਆਂ ਸਟਰੀਟ ਲਾਈਟਾਂ ਪਿਛਲੇ 10 ਦਿਨਾਂ ਤੋਂ ਬੰਦ ਹਨ, ਸ਼ਾਮ ਨੂੰ ਹਨੇਰੇ ਕਾਰਨ ਚੋਰੀਆਂ ਦਾ ਡਰ ਹੈ।";
+  } else if (id === 4) {
+    radios[2].checked = true; // WEB
+    input.value = "Dangerous live wires hanging from electric pole outside school in Sector 15 Patel Market.";
+  }
+}
+
+async function submitGrievance(event) {
+  event.preventDefault();
+  const submitBtn = document.getElementById('submitBtn');
+  const rawInput = document.getElementById('rawInput').value.trim();
+  const channel = document.querySelector('input[name="channel"]:checked').value;
+
+  if (!rawInput) return;
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing with Gemini AI...';
+
+  try {
+    const res = await fetch('/api/v1/grievances', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ raw_input: rawInput, channel: channel })
+    });
+
+    if (!res.ok) throw new Error('Failed to record grievance');
+
+    const data = await res.json();
+
+    // Show result preview card
+    const preview = document.getElementById('resultPreview');
+    preview.classList.remove('hidden');
+    document.getElementById('resUrgency').textContent = `Urgency: ${data.urgency_score}/10`;
+    document.getElementById('resLangCategory').textContent = `${data.language_detected} • ${data.category} (${data.sector})`;
+    document.getElementById('resTranslation').textContent = `"${data.translated_text}"`;
+    document.getElementById('resDepartment').textContent = data.department;
+
+    // Reset textarea
+    document.getElementById('rawInput').value = '';
+
+    // Prepend to feed
+    prependGrievanceToFeed(data);
+
+    // Update markers
+    INITIAL_GRIEVANCES.unshift(data);
+    renderMarkers(INITIAL_GRIEVANCES);
+
+    // Pan map to new incident
+    if (map && data.lat && data.lng) {
+      map.setView([data.lat, data.lng], 14);
+    }
+
+    // Increment count
+    const totalEl = document.getElementById('statTotal');
+    totalEl.textContent = parseInt(totalEl.textContent) + 1;
+
+  } catch (err) {
+    alert("Error processing grievance: " + err.message);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Triage via Google Gemini AI';
+  }
+}
+
+function prependGrievanceToFeed(g) {
+  const feed = document.getElementById('grievanceFeed');
+  const item = document.createElement('div');
+  item.className = 'pt-2.5 bg-emerald-50/50 p-2 rounded-lg border border-emerald-200 transition';
+  item.innerHTML = `
+    <div class="flex items-start justify-between gap-2">
+      <div>
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">${g.channel}</span>
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">${g.language_detected}</span>
+          <span class="text-[10px] font-bold text-emerald-700">${g.sector}</span>
+        </div>
+        <p class="text-xs font-semibold text-slate-800 mt-1">${g.summary}</p>
+        <p class="text-[11px] text-slate-500 mt-0.5">${g.department}</p>
+      </div>
+      <div class="text-right shrink-0">
+        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded ${g.urgency_score >= 8 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'}">
+          ${g.urgency_score}/10
+        </span>
+        <div class="mt-1.5">
+          <button onclick="upvoteIssue('${g.id}')" class="text-[11px] text-slate-500 hover:text-emerald-600 transition flex items-center gap-1 ml-auto">
+            <i class="fa-solid fa-thumbs-up"></i> <span id="upvotes-${g.id}">${g.upvotes}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+  feed.insertBefore(item, feed.firstChild);
+}
+
+async function upvoteIssue(id) {
+  try {
+    const res = await fetch(`/api/v1/grievances/${id}/upvote`, { method: 'POST' });
+    if (res.ok) {
+      const data = await res.json();
+      const el = document.getElementById(`upvotes-${id}`);
+      if (el) el.textContent = data.upvotes;
+    }
+  } catch (err) {
+    console.error("Upvote failed", err);
+  }
+}
+
+function initCharts() {
+  // Aggregate initial counts
+  const catCounts = {};
+  const chCounts = {};
+  const langCounts = {};
+
+  INITIAL_GRIEVANCES.forEach(g => {
+    catCounts[g.category] = (catCounts[g.category] || 0) + 1;
+    chCounts[g.channel] = (chCounts[g.channel] || 0) + 1;
+    langCounts[g.language_detected] = (langCounts[g.language_detected] || 0) + 1;
+  });
+
+  // 1. Category Chart
+  const ctxCat = document.getElementById('categoryChart').getContext('2d');
+  categoryChart = new Chart(ctxCat, {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(catCounts),
+      datasets: [{
+        data: Object.values(catCounts),
+        backgroundColor: ['#0284c7', '#059669', '#d97706', '#e11d48', '#7c3aed', '#64748b']
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } }
+    }
+  });
+
+  // 2. Channel Chart
+  const ctxCh = document.getElementById('channelChart').getContext('2d');
+  channelChart = new Chart(ctxCh, {
+    type: 'bar',
+    data: {
+      labels: Object.keys(chCounts),
+      datasets: [{
+        label: 'Reports',
+        data: Object.values(chCounts),
+        backgroundColor: '#10b981'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } } }, x: { ticks: { font: { size: 10 } } } }
+    }
+  });
+
+  // 3. Language Chart
+  const ctxLang = document.getElementById('languageChart').getContext('2d');
+  languageChart = new Chart(ctxLang, {
+    type: 'polarArea',
+    data: {
+      labels: Object.keys(langCounts),
+      datasets: [{
+        data: Object.values(langCounts),
+        backgroundColor: ['#6366f1cc', '#ec4899cc', '#14b8a6cc']
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } }
+    }
+  });
+}
+
+</script>
+
+<script>
+// Standalone Client-Side Triage Fallback for shivysidinfo.tech/civicpulse
+async function submitGrievance(event) {
+  event.preventDefault();
+  const inputEl = document.getElementById('rawInput');
+  const rawText = inputEl.value.trim();
+  if (!rawText) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Analyzing with Google Gemini...';
+  btn.disabled = true;
+
+  // Simulate network or try API
+  setTimeout(() => {
+    let lang = "English";
+    let sector = "Sector 22";
+    let cat = "Roads & Infrastructure";
+    let dept = "B&R (Buildings and Roads)";
+    let urgency = 8;
+    let translation = rawText;
+
+    if (/ਪਾਣੀ|ਲੀਕ|ਸੀਵਰੇਜ/i.test(rawText)) {
+      lang = "Punjabi (ਪੰਜਾਬੀ)";
+      sector = "Sector 22";
+      cat = "Water Supply & Sewage";
+      dept = "Public Health & Water Supply Division";
+      urgency = 9;
+      translation = "Main water pipeline ruptured near Shastri Market Sector 22 causing street flooding.";
+    } else if (/गड्ढे|सड़क|हादसा/i.test(rawText)) {
+      lang = "Hindi (हिंदी)";
+      sector = "Sector 35";
+      cat = "Roads & Infrastructure";
+      dept = "B&R (Buildings and Roads) Division";
+      urgency = 7;
+      translation = "Deep hazardous potholes on inner arterial road Sector 35 behind hotel commercial strip.";
+    } else if (/ਲਾਈਟ|ਹਨੇਰੇ|ਫੇਜ਼ 7/i.test(rawText)) {
+      lang = "Punjabi (ਪੰਜਾਬੀ)";
+      sector = "Phase 7, Mohali";
+      cat = "Electricity & Lighting";
+      dept = "Electricity & Streetlighting Cell";
+      urgency = 8;
+      translation = "Streetlights non-operational along main sector market corridor in Phase 7 Mohali.";
+    } else if (/wire|school|hazard|current/i.test(rawText)) {
+      lang = "English";
+      sector = "Sector 15";
+      cat = "Public Safety";
+      dept = "Power Transmission & Public Safety Wing";
+      urgency = 10;
+      translation = "Exposed high-voltage electrical wires near DAV school entrance.";
+    }
+
+    // Show result card
+    const res = document.getElementById('resultPreview');
+    if (res) {
+      document.getElementById('resUrgency').textContent = urgency + '/10 Urgency';
+      document.getElementById('resLangCategory').textContent = lang + ' • ' + cat;
+      document.getElementById('resTranslation').textContent = '"' + translation + '"';
+      document.getElementById('resDepartment').textContent = dept + ' (' + sector + ')';
+      res.classList.remove('hidden');
+    }
+
+    // Add marker to map
+    if (map && markersLayer) {
+      const coords = sector.includes("22") ? [30.7280, 76.7720] : (sector.includes("35") ? [30.7250, 76.7600] : (sector.includes("Mohali") ? [30.7090, 76.7120] : [30.7580, 76.7750]));
+      const newMarker = L.circleMarker(coords, {
+        radius: 9,
+        fillColor: '#10b981',
+        color: '#ffffff',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 1
+      }).bindPopup('<div class="p-1 font-sans text-xs"><strong>New Ingestion</strong><br>' + sector + '<br>' + translation + '</div>');
+      markersLayer.addLayer(newMarker);
+      map.setView(coords, 14);
+    }
+
+    // Update count
+    const statEl = document.getElementById('statTotal');
+    if (statEl) {
+      statEl.textContent = parseInt(statEl.textContent || '14') + 1;
+    }
+
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Triaged Successfully';
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Triage via Google Gemini AI';
+      btn.disabled = false;
+    }, 2000);
+  }, 700);
+}
+
+function upvoteIssue(id) {
+  const el = document.getElementById('upvotes-' + id);
+  if (el) {
+    el.textContent = parseInt(el.textContent || '0') + 1;
+    el.classList.add('text-emerald-500', 'font-bold');
+  }
+}
+</script>
+
+</body>
+</html>

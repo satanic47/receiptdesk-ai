@@ -2108,3 +2108,73 @@ window.filterCategory = function(cat) {
     }
   });
 };
+
+
+
+// ==============================================================
+// 🔍 REAL-TIME INSTANT SEARCH & QUICK KEYWORD TAGS
+// ==============================================================
+window.handleSearchInput = function(e) {
+  const query = (e.target.value || '').trim().toLowerCase();
+  const clearBtn = document.getElementById('clearSearchBtn');
+  const showingCount = document.getElementById('showingCount');
+  
+  if (clearBtn) {
+    if (query.length > 0) {
+      clearBtn.classList.remove('hidden');
+    } else {
+      clearBtn.classList.add('hidden');
+    }
+  }
+
+  const isProjects = !document.getElementById('projectsGrid').classList.contains('hidden');
+  const targetSelector = isProjects ? '.project-card' : '.event-card';
+  const cards = document.querySelectorAll(targetSelector);
+  
+  let visibleCount = 0;
+  cards.forEach(card => {
+    const text = (card.innerText || '').toLowerCase();
+    if (!query || text.includes(query)) {
+      card.style.display = '';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  if (showingCount) {
+    showingCount.textContent = visibleCount;
+  }
+};
+
+window.quickFilterTag = function(tag) {
+  const input = document.getElementById('ledgerSearchInput');
+  if (input) {
+    input.value = tag;
+    window.handleSearchInput({ target: input });
+    input.focus();
+  }
+};
+
+window.clearSearchFilter = function() {
+  const input = document.getElementById('ledgerSearchInput');
+  if (input) {
+    input.value = '';
+    window.handleSearchInput({ target: input });
+  }
+};
+
+// ==============================================================
+// 🚀 FLOATING BACK TO TOP BUTTON LOGIC
+// ==============================================================
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backToTopBtn');
+  if (!btn) return;
+  if (window.scrollY > 350) {
+    btn.classList.remove('translate-y-16', 'opacity-0');
+    btn.classList.add('translate-y-0', 'opacity-100');
+  } else {
+    btn.classList.add('translate-y-16', 'opacity-0');
+    btn.classList.remove('translate-y-0', 'opacity-100');
+  }
+});
