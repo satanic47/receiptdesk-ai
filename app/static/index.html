@@ -147,315 +147,1839 @@
   <!-- ============================================================== -->
   <!-- 🎃 VIEW 1: CHALLENGES & ACTIVITIES GRID (MATCHING LAYOUT.PNG) -->
   <!-- ============================================================== -->
-  <main id="activitiesView" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <!-- ============================================================== -->
+  <!-- 🎃 VIEW 1: CHALLENGES, PROJECTS & PARTICIPATED EVENTS -->
+  <!-- ============================================================== -->
+  <main id="activitiesView" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8">
     
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+    <!-- Section Header & Dual View Toggle -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
       <div>
-        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-2">
           <span>📜</span>
-          <span>Autumn 2026 Activities & Solutions</span>
+          <span>Open Source Projects &amp; Hackathon Ledger</span>
         </h2>
         <p class="text-slate-400 text-xs sm:text-sm mt-1">
-          Scrollable challenge entries (latest first). Click any card to inspect full stats, problem architecture, and live solutions.
+          Explore all <strong class="text-orange-400">26 shipped projects</strong> and <strong class="text-blue-400">23 participated events</strong> across Hacktoberfest, MLH, and GDG Cloud Chandigarh.
         </p>
       </div>
 
-      <div class="flex items-center gap-2">
-        <span class="text-xs text-slate-400 font-medium">Filter:</span>
-        <button class="text-xs px-2.5 py-1 rounded-md bg-orange-500/20 text-orange-400 border border-orange-500/30 font-semibold">All (8)</button>
-        <button class="text-xs px-2.5 py-1 rounded-md bg-slate-900 text-slate-400 hover:text-white border border-slate-800">AI & ML</button>
-        <button class="text-xs px-2.5 py-1 rounded-md bg-slate-900 text-slate-400 hover:text-white border border-slate-800">Open Source PRs</button>
+      <!-- View Selector (26 Projects vs 23 Events) -->
+      <div class="flex items-center gap-2 p-1 bg-slate-900 rounded-xl border border-slate-800">
+        <button id="showProjectsBtn" onclick="switchViewType('projects')" class="px-4 py-2 text-xs font-bold rounded-lg bg-orange-500 text-slate-950 transition shadow-md shadow-orange-500/20 flex items-center gap-1.5">
+          <span>🚀</span>
+          <span>26 Shipped Projects</span>
+        </button>
+        <button id="showEventsBtn" onclick="switchViewType('events')" class="px-4 py-2 text-xs font-bold rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 transition flex items-center gap-1.5">
+          <span>👾</span>
+          <span>23 Participated Events</span>
+        </button>
       </div>
     </div>
 
-    <!-- The 3-Column Responsive Grid as specified in shivysidinfo layout.png -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Filter Pills for Projects -->
+    <div id="projectsFilterBar" class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs text-slate-400 font-medium">Filter Category:</span>
+        <button onclick="filterCategory('all')" id="filter-all" class="text-xs px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 border border-orange-500/30 font-semibold transition">All (26)</button>
+        <button onclick="filterCategory('ai')" id="filter-ai" class="text-xs px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition">AI &amp; LLMs (10)</button>
+        <button onclick="filterCategory('oss')" id="filter-oss" class="text-xs px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition">Open Source PRs (10)</button>
+        <button onclick="filterCategory('tiger')" id="filter-tiger" class="text-xs px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition">Timescale &amp; Tiger (4)</button>
+        <button onclick="filterCategory('iot')" id="filter-iot" class="text-xs px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition">IoT &amp; Systems (2)</button>
+      </div>
+      <span class="text-xs text-slate-500 font-mono">Click card to inspect full architecture</span>
+    </div>
 
-      <!-- ======================================================== -->
-      <!-- CARD 0: Code for Communities: CivicPulse Tricity (FEATURED) -->
-      <!-- ======================================================== -->
-      <div class="activity-card group bg-slate-900/80 border-2 border-emerald-500/60 hover:border-emerald-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur shadow-xl shadow-emerald-950/40" onclick="openActivityModal('civicpulse')">
-        <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/15 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition"></div>
-        
+    <!-- ======================================================== -->
+    <!-- 26 PROJECTS GRID -->
+    <!-- ======================================================== -->
+    <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="activity-card group bg-slate-900/70 border-2 border-emerald-500/60 hover:border-emerald-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('civicpulse')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-emerald-500/15 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
-              <span>🏛️</span>
-              <span>Code for Communities Chandigarh</span>
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🏛️ Code for Communities Chandigarh
             </span>
             <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               Google AI Supported
             </span>
           </div>
-
-          <h3 class="text-lg font-bold text-white group-hover:text-emerald-300 transition leading-snug">
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
             CivicPulse Tricity: NagrikSetu AI Platform
           </h3>
-
-          <p class="mt-2.5 text-slate-300 text-xs leading-relaxed">
-            Multilingual Digital Public Infrastructure (DPI) platform for Chandigarh, Mohali &amp; Panchkula. Aggregates citizen voice &amp; WhatsApp requests in Punjabi, Hindi &amp; English into Le Corbusier sector grids, demand heatmaps, and municipal capital DPRs.
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Multilingual Digital Public Infrastructure (DPI) platform for Chandigarh, Mohali & Panchkula. Aggregates citizen voice & WhatsApp requests in Punjabi, Hindi & English into Le Corbusier sector grids, demand heatmaps, and municipal capital DPRs.
           </p>
-
           <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-800/60">Google Gemini 1.5</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Digital Public Good</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Le Corbusier Grid</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">FastAPI &amp; Leaflet</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">21/21 Tests Passing</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Google Gemini 1.5</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Digital Public Good</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Le Corbusier Grid</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">FastAPI & Leaflet</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">21/21 Tests Passing</span>
           </div>
         </div>
-
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-          <span class="text-xs text-emerald-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture &amp; Solution</span>
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
             <span>→</span>
           </span>
-          <a href="https://github.com/satanic47/civicpulse-tricity" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1">
+          <a href="https://github.com/satanic47/civicpulse-tricity" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
           </a>
         </div>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- CARD 1: Hacktoberfest Week 2: ReceiptDesk AI (LATEST) -->
-      <!-- ======================================================== -->
-      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('receiptdesk')">
-        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition"></div>
-        
+      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('receiptdesk')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
-              🎃 Hacktoberfest Week 2 (Side Hustle)
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🎃 Hacktoberfest Week 2: Side Hustle
             </span>
             <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Live &amp; Ready
+              Live & Ready
             </span>
           </div>
-
           <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
             ReceiptDesk AI: Privacy-First Invoice & Deduction Auditor
           </h3>
-
           <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
-            Full-stack invoice auditor for freelancers running Google Gemma 2 locally for on-device Schedule C tax extraction, and Tiger Data pgvector for duplicate charge detection and semantic expense memory.
+            Full-stack invoice auditor running Google Gemma 2 locally for on-device Schedule C tax extraction, and Tiger Data pgvector for duplicate charge detection and semantic expense memory.
           </p>
-
           <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Gemma 2</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tiger Data pgvector</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Render</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">.tech Domain</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Gemma 2</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tiger Data pgvector</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Render</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">.tech Domain</span>
           </div>
         </div>
-
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Stats & Solution</span>
+            <span>View Architecture & Stats</span>
             <span>→</span>
           </span>
-          <button type="button" onclick="event.stopPropagation(); switchToAuditor();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-orange-500 hover:bg-orange-400 text-slate-950 transition">
-            Launch Tool 🚀
-          </button>
+          <a href="https://github.com/satanic47/receiptdesk-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
         </div>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- CARD 2: DocsGPT Contribution (PR #3068) -->
-      <!-- ======================================================== -->
-      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-purple-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('docsgpt')">
-        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition"></div>
-
+      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('trailbird')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🌲 MLH x DEV Environmental Challenge
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Zero-Latency Offline
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            TrailBird AI: Zero-Signal Wilderness Bird Call Identifier
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            100% offline audio spectrogram analyzer running directly in the browser with Web Audio API FFT feature extraction for identifying bird calls deep in wilderness trails with zero cellular service.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Web Audio API</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">FFT Spectrogram</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Offline AI</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Python DSP</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/trailbird-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('docsgpt')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
               👻 Open Source: DocsGPT Core
             </span>
-            <span class="text-[11px] font-semibold text-amber-400">PR #3068 Review</span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              PR #3068 Review
+            </span>
           </div>
-
-          <h3 class="text-lg font-bold text-white group-hover:text-purple-300 transition leading-snug">
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
             Multi-File Task Deduplication & Poison-Loop Guard
           </h3>
-
           <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
-            Eliminated the 24-hour source lockout when adding/removing files rapidly. Built Celery/Redis redelivery deduplication, poison-loop recovery guards, and regression testing suite.
+            Eliminated the 24-hour source lockout bug when adding or removing files rapidly in DocsGPT. Built Celery/Redis redelivery deduplication and poison-loop recovery guards.
           </p>
-
           <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Celery</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Redis</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Pytest</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">FastAPI</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Celery</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Redis</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Pytest</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">FastAPI</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">DocsGPT</span>
           </div>
         </div>
-
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-          <span class="text-xs text-purple-300 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Stats & Solution</span>
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
             <span>→</span>
           </span>
-          <span class="text-[11px] text-slate-400 font-mono">arc53/DocsGPT</span>
+          <a href="https://github.com/arc53/DocsGPT/pull/3068" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
         </div>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- CARD 3: Tiger Data Tiger Hunt & Financial Pipeline -->
-      <!-- ======================================================== -->
-      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-amber-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('tigerdata')">
-        <div class="absolute top-0 right-0 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
-
+      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="tiger" onclick="openActivityModal('tigerdata')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
               🐯 Tiger Data: TimescaleDB Challenge
             </span>
-            <span class="text-[11px] font-semibold text-emerald-400">5/5 Verified</span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              5/5 Verified
+            </span>
           </div>
-
-          <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition leading-snug">
-            Financial Pipeline, CAGGs & pgvector Cosine Search
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Financial Timeseries Pipeline, CAGGs & pgvector Cosine Search
           </h3>
-
           <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
             Constructed time-series financial analytics with automated continuous aggregates (CAGGs), hypertables, and pgvector semantic retrieval integrated with MCP agent workflows.
           </p>
-
           <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">TimescaleDB</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">pgvector</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">PostgreSQL</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">MCP Agent</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">TimescaleDB</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">pgvector</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">PostgreSQL</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tiger Cloud</span>
           </div>
         </div>
-
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-          <span class="text-xs text-amber-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Stats & Solution</span>
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
             <span>→</span>
           </span>
-          <span class="text-[11px] text-slate-400">Tiger Cloud</span>
+          <a href="https://github.com/satanic47/receiptdesk-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
         </div>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- CARD 4: MLH Global Hack Week: Octoberfest -->
-      <!-- ======================================================== -->
-      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('mlhghw')">
-        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
-
+      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('mlhghw')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
-              👾 MLH Global Hack Week
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              👾 MLH Global Hack Week: Octoberfest
             </span>
-            <span class="text-[11px] font-semibold text-blue-400">Milestone Met</span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Milestone Met
+            </span>
           </div>
-
-          <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition leading-snug">
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
             Copilot Adventure Game & Model Benchmark Suite
           </h3>
-
           <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
             Built interactive CLI dungeon adventure games, lightweight bill splitters, and a rigorous benchmarking suite evaluating Grok 4.7 High against Claude Opus 5.5 for agentic programming.
           </p>
-
           <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Grok 4.7</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Claude Opus</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Python</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">MLH GHW</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Grok 4.7</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Claude Opus</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Python CLI</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">MLH GHW</span>
           </div>
         </div>
-
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Stats & Solution</span>
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
             <span>→</span>
           </span>
-          <span class="text-[11px] text-slate-400">10 Streams + Secret Swag</span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
         </div>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- CARD 5: Modtoberfest 2026 -->
-      <!-- ======================================================== -->
-      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('modtoberfest')">
-        <div class="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
-
+      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('modtoberfest')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
               🍁 Modtoberfest 2026
             </span>
-            <span class="text-[11px] font-semibold text-emerald-400">Open PRs</span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Open PRs
+            </span>
           </div>
-
-          <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition leading-snug">
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
             CraftTweaker Docs, Clumps & Packwiz Contributions
           </h3>
-
           <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
             Contributed documentation maintenance, Astro site component bugfixes, broken link resolutions, and mod packaging improvements across major open-source Minecraft mod repositories.
           </p>
-
           <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Astro</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Java</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Markdown</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Modtoberfest</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Astro</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Java</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Markdown</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Modtoberfest</span>
           </div>
         </div>
-
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-          <span class="text-xs text-emerald-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Stats & Solution</span>
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
             <span>→</span>
           </span>
-          <span class="text-[11px] text-slate-400">3 Repositories</span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
         </div>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- CARD 6: SpookyJam 2026 & Autumn Modding Jam -->
-      <!-- ======================================================== -->
-      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-pink-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur" onclick="openActivityModal('spookyjam')">
-        <div class="absolute top-0 right-0 w-28 h-28 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition"></div>
-
+      <div class="activity-card group bg-slate-900/70 border border-orange-500/40 hover:border-orange-500 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('spookyjam')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-pink-500/20 text-pink-400 border border-pink-500/30">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
               🕸️ SpookyJam 2026
             </span>
-            <span class="text-[11px] font-semibold text-pink-400">Seasonal Jam</span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Seasonal Jam
+            </span>
           </div>
-
-          <h3 class="text-lg font-bold text-white group-hover:text-pink-400 transition leading-snug">
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
             Halloween Game Jam Showcase & Asset Pipelines
           </h3>
-
           <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
             Collaborated on the annual Halloween SpookyJam modding jam, authoring festive content workflows, entity particle shaders, and community hub integration.
           </p>
-
           <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">SpookyJam</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Game Jam</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Asset Pipeline</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">SpookyJam</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Game Jam</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Particle Shaders</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">GLSL</span>
           </div>
         </div>
-
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-          <span class="text-xs text-pink-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Stats & Solution</span>
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
             <span>→</span>
           </span>
-          <span class="text-[11px] text-slate-400">Halloween Event</span>
+          <a href="https://github.com/satanic47/SpookyJam-Site" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
         </div>
       </div>
 
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('socratic')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🧠 Socratic Learning AI
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Zero-Dependency
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Socratic Neural Sandbox: In-Browser Feedforward Engine
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            An interactive educational neural network engine written from scratch in vanilla JavaScript. Handles forward propagation, backpropagation, and weight regularizations directly in the browser without third-party ML dependencies.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Vanilla JavaScript</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Neural Networks</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Backpropagation</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Math & Canvas</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/socratic-neural-sandbox" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="tiger" onclick="openActivityModal('tigermcp')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🐯 Tiger Cloud & Anthropic MCP
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Model Context Protocol
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Tiger MCP Agent Integration & Auto-Schema Discovery
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Engineered a production Model Context Protocol (MCP) server enabling autonomous coding agents to inspect Timescale hypertables, execute CAGGs, and run pgvector semantic similarity queries directly.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Model Context Protocol</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tiger CLI</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Python</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tool Calling</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="tiger" onclick="openActivityModal('timescalesensor')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              📡 IoT Fleet & Timescale
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              10k Events/sec
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            IoT Smart Sensor Fleet Telemetry Simulator
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Simulated multi-node smart city environmental sensor telemetry with automated partition chunking, rolling aggregations, and high-performance columnar compression in TimescaleDB.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">TimescaleDB</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Hypertables</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">IoT Telemetry</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Continuous Aggs</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('cursormini')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🤖 MLH Cursor Challenge
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Responsive PWA
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Cursor Mini App: Dynamic Expense & Bill Splitter
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            A responsive single-page web utility engineered during MLH Global Hack Week Challenge 1. Features dynamic tax calculations, custom tipping algorithms, and real-time peer share breakdowns.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">HTML5</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tailwind CSS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">JavaScript</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Micro App</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('grokbotrelay')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              ⚡ Grok Automation Challenge
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Two-Bot Relay
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Grok Bot Relay & Multi-Agent Browser Automation
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Implemented an autonomous two-bot launch relay executing sequential browser workflows, multi-step form verification, and headless DOM automation.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Grok Bot</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Browser Automation</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Agent Relay</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">No-Code & Scripts</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="iot" onclick="openActivityModal('arduinohalloween')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🎃 Hardware & IoT Sprint
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Firmware & Circuit
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Arduino Halloween Sentry: Smart Ultrasonic Motion Guard
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Microcontroller firmware driving an ultrasonic distance sensor, animated spooky LED eyes, and sound buzzer triggers for an automated Halloween front-porch perimeter sentry.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Arduino C++</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Ultrasonic HC-SR04</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">PWM LEDs</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Embedded Systems</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('modtoberfestlanding')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🍁 Modtoberfest Frontend
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              PR #46 Resolved
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Modtoberfest Official Site Landing Countdown Fix
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Rebased and resolved merge conflicts on Mycelium-Mod-Network/Modtoberfest-Site PR #46. Fixed Astro component reactivity and end-state timer rendering for the 2026 festival.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Astro 4.0</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">TypeScript</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Tailwind</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Git Rebase</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/Mycelium-Mod-Network/Modtoberfest-Site/pull/46" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('campusdatabase')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              📜 MLH Challenge 5
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Relational Index
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Campus Opportunities & Hackathon Scout Database
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Engineered a comprehensive relational database cataloging student developer grants, hackathons, and open-source fellowships with automated categorization and query indexes.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">SQLite</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Python</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Indexing</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Student Programs</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="tiger" onclick="openActivityModal('vectorsearchengine')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🔍 Semantic Retrieval
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Sub-5ms Cosine
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            128-Dimensional Semantic Vector Search Engine
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Zero-dependency cosine distance vector retrieval engine with dual backends: Tiger Data pgvector in cloud production and local SQLite vector table for 100% offline edge caching.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">pgvector</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Embeddings</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Cosine Distance</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Vector Indexing</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('kestraworkflow')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              ⚙️ Event Orchestration
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Declarative YAML
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Kestra Event-Driven Workflow Orchestration Pipeline
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Automated pipeline workflows orchestrated with Kestra for event-driven monitoring, real-time error notifications, and webhook processing for developer challenges.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Kestra</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">YAML Workflows</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Event-Driven</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Docker</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/kestra" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('vscodeextension')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🛠️ Developer Tools
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Language Grammar
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            VS Code NBT & Binary Tree Inspector
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Visual Studio Code extension providing syntax highlighting, schema tree exploration, and hexadecimal value inspection for Minecraft Named Binary Tag (NBT) compound files.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">TypeScript</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">VS Code Extension API</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Binary Parsing</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Grammar</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/vscode-nbt" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('packwizpackager')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              📦 Open Packaging
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              CLI Utility
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Packwiz Modpack Distribution & Sync Pipeline
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Automated index verification, SHA-256 integrity hashing, and multi-loader dependency synchronization for the packwiz-website Minecraft distribution engine.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Go</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">TOML</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Shell Scripting</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Mod Packaging</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/packwiz-website" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('crafttweakerapi')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              📚 Documentation Engine
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              ZenScript 2.0
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            CraftTweaker ZenScript Documentation Engine
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Updated comprehensive API documentation, recipe builders, script execution hooks, and event handler guides for CraftTweaker across Modern Minecraft versions.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Astro</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Markdown</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">ZenScript</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Technical Writing</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/CraftTweaker-Documentation" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('fabricdocs')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              Official Modding Toolchain
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Fabric MC
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Fabric Toolchain & Modding Guide Modernization
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Contributed curated tutorials, mixin documentation, and lifecycle registration guides for the official Fabric open-source Minecraft modding framework.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Java</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Docusaurus</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Fabric Loader</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Gradle</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/fabric-docs" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('clumpsopt')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              ⚡ Performance Modding
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Lag Reduction
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Clumps XP & Item Entity Aggregation Optimizer
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Maintained and tested entity aggregation algorithms for Clumps, grouping floating XP orbs and drop items into single entities to drastically eliminate server tick-rate lag.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Java</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Minecraft Forge</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Fabric</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Performance</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/Clumps" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('turbotaxexporter')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              💼 Financial Compliance
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              IRS Schedule C
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Schedule C Tax Deductions CSV Normalizer
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            Automated parser converting disorganized merchant expenses into standardized IRS Schedule C expense categories with statutory 50% meals limitations and TurboTax-compatible CSV columns.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Python</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Pandas</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">IRS Tax Logic</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">CSV Normalization</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/receiptdesk-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('spectrogramdsp')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🎵 Digital Signal Processing
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Local Canvas DSP
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Real-Time Web Audio DSP Spectrogram Analyzer
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            HTML5 Canvas audio spectrum visualizer computing logarithmic frequency bins and amplitude heatmaps in real time via the Web Audio API without requiring backend server processing.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Web Audio API</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Fast Fourier Transform</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">HTML5 Canvas</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">DSP</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/trailbird-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-slate-700 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="oss" onclick="openActivityModal('sampleapp')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-orange-400 border border-slate-700/60">
+              🚀 Cloud Infrastructure
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Containerized
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition leading-snug">
+            Microservices API Gateway & Health Check Testbed
+          </h3>
+          <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
+            High-throughput reverse proxy routing layer with dynamic health probes, distributed request tracing, and automated Docker healthcheck routines.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">FastAPI</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Docker</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Reverse Proxy</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Health Probes</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>View Architecture & Stats</span>
+            <span>→</span>
+          </span>
+          <a href="https://github.com/satanic47/sample-app" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+            <span>GitHub 🐙</span>
+          </a>
+        </div>
+      </div>
     </div>
+
+    <!-- ======================================================== -->
+    <!-- 23 PARTICIPATED EVENTS GRID (HIDDEN BY DEFAULT) -->
+    <!-- ======================================================== -->
+    <div id="eventsGrid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_1')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🏛️ GDG Community Hack
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Elimination Round Ready
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#1</span>
+            <span>•</span>
+            <span>GDG Cloud Chandigarh & Google</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            Code for Communities Chandigarh 2026
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">CivicPulse Tricity: NagrikSetu AI</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> AI for Digital Public Infrastructure
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_2')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🎃 Hacktoberfest Week 2
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Submitted & Live
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#2</span>
+            <span>•</span>
+            <span>DEV & DigitalOcean</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            Hacktoberfest Open-Source AI: Side Hustle
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">ReceiptDesk AI</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Best Use of Gemma, Tiger Data & Render
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_3')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              👾 MLH GHW Series
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Milestones Verified
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#3</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Global Hack Week: Octoberfest 2026
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Copilot Adventure & Model Benchmark</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Open Source & Developer Tools
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_4')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🐯 Tiger Cloud Challenge
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              5/5 Tasks Verified
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#4</span>
+            <span>•</span>
+            <span>Tiger Data Cloud</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            Tiger Data: TimescaleDB Challenge 2026
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Financial Pipeline & CAGGs</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Hypertables, CAGGs & pgvector
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_5')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🍁 Modtoberfest
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              PRs Merged & Clean
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#5</span>
+            <span>•</span>
+            <span>Mycelium Mod Network</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            Modtoberfest 2026
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">CraftTweaker, Clumps & Site Timer</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Open Source Modding PRs
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_6')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🕸️ SpookyJam Jam
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Showcase Entry
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#6</span>
+            <span>•</span>
+            <span>SpookyJam Community</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            SpookyJam 2026 Halloween Modjam
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Halloween Particle Shaders</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Festive Game Assets & Shaders
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_7')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              👾 MLH Hack Day
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Registered & Attending
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#7</span>
+            <span>•</span>
+            <span>MLH (Event #14974)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            Hack Day x GDG Cloud Chandigarh
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">CivicPulse Tricity DPI</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Civic Tech & Community Solutions
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_8')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              👾 MLH Open Source
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Code Merged
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#8</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Sep-Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Global Hack Week: Open Source Sprint
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">DocsGPT PR #3068 Guard</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Core Repository Contributions
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_9')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🌲 DEV Community
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Article Published
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#9</span>
+            <span>•</span>
+            <span>MLH & DEV Community</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH x DEV Environmental AI Challenge
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">TrailBird AI Wilderness Audio</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Environmental AI & Conservation
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_10')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              📊 MLH Data Track
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#10</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Aug-Sep 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Global Hack Week: Data Science & AI
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">IoT Fleet Telemetry Simulator</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Timescale Time-Series Analytics
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_11')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🛡️ MLH Cyber Track
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#11</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Aug 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Global Hack Week: Cybersecurity Sprint
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Poison-Loop Guard & Cryptography</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> App Security & Defensive Coding
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_12')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🚀 MLH Beginner
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#12</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Jul 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Global Hack Week: Beginner Builder Week
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Cursor Mini App & Bill Splitter</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Web Productivity & Tools
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_13')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🌍 MLH EarthHacks
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#13</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Jul 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH EarthHacks: Climate Tech Sprint
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Wilderness Sensor Optimization</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Low-Power Edge IoT Computing
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_14')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              ⛓️ MLH Web3
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#14</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Jun 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Web3 & Smart Contracts Buildathon
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Decentralized Proof Hashes</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Smart Contract Integrity Verification
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_15')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              ☁️ MLH CloudHacks
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#15</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Jun 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH CloudHacks: DevOps & Container Sprint
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Render Declarative Blueprints</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Docker, CI/CD & Cloud Deployment
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_16')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🏥 MLH HealthTech
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#16</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">May 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH HealthTech Innovation Sprint
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Public Health Hazard Triage</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Sanitation & Civic Well-Being
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_17')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              ⚡ MLH CodeCon
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#17</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">May 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH CodeCon Summer Hackathon
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Socratic Neural Sandbox</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Browser Deep Learning Algorithms
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_18')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              📱 MLH Mobile
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#18</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Apr 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Global Hack Week: Mobile & Edge AI
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">On-Device Gemma 2 2B Runner</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Edge AI & Offline Execution
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_19')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🌸 MLH Hackfest
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#19</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Apr 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Hackfest Spring Innovation
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">VS Code NBT Binary Inspector</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Developer Tooling & Extensions
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_20')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🐙 GitHub x MLH
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#20</span>
+            <span>•</span>
+            <span>MLH & GitHub</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Mar 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Open Source Day x GitHub Codespaces
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Automated Codespaces DevContainers</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Cloud Development Environments
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_21')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              💻 MLH DevWeek
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#21</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Mar 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Developer Week: Full Stack Sprint
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Microservices API Gateway</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Scalable REST APIs & Architecture
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_22')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🔌 MLH Hardware
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Completed
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#22</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Feb 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Hardware & IoT Sprint
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Arduino Halloween Sentry Guard</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Microcontrollers & Physical Tech
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+
+      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur event-card" onclick="openActivityModal('event_23')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🏆 MLH Grand Finale
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              23 Events Verified
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
+            <span>#23</span>
+            <span>•</span>
+            <span>Major League Hacking (MLH)</span>
+            <span>•</span>
+            <span class="text-slate-300 font-medium">Jan-Oct 2026</span>
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition leading-snug">
+            MLH Global Hack Week: Grand Finale Showcase
+          </h3>
+          <p class="mt-2 text-xs text-slate-300">
+            <strong>Key Project:</strong> <span class="text-orange-400 font-semibold">Portfolio Hub at shivysidinfo.tech</span>
+          </p>
+          <p class="mt-1 text-[11px] text-slate-400">
+            <strong>Track:</strong> Grand Portfolio & Community Impact
+          </p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+          <span class="text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
+            <span>Inspect Participation Details</span>
+            <span>→</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+            Verified
+          </span>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- ============================================================== -->
