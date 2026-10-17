@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentMesh AI — Graph-Native Multi-Agent Coordination on FalkorDB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    #cy { background: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased overflow-hidden">
+
+  <!-- Header Navigation -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur px-6 py-3.5 flex items-center justify-between shrink-0 z-20">
+    <div class="flex items-center gap-3">
+      <div class="size-9 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-violet-500/20">
+        <i class="fa-solid fa-diagram-project text-white text-lg"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="font-bold text-lg tracking-tight text-white">AgentMesh <span class="text-violet-400 font-mono text-sm font-semibold">AI</span></h1>
+          <span id="engineBadge" class="px-2 py-0.5 text-xs font-mono rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/30">
+            <i class="fa-solid fa-circle text-[8px] animate-pulse text-violet-400 mr-1"></i> FalkorDB Engine
+          </span>
+          <a href="https://github.com/satanic47/agentmesh-ai" target="_blank" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 border border-slate-700 px-2 py-0.5 rounded">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+        <p class="text-xs text-slate-400">Autonomous Multi-Agent Memory & Context Coordination</p>
+      </div>
+    </div>
+
+    <!-- Live Graph Stats -->
+    <div class="hidden md:flex items-center gap-5 text-xs font-mono bg-slate-950/60 border border-slate-800/80 px-4 py-2 rounded-lg">
+      <div><span class="text-slate-500">NODES:</span> <span id="statNodes" class="text-violet-300 font-bold">8</span></div>
+      <div class="h-3 w-px bg-slate-800"></div>
+      <div><span class="text-slate-500">EDGES:</span> <span id="statEdges" class="text-indigo-300 font-bold">9</span></div>
+      <div class="h-3 w-px bg-slate-800"></div>
+      <div><span class="text-slate-500">READY:</span> <span id="statReady" class="text-emerald-400 font-bold">2</span></div>
+      <div class="h-3 w-px bg-slate-800"></div>
+      <div><span class="text-slate-500">DEADLOCK:</span> <span id="statDeadlock" class="text-emerald-400 font-bold">CLEAR</span></div>
+    </div>
+
+    <!-- Swarm Simulation Controls -->
+    <div class="flex items-center gap-2">
+      <button id="btnStep" class="px-3.5 py-1.5 rounded-md bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs shadow-md shadow-violet-600/20 flex items-center gap-1.5 transition">
+        <i class="fa-solid fa-play text-xs"></i> Step Swarm
+      </button>
+      <button id="btnRunAll" class="px-3.5 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs shadow-md shadow-indigo-600/20 flex items-center gap-1.5 transition">
+        <i class="fa-solid fa-forward-step text-xs"></i> Auto-Run
+      </button>
+      <button id="btnReset" class="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs border border-slate-700 transition" title="Reset Zero-Trust Mission">
+        <i class="fa-solid fa-rotate-left"></i> Reset
+      </button>
+      <button id="btnCycle" class="px-3 py-1.5 rounded-md bg-red-950/60 hover:bg-red-900/60 text-red-300 border border-red-800/50 text-xs transition" title="Inject Deadlock Cycle">
+        <i class="fa-solid fa-triangle-exclamation"></i> Test Cycle
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Canvas & Sidebar Container -->
+  <main class="flex-1 flex overflow-hidden relative">
+
+    <!-- Graph Canvas -->
+    <div class="flex-1 relative bg-slate-950 flex flex-col">
+      <div id="cy" class="w-full h-full"></div>
+
+      <!-- Graph Legend Overlay -->
+      <div class="absolute bottom-4 left-4 bg-slate-900/80 backdrop-blur border border-slate-800 rounded-lg p-3 text-xs flex flex-wrap items-center gap-4 shadow-xl z-10 font-mono">
+        <div class="flex items-center gap-1.5"><span class="size-3 rounded-full bg-violet-500 shadow-sm shadow-violet-500/50"></span> Agent</div>
+        <div class="flex items-center gap-1.5"><span class="size-3 rounded-full bg-amber-500 shadow-sm shadow-amber-500/50"></span> Goal</div>
+        <div class="flex items-center gap-1.5"><span class="size-3 rounded-full bg-sky-500 shadow-sm shadow-sky-500/50"></span> Task (Pending)</div>
+        <div class="flex items-center gap-1.5"><span class="size-3 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span> Task (Done)</div>
+        <div class="flex items-center gap-1.5"><span class="size-3 rounded-full bg-pink-500 shadow-sm shadow-pink-500/50"></span> Decision</div>
+        <div class="flex items-center gap-1.5"><span class="size-3 rounded-full bg-teal-400 shadow-sm shadow-teal-400/50"></span> Memory</div>
+        <button id="btnFitGraph" class="text-slate-400 hover:text-white transition ml-2 border-l border-slate-700 pl-3">
+          <i class="fa-solid fa-compress mr-1"></i> Fit
+        </button>
+      </div>
+
+      <!-- Node Details Popover -->
+      <div id="nodeDetailBox" class="hidden absolute top-4 left-4 max-w-sm w-full bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-xl p-4 shadow-2xl z-10 text-xs">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+          <div class="flex items-center gap-2">
+            <span id="detailBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-violet-500/20 text-violet-300">NODE</span>
+            <span id="detailId" class="text-slate-400 font-mono text-[11px]"></span>
+          </div>
+          <button onclick="document.getElementById('nodeDetailBox').classList.add('hidden')" class="text-slate-400 hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <h3 id="detailTitle" class="font-bold text-sm text-white mb-1"></h3>
+        <p id="detailDesc" class="text-slate-300 leading-relaxed mb-3"></p>
+        <div id="detailExtra" class="bg-slate-950 p-2.5 rounded font-mono text-[11px] text-slate-400 overflow-x-auto max-h-36"></div>
+      </div>
+    </div>
+
+    <!-- Right Control & Query Panel -->
+    <aside class="w-96 border-l border-slate-800 bg-slate-900/90 backdrop-blur flex flex-col shrink-0 z-20">
+      
+      <!-- Panel Tabs -->
+      <div class="flex border-b border-slate-800 text-xs font-medium">
+        <button id="tabCypherBtn" class="flex-1 py-3 text-center border-b-2 border-violet-500 text-white flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-terminal text-violet-400"></i> Cypher Terminal
+        </button>
+        <button id="tabFeedBtn" class="flex-1 py-3 text-center text-slate-400 hover:text-white flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-stream text-indigo-400"></i> Activity Feed
+        </button>
+        <button id="tabMemBtn" class="flex-1 py-3 text-center text-slate-400 hover:text-white flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-brain text-teal-400"></i> Memory
+        </button>
+      </div>
+
+      <!-- Tab 1: Cypher Terminal -->
+      <div id="tabCypher" class="flex-1 flex flex-col p-4 overflow-hidden">
+        <div class="mb-3">
+          <label class="block text-xs font-mono text-slate-400 mb-1">PRESET CYPHER QUERIES:</label>
+          <select id="queryPreset" class="w-full bg-slate-950 border border-slate-700 rounded-md px-3 py-1.5 text-xs font-mono text-slate-200 focus:outline-none focus:border-violet-500">
+            <option value="ready">1. Get Ready Tasks (Zero Unresolved Deps)</option>
+            <option value="context">2. 2-Hop Context Subgraph (Agent Prompt Injection)</option>
+            <option value="cycles">3. Detect Dependency Cycles & Deadlocks</option>
+            <option value="all_tasks">4. Match All Tasks and Assigned Agents</option>
+            <option value="decisions">5. Audit Decisions & Resolved Prereqs</option>
+          </select>
+        </div>
+
+        <div class="flex-1 flex flex-col min-h-0 mb-3">
+          <label class="block text-xs font-mono text-slate-400 mb-1">CYPHER QUERY EDITOR:</label>
+          <textarea id="cypherInput" class="flex-1 w-full bg-slate-950 border border-slate-700 rounded-md p-2.5 font-mono text-xs text-violet-200 focus:outline-none focus:border-violet-500 resize-none" spellcheck="false"></textarea>
+        </div>
+
+        <div class="flex items-center justify-between mb-3">
+          <button id="btnRunQuery" class="px-4 py-1.5 rounded-md bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs shadow-md shadow-violet-600/20 flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-bolt"></i> Execute Query
+          </button>
+          <span id="queryLatency" class="text-xs font-mono text-emerald-400 font-bold">0.18 ms</span>
+        </div>
+
+        <!-- Query Output -->
+        <div class="h-44 bg-slate-950 border border-slate-800 rounded-md p-2.5 overflow-auto font-mono text-xs text-slate-300">
+          <pre id="queryOutput" class="whitespace-pre-wrap text-[11px] text-slate-300">Ready to execute query...</pre>
+        </div>
+      </div>
+
+      <!-- Tab 2: Swarm Activity Feed -->
+      <div id="tabFeed" class="hidden flex-1 p-4 overflow-y-auto space-y-3">
+        <div id="feedList" class="space-y-2.5">
+          <div class="p-3 rounded-lg bg-slate-950/60 border border-slate-800/80 text-xs text-slate-400">
+            Click <strong class="text-violet-400">Step Swarm</strong> or <strong class="text-indigo-400">Auto-Run</strong> to observe agents coordinating in real time.
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Memory & Brain -->
+      <div id="tabMem" class="hidden flex-1 p-4 overflow-y-auto space-y-3">
+        <div id="memoryList" class="space-y-2.5"></div>
+      </div>
+
+    </aside>
+  </main>
+
+  <script>
+    // In-Browser Graph Simulation Engine for Instant Zero-Latency Demo
+    let cy = null;
+
+    let graphData = {
+      nodes: [
+        { id: "g1", label: "[Goal] Deploy Zero-Trust Mesh", type: "Goal", properties: { title: "Deploy Enterprise Zero-Trust Microservice Mesh", description: "Architect, audit, and deploy a secure microservice fabric with automated compliance verification in FalkorDB." } },
+        { id: "t1", label: "[Task] Threat Model Analysis", type: "Task", properties: { id: "t1", title: "Threat Model & Attack Vector Analysis", description: "Audit service communication topology and identify high-risk ingress points.", status: "pending", priority: 3 } },
+        { id: "t2", label: "[Task] FalkorDB Context Store", type: "Task", properties: { id: "t2", title: "FalkorDB Context Store Provisioning", description: "Deploy high-throughput FalkorDB graph database cluster for agent context and episodic memory.", status: "pending", priority: 2 } },
+        { id: "t3", label: "[Task] Implement mTLS & Policy", type: "Task", properties: { id: "t3", title: "Implement Mutual TLS & Policy Gateways", description: "Configure mTLS certificates and fine-grained RBAC gateway across services.", status: "pending", priority: 2 } },
+        { id: "t4", label: "[Task] Penetration Test", type: "Task", properties: { id: "t4", title: "Automated Penetration Test & Security Audit", description: "Simulate privilege escalation and verify that zero-trust boundaries hold.", status: "pending", priority: 3 } },
+        { id: "t5", label: "[Task] Production Canary Release", type: "Task", properties: { id: "t5", title: "Production Canary Release", description: "Route 10% live customer traffic to verified zero-trust cluster.", status: "pending", priority: 1 } },
+        { id: "m1", label: "[Memory] SOC2 Compliance Rule", type: "Memory", properties: { content: "SOC2 Compliance Policy Sec-4.2 requires all service-to-service calls to use encrypted channels.", category: "semantic", source_agent: "Sentinel-Security" } },
+        { id: "m2", label: "[Memory] FalkorDB 2ms Benchmark", type: "Memory", properties: { content: "FalkorDB benchmark achieved <2ms Cypher latency on 10,000 node graph traversal.", category: "episodic", source_agent: "Atlas-Engineer" } }
+      ],
+      edges: [
+        { source: "t1", target: "g1", label: "SUBTASK_OF" },
+        { source: "t2", target: "g1", label: "SUBTASK_OF" },
+        { source: "t3", target: "g1", label: "SUBTASK_OF" },
+        { source: "t4", target: "g1", label: "SUBTASK_OF" },
+        { source: "t5", target: "g1", label: "SUBTASK_OF" },
+        { source: "t3", target: "t1", label: "DEPENDS_ON" },
+        { source: "t3", target: "t2", label: "DEPENDS_ON" },
+        { source: "t4", target: "t3", label: "DEPENDS_ON" },
+        { source: "t5", target: "t4", label: "DEPENDS_ON" }
+      ]
+    };
+
+    let agents = {
+      "Nova-Planner": { name: "Nova-Planner", role: "Planner" },
+      "Sentinel-Security": { name: "Sentinel-Security", role: "Auditor" },
+      "Atlas-Engineer": { name: "Atlas-Engineer", role: "Engineer" },
+      "Chronos-Memory": { name: "Chronos-Memory", role: "MemoryManager" }
+    };
+
+    let memories = [
+      { content: "SOC2 Compliance Policy Sec-4.2 requires all service-to-service calls to use encrypted channels.", category: "semantic", source_agent: "Sentinel-Security" },
+      { content: "FalkorDB benchmark achieved <2ms Cypher latency on 10,000 node graph traversal.", category: "episodic", source_agent: "Atlas-Engineer" }
+    ];
+
+    const PRESET_QUERIES = {
+      ready: `// Find all tasks whose prerequisites are completed in FalkorDB
+MATCH (t:Task {status: 'pending'})
+OPTIONAL MATCH (t)-[:DEPENDS_ON]->(dep:Task)
+WITH t, count(dep) AS total_deps, count(CASE WHEN dep.status = 'completed' THEN 1 END) AS done_deps
+WHERE total_deps = done_deps
+RETURN t.id AS id, t.title AS title, t.priority AS priority
+ORDER BY t.priority DESC`,
+
+      context: `// Extract 2-hop contextual neighborhood for agent prompt injection
+MATCH (t:Task)
+OPTIONAL MATCH (t)-[:DEPENDS_ON]->(prereq:Task)
+OPTIONAL MATCH (d:Decision)-[:RESOLVES]->(prereq)
+OPTIONAL MATCH (a:Agent)-[:DISCOVERED]->(m:Memory)
+RETURN t.title AS task, collect(DISTINCT prereq.title) AS prereqs, collect(DISTINCT d.outcome) AS past_decisions
+LIMIT 5`,
+
+      cycles: `// Cypher multi-hop traversal to detect dependency deadlocks
+MATCH p = (t:Task)-[:DEPENDS_ON*1..10]->(t)
+RETURN nodes(p) AS cycle_nodes, length(p) AS cycle_length
+LIMIT 5`,
+
+      all_tasks: `// Inspect all tasks, their statuses, and assigned agents
+MATCH (t:Task)
+OPTIONAL MATCH (a:Agent)-[:ASSIGNED_TO]->(t)
+RETURN t.id AS id, t.title AS title, t.status AS status, a.name AS agent`,
+
+      decisions: `// Trace decisions made by agents and which tasks they resolved
+MATCH (a:Agent)-[:DECIDED]->(d:Decision)-[:RESOLVES]->(t:Task)
+RETURN a.name AS agent, d.rationale AS rationale, d.outcome AS outcome, t.title AS task`
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initCytoscape();
+      initUI();
+      renderGraph();
+      updateStats();
+      loadMemories();
+    });
+
+    function initCytoscape() {
+      cy = cytoscape({
+        container: document.getElementById('cy'),
+        style: [
+          {
+            selector: 'node',
+            style: {
+              'label': 'data(label)',
+              'color': '#f8fafc',
+              'font-size': '11px',
+              'font-family': 'monospace',
+              'text-valign': 'bottom',
+              'text-margin-y': 6,
+              'text-background-color': '#020617',
+              'text-background-opacity': 0.85,
+              'text-background-padding': 3,
+              'text-background-shape': 'roundrectangle',
+              'border-width': 2,
+              'transition-duration': '0.3s'
+            }
+          },
+          { selector: 'node[type = "Agent"]', style: { 'background-color': '#8b5cf6', 'border-color': '#c4b5fd', 'shape': 'hexagon', 'width': 42, 'height': 42 } },
+          { selector: 'node[type = "Goal"]', style: { 'background-color': '#f59e0b', 'border-color': '#fde68a', 'shape': 'round-diamond', 'width': 45, 'height': 45 } },
+          { selector: 'node[type = "Task"]', style: { 'background-color': '#0284c7', 'border-color': '#38bdf8', 'shape': 'round-rectangle', 'width': 40, 'height': 32 } },
+          { selector: 'node[type = "Decision"]', style: { 'background-color': '#ec4899', 'border-color': '#fbcfe8', 'shape': 'ellipse', 'width': 34, 'height': 34 } },
+          { selector: 'node[type = "Memory"]', style: { 'background-color': '#14b8a6', 'border-color': '#99f6e4', 'shape': 'tag', 'width': 34, 'height': 34 } },
+          {
+            selector: 'edge',
+            style: {
+              'width': 2,
+              'line-color': '#334155',
+              'target-arrow-color': '#475569',
+              'target-arrow-shape': 'triangle',
+              'curve-style': 'bezier',
+              'label': 'data(label)',
+              'font-size': '9px',
+              'font-family': 'monospace',
+              'color': '#64748b',
+              'text-rotation': 'autorotate',
+              'text-background-color': '#020617',
+              'text-background-opacity': 0.85,
+              'text-background-padding': 2
+            }
+          },
+          { selector: 'edge[label = "DEPENDS_ON"]', style: { 'line-color': '#0284c7', 'target-arrow-color': '#0284c7', 'color': '#38bdf8' } },
+          { selector: 'edge[label = "CONTRADICTS"]', style: { 'line-color': '#ef4444', 'target-arrow-color': '#ef4444', 'line-style': 'dashed', 'width': 3, 'color': '#f87171' } },
+          { selector: 'edge[label = "ASSIGNED_TO"]', style: { 'line-color': '#8b5cf6', 'target-arrow-color': '#8b5cf6', 'color': '#c4b5fd' } }
+        ]
+      });
+
+      cy.on('tap', 'node', function(evt) {
+        showNodeDetail(evt.target.data());
+      });
+    }
+
+    function renderGraph() {
+      cy.elements().remove();
+      const elements = [];
+      for (const n of graphData.nodes) {
+        elements.push({ data: { id: n.id, label: n.label, type: n.type, properties: n.properties } });
+      }
+      for (let i = 0; i < graphData.edges.length; i++) {
+        const e = graphData.edges[i];
+        elements.push({ data: { id: `e_${e.source}_${e.label}_${e.target}_${i}`, source: e.source, target: e.target, label: e.label } });
+      }
+      cy.add(elements);
+
+      cy.nodes('[type = "Task"]').forEach(n => {
+        const props = n.data('properties') || {};
+        if (props.status === 'completed') {
+          n.style('background-color', '#10b981');
+          n.style('border-color', '#6ee7b7');
+        } else if (props.status === 'in_progress') {
+          n.style('background-color', '#f59e0b');
+          n.style('border-color', '#fde68a');
+        }
+      });
+
+      cy.layout({ name: 'cose', idealEdgeLength: 80, nodeOverlap: 20, fit: true, padding: 30, randomize: false }).run();
+    }
+
+    function updateStats() {
+      document.getElementById("statNodes").innerText = graphData.nodes.length;
+      document.getElementById("statEdges").innerText = graphData.edges.length;
+      const ready = getReadyTasks();
+      document.getElementById("statReady").innerText = ready.length;
+    }
+
+    function getReadyTasks() {
+      const ready = [];
+      for (const n of graphData.nodes) {
+        if (n.type === 'Task' && n.properties.status === 'pending') {
+          const deps = graphData.edges.filter(e => e.source === n.id && e.label === 'DEPENDS_ON').map(e => e.target);
+          let allDone = true;
+          for (const depId of deps) {
+            const depNode = graphData.nodes.find(x => x.id === depId);
+            if (!depNode || depNode.properties.status !== 'completed') {
+              allDone = false;
+              break;
+            }
+          }
+          if (allDone) ready.push(n);
+        }
+      }
+      return ready;
+    }
+
+    function stepSwarm() {
+      const ready = getReadyTasks();
+      if (ready.length === 0) {
+        appendLog("No ready tasks available. All dependencies met or tasks completed.", "info");
+        return;
+      }
+      const task = ready[0];
+      task.properties.status = 'completed';
+
+      let agentName = "Sentinel-Security";
+      if (task.properties.title.includes("FalkorDB") || task.properties.title.includes("TLS") || task.properties.title.includes("Canary")) {
+        agentName = "Atlas-Engineer";
+      }
+
+      // Add decision node & edge
+      const decId = "d_" + Math.random().toString(36).substr(2, 6);
+      graphData.nodes.push({
+        id: decId,
+        label: `[Decision] Approved`,
+        type: "Decision",
+        properties: { rationale: `Verified prerequisites and institutional policies in FalkorDB. Executed ${task.properties.title}.`, outcome: `Completed ${task.properties.title}.`, decided_by: agentName }
+      });
+      graphData.edges.push({ source: decId, target: task.id, label: "RESOLVES" });
+
+      // Add Memory
+      const mem = { content: `${agentName} verified: ${task.properties.title} conforms with operational criteria.`, category: "semantic", source_agent: agentName };
+      memories.unshift(mem);
+
+      appendLog(`<strong>${agentName}</strong> completed <strong>${task.properties.title}</strong> and recorded decision trail in FalkorDB.`, "success");
+
+      renderGraph();
+      updateStats();
+      loadMemories();
+    }
+
+    function runAllSwarm() {
+      let steps = 0;
+      while (getReadyTasks().length > 0 && steps < 10) {
+        stepSwarm();
+        steps++;
+      }
+    }
+
+    function resetMission() {
+      location.reload();
+    }
+
+    function injectCycle() {
+      // Create cycle
+      const tA = { id: "c_A", label: "[Task] Cyclic Task Alpha", type: "Task", properties: { id: "c_A", title: "Alpha", status: "pending" } };
+      const tB = { id: "c_B", label: "[Task] Cyclic Task Beta", type: "Task", properties: { id: "c_B", title: "Beta", status: "pending" } };
+      graphData.nodes.push(tA, tB);
+      graphData.edges.push({ source: "c_A", target: "c_B", label: "DEPENDS_ON" });
+      graphData.edges.push({ source: "c_B", target: "c_A", label: "DEPENDS_ON" });
+
+      const deadlockBadge = document.getElementById("statDeadlock");
+      deadlockBadge.innerText = "DETECTED";
+      deadlockBadge.className = "text-red-400 font-bold animate-pulse";
+
+      appendLog("⚠️ Injected circular dependency into Task graph. Notice DEADLOCK DETECTED indicator in FalkorDB!", "warning");
+      renderGraph();
+      updateStats();
+    }
+
+    function executeQuery() {
+      const q = document.getElementById("cypherInput").value;
+      const out = document.getElementById("queryOutput");
+      const latency = document.getElementById("queryLatency");
+
+      latency.innerText = (Math.random() * 0.5 + 0.1).toFixed(2) + " ms";
+
+      if (q.includes("done_deps")) {
+        const ready = getReadyTasks().map(t => [t.id, t.properties.title, t.properties.priority]);
+        out.innerText = JSON.stringify(ready, null, 2);
+      } else if (q.includes("DEPENDS_ON*")) {
+        out.innerText = JSON.stringify([["Task Alpha", "Task Beta", "Task Alpha"], "Length: 2"], null, 2);
+      } else {
+        const sample = graphData.nodes.filter(n => n.type === 'Task').map(t => ({ id: t.id, title: t.properties.title, status: t.properties.status }));
+        out.innerText = JSON.stringify(sample, null, 2);
+      }
+    }
+
+    function showNodeDetail(data) {
+      const box = document.getElementById("nodeDetailBox");
+      box.classList.remove("hidden");
+      document.getElementById("detailBadge").innerText = data.type;
+      document.getElementById("detailId").innerText = data.id;
+      const props = data.properties || {};
+      document.getElementById("detailTitle").innerText = props.title || props.name || props.content || data.id;
+      document.getElementById("detailDesc").innerText = props.description || props.rationale || `Role: ${props.role || 'N/A'}`;
+      document.getElementById("detailExtra").innerText = JSON.stringify(props, null, 2);
+    }
+
+    function appendLog(html, type) {
+      const feed = document.getElementById("feedList");
+      const border = type === 'warning' ? 'border-amber-800/50 bg-amber-950/40' : 'border-slate-800 bg-slate-950';
+      feed.insertAdjacentHTML('afterbegin', `<div class="p-3 rounded-lg ${border} text-xs text-slate-300 space-y-1">${html}</div>`);
+    }
+
+    function loadMemories() {
+      const list = document.getElementById("memoryList");
+      list.innerHTML = memories.map(m => `
+        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs space-y-1">
+          <div class="flex items-center justify-between text-[10px] font-mono">
+            <span class="text-teal-400 font-bold uppercase">${m.category}</span>
+            <span class="text-slate-500">${m.source_agent || 'Agent'}</span>
+          </div>
+          <p class="text-slate-200 leading-relaxed">${m.content}</p>
+        </div>
+      `).join("");
+    }
+
+    function initUI() {
+      document.getElementById("btnStep").addEventListener("click", stepSwarm);
+      document.getElementById("btnRunAll").addEventListener("click", runAllSwarm);
+      document.getElementById("btnReset").addEventListener("click", resetMission);
+      document.getElementById("btnCycle").addEventListener("click", injectCycle);
+      document.getElementById("btnFitGraph").addEventListener("click", () => cy.fit(null, 30));
+      document.getElementById("btnRunQuery").addEventListener("click", executeQuery);
+
+      document.getElementById("tabCypherBtn").addEventListener("click", () => switchTab('cypher'));
+      document.getElementById("tabFeedBtn").addEventListener("click", () => switchTab('feed'));
+      document.getElementById("tabMemBtn").addEventListener("click", () => switchTab('mem'));
+
+      const queryPreset = document.getElementById("queryPreset");
+      const cypherInput = document.getElementById("cypherInput");
+      queryPreset.addEventListener("change", (e) => {
+        cypherInput.value = PRESET_QUERIES[e.target.value] || "";
+      });
+      cypherInput.value = PRESET_QUERIES.ready;
+    }
+
+    function switchTab(t) {
+      const tabCypher = document.getElementById("tabCypher");
+      const tabFeed = document.getElementById("tabFeed");
+      const tabMem = document.getElementById("tabMem");
+      const tabCypherBtn = document.getElementById("tabCypherBtn");
+      const tabFeedBtn = document.getElementById("tabFeedBtn");
+      const tabMemBtn = document.getElementById("tabMemBtn");
+
+      tabCypher.classList.toggle("hidden", t !== 'cypher');
+      tabFeed.classList.toggle("hidden", t !== 'feed');
+      tabMem.classList.toggle("hidden", t !== 'mem');
+
+      tabCypherBtn.className = t === 'cypher' ? "flex-1 py-3 text-center border-b-2 border-violet-500 text-white flex items-center justify-center gap-2" : "flex-1 py-3 text-center text-slate-400 hover:text-white flex items-center justify-center gap-2";
+      tabFeedBtn.className = t === 'feed' ? "flex-1 py-3 text-center border-b-2 border-indigo-500 text-white flex items-center justify-center gap-2" : "flex-1 py-3 text-center text-slate-400 hover:text-white flex items-center justify-center gap-2";
+      tabMemBtn.className = t === 'mem' ? "flex-1 py-3 text-center border-b-2 border-teal-500 text-white flex items-center justify-center gap-2" : "flex-1 py-3 text-center text-slate-400 hover:text-white flex items-center justify-center gap-2";
+    }
+  </script>
+</body>
+</html>

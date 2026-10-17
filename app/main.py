@@ -58,6 +58,16 @@ async def serve_civicpulse_deck():
         return FileResponse(deck_file)
     return FileResponse(static_dir / "index.html")
 
+@app.get("/agentmesh-ai", response_class=HTMLResponse)
+@app.get("/agentmesh-ai/", response_class=HTMLResponse)
+@app.get("/agentmesh", response_class=HTMLResponse)
+async def serve_agentmesh():
+    agentmesh_file = static_dir / "agentmesh.html"
+    if agentmesh_file.exists():
+        return FileResponse(agentmesh_file)
+    return FileResponse(static_dir / "index.html")
+
+
 @app.get("/api/status")
 async def get_system_status():
     status = vector_store.get_status()
