@@ -570,7 +570,7 @@
     <!-- ======================================================== -->
     <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- SlothOps: Channel Your Inner Sloth with Open-Source AI (Direct redirect to slothops.shivysidinfo.tech) -->
-      <div class="activity-card group bg-slate-900/70 border-2 border-emerald-500/70 hover:border-emerald-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="window.open('https://slothops.shivysidinfo.tech', '_blank')">
+      <div class="activity-card group bg-slate-900/70 border-2 border-emerald-500/70 hover:border-emerald-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('slothops')">
         <div class="absolute top-0 right-0 w-28 h-28 bg-emerald-500/20 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
@@ -602,7 +602,7 @@
             <span>→</span>
           </a>
           <div class="flex items-center gap-2">
-            <button onclick="event.stopPropagation(); openActivityModal('slothops')" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-orange-400 border border-slate-700 transition">
+            <button type="button" onclick="event.stopPropagation(); openActivityModal('slothops')" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-orange-400 border border-slate-700 transition">
               Specs 🔍
             </button>
             <a href="https://github.com/satanic47/slothops" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
@@ -613,7 +613,7 @@
       </div>
 
       <!-- EventPulse AI: Autonomous Celebration & Event Planner Copilot (PromptWars Virtual Challenge 5) -->
-      <div class="activity-card group bg-slate-900/70 border-2 border-amber-500/70 hover:border-amber-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="window.open('/eventpulse', '_blank')">
+      <div class="activity-card group bg-slate-900/70 border-2 border-amber-500/70 hover:border-amber-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('eventpulse')">
         <div class="absolute top-0 right-0 w-28 h-28 bg-amber-500/20 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
@@ -645,7 +645,7 @@
             <span>⚡</span>
           </a>
           <div class="flex items-center gap-2">
-            <button onclick="event.stopPropagation(); openActivityModal('eventpulse')" class="text-[11px] font-bold px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-orange-400 border border-slate-700 transition">
+            <button type="button" onclick="event.stopPropagation(); openActivityModal('eventpulse')" class="text-[11px] font-bold px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-orange-400 border border-slate-700 transition">
               Specs 🔍
             </button>
             <a href="https://github.com/satanic47/eventpulse-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
@@ -656,7 +656,7 @@
       </div>
 
       <!-- SprintPulse AI: Voice-First Agile Standup & Sprint Sync (WeMakeDevs × Wispr Flow) -->
-      <div class="activity-card group bg-slate-900/70 border-2 border-cyan-500/70 hover:border-cyan-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="window.open('/sprintpulse', '_blank')">
+      <div class="activity-card group bg-slate-900/70 border-2 border-cyan-500/70 hover:border-cyan-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('sprintpulse')">
         <div class="absolute top-0 right-0 w-28 h-28 bg-cyan-500/20 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
@@ -688,7 +688,7 @@
             <span>🎙️</span>
           </a>
           <div class="flex items-center gap-2">
-            <button onclick="event.stopPropagation(); openActivityModal('sprintpulse')" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-orange-400 border border-slate-700 transition">
+            <button type="button" onclick="event.stopPropagation(); openActivityModal('sprintpulse')" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-orange-400 border border-slate-700 transition">
               Specs 🔍
             </button>
             <a href="https://github.com/satanic47/sprintpulse-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
@@ -2896,7 +2896,7 @@
     </div>
   </footer>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=20261022_v3"></script>
 
   <!-- Floating Back-to-Top Button -->
   <button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 p-3 rounded-full bg-orange-500/90 hover:bg-orange-500 text-slate-950 shadow-xl shadow-orange-500/30 transition transform translate-y-16 opacity-0 z-40" aria-label="Back to Top">

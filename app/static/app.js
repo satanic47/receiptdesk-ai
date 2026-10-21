@@ -1836,6 +1836,11 @@ const ACTIVITIES_DATA = {
   }
 };
 
+// Aliases for robustness
+ACTIVITIES_DATA["sloth_ops"] = ACTIVITIES_DATA["slothops"];
+ACTIVITIES_DATA["event_pulse"] = ACTIVITIES_DATA["eventpulse"];
+ACTIVITIES_DATA["sprint_pulse"] = ACTIVITIES_DATA["sprintpulse"];
+
 document.addEventListener("DOMContentLoaded", () => {
   initTabNavigation();
   initDropZone();
@@ -1887,8 +1892,14 @@ function switchToAuditor() {
 
 // Activity Modal Open / Close Logic
 window.openActivityModal = function(activityKey) {
+  if (typeof activityKey === "object" && activityKey && activityKey.stopPropagation) {
+    activityKey.stopPropagation();
+  }
   const data = ACTIVITIES_DATA[activityKey];
-  if (!data) return;
+  if (!data) {
+    console.warn("Activity not found in ACTIVITIES_DATA:", activityKey);
+    return;
+  }
 
   const modal = document.getElementById("activityModal");
   document.getElementById("modalBadge").textContent = data.badge;
