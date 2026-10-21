@@ -312,7 +312,7 @@ const ACTIVITIES_DATA = {
       },
       {
         "label": "Status",
-        "val": "Addressed Review"
+        "val": "Merge Pending ⏳"
       },
       {
         "label": "Lockout Bug",
@@ -339,7 +339,7 @@ const ACTIVITIES_DATA = {
   },
   "tigerdata": {
     "badge": "\ud83d\udc2f Tiger Data: TimescaleDB Challenge",
-    "title": "Financial Timeseries Pipeline, CAGGs & pgvector Cosine Search",
+    "title": "Tiger Hunt: Financial Timeseries Pipeline, CAGGs & pgvector Cosine Search",
     "subtitle": "TimescaleDB, Hypertables, Continuous Aggregates, PostgreSQL",
     "stats": [
       {
