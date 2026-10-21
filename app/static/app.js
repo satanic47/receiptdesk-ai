@@ -82,11 +82,11 @@ const ACTIVITIES_DATA = {
   "eventpulse": {
     "badge": "🎉 Hack2skill PromptWars Virtual: Challenge 5",
     "title": "EventPulse AI: Autonomous Celebration & Event Planner Copilot",
-    "subtitle": "Score 93.76 (Rank #24) • Sub-Millisecond LRU Cache • 18 Automated Tests",
+    "subtitle": "Score 96.62 (Attempt 3 Top Tier) • Sub-Millisecond LRU Cache • 18 Automated Tests",
     "stats": [
       {
         "label": "Competition Score",
-        "val": "93.76 / 100 (Top 25)"
+        "val": "96.62 / 100 (Attempt 3 Top Tier)"
       },
       {
         "label": "Algorithmic Speed",
@@ -135,7 +135,7 @@ const ACTIVITIES_DATA = {
       },
       {
         "label": "Analytics",
-        "val": "Cycle Time & Burndown"
+        "val": "96.62% Health Score"
       },
       {
         "label": "Hackathon",
