@@ -4,7 +4,7 @@ import io
 from pathlib import Path
 from typing import List, Optional
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Response
-from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse, FileResponse
+from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse, FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -66,6 +66,28 @@ async def serve_agentmesh():
     if agentmesh_file.exists():
         return FileResponse(agentmesh_file)
     return FileResponse(static_dir / "index.html")
+
+@app.get("/eventpulse", response_class=HTMLResponse)
+@app.get("/eventpulse-ai", response_class=HTMLResponse)
+@app.get("/promptwars", response_class=HTMLResponse)
+async def serve_eventpulse():
+    eventpulse_file = static_dir / "eventpulse.html"
+    if eventpulse_file.exists():
+        return FileResponse(eventpulse_file)
+    return FileResponse(static_dir / "index.html")
+
+@app.get("/sprintpulse", response_class=HTMLResponse)
+@app.get("/wisprflow", response_class=HTMLResponse)
+@app.get("/voicesprint", response_class=HTMLResponse)
+async def serve_sprintpulse():
+    sprintpulse_file = static_dir / "sprintpulse.html"
+    if sprintpulse_file.exists():
+        return FileResponse(sprintpulse_file)
+    return FileResponse(static_dir / "index.html")
+
+@app.get("/slothops")
+async def redirect_slothops():
+    return RedirectResponse("https://slothops.shivysidinfo.tech", status_code=302)
 
 
 @app.get("/api/status")

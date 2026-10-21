@@ -118,7 +118,7 @@
       <p class="mt-4 text-slate-300 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
         Tracking my open-source code, AI builds, and developer challenges across 
         <span class="text-orange-400 font-semibold">Hacktoberfest 2026</span>, 
-        <span class="text-purple-400 font-semibold">MLH Global Hack Week (23 Events)</span>, 
+        <span class="text-purple-400 font-semibold">MLH Global Hack Week (37 Events)</span>, 
         <span class="text-emerald-400 font-semibold">DEV Challenges (SlothOps &amp; ReceiptDesk)</span>, 
         <span class="text-amber-400 font-semibold">Hack2skill (EventPulse AI - Rank #24)</span>, 
         <span class="text-blue-400 font-semibold">Kestra (3 Merged PRs)</span>, and 
@@ -132,7 +132,7 @@
         </span>
         <a href="https://www.mlh.com/account/profile#event-participations" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-blue-950/80 hover:bg-blue-900/80 text-blue-300 px-3.5 py-1.5 rounded-full border border-blue-800/80 transition font-semibold">
           <span>👾</span>
-          <span>MLH: 23 Events Participated</span>
+          <span>MLH: 37 Events Participated</span>
         </a>
         <a href="https://www.mlh.com/account/profile#event-participations" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-purple-950/80 hover:bg-purple-900/80 text-purple-300 px-3.5 py-1.5 rounded-full border border-purple-800/80 transition font-semibold">
           <span>🚀</span>
@@ -223,7 +223,7 @@
         </p>
       </div>
 
-      <!-- View Selector (26 Projects vs 23 Events) -->
+      <!-- View Selector (31 Projects vs 37 Events) -->
       <div class="flex items-center gap-2 p-1 bg-slate-900 rounded-xl border border-slate-800">
         <button id="showProjectsBtn" onclick="switchViewType('projects')" class="px-4 py-2 text-xs font-bold rounded-lg bg-orange-500 text-slate-950 transition shadow-md shadow-orange-500/20 flex items-center gap-1.5">
           <span>🚀</span>
@@ -323,7 +323,7 @@
           type="text" 
           id="ledgerSearchInput" 
           oninput="handleSearchInput(event)"
-          placeholder="Instant search across 31 projects &amp; 23 MLH challenges (e.g. SlothOps, EventPulse, Kestra, Timescale, Gemini)..." 23 events (e.g. Gemini, Tricity, pgvector, DocsGPT, offline, mod, tiger)..." 
+          placeholder="Instant search across 31 projects &amp; 37 MLH events (e.g. SlothOps, EventPulse, Kestra, Timescale, Gemini)..." 37 events (e.g. Wispr Flow, Gemini, Tricity, pgvector, DocsGPT, offline, mod, tiger)..." 
           class="w-full bg-slate-900/90 border border-slate-800 hover:border-slate-700 focus:border-orange-500 rounded-xl pl-10 pr-24 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none transition shadow-inner"
         >
         <div id="searchCounterBadge" class="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -367,7 +367,7 @@
             <span>↗</span>
           </a>
           <span class="text-xs font-mono px-2.5 py-1 rounded-lg bg-slate-900 text-blue-300 border border-blue-800/60">
-            23 Verified Events
+            37 Verified Events
           </span>
         </div>
       </div>
@@ -475,13 +475,13 @@
         </div>
       </div>
 
-      <!-- EventPulse AI: Autonomous Celebration & Event Planner Copilot -->
-      <div class="activity-card group bg-slate-900/70 border-2 border-amber-500/70 hover:border-amber-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('eventpulse')">
+      <!-- EventPulse AI: Autonomous Celebration & Event Planner Copilot (PromptWars Virtual Challenge 5) -->
+      <div class="activity-card group bg-slate-900/70 border-2 border-amber-500/70 hover:border-amber-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="window.open('/eventpulse', '_blank')">
         <div class="absolute top-0 right-0 w-28 h-28 bg-amber-500/20 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
             <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-amber-400 border border-slate-700/60">
-              🎉 Hack2skill PromptWars Virtual: Challenge 5
+              🎉 Hack2skill PromptWars: Challenge 5
             </span>
             <span class="text-[11px] font-semibold text-amber-400 flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
@@ -496,57 +496,68 @@
           </p>
           <div class="mt-4 flex flex-wrap gap-1.5">
             <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">PromptWars Virtual</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-amber-300 border border-amber-500/30">Live Portal: /eventpulse</span>
             <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Sub-ms LRU Cache</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">FastAPI &amp; Jinja2</span>
             <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">WCAG 2.1 AA</span>
             <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">18/18 Tests Passing</span>
           </div>
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-          <a href="https://satanic47.github.io/eventpulse-ai/" target="_blank" onclick="event.stopPropagation();" class="text-xs text-amber-400 font-semibold hover:text-amber-300 transition flex items-center gap-1">
-            <span>Live Demo</span>
-            <span>→</span>
+          <a href="/eventpulse" target="_blank" onclick="event.stopPropagation();" class="text-xs text-amber-400 font-semibold hover:text-amber-300 transition flex items-center gap-1">
+            <span>Live Portal (/eventpulse)</span>
+            <span>⚡</span>
           </a>
-          <a href="https://github.com/satanic47/eventpulse-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
-            <span>GitHub 🐙</span>
-          </a>
+          <div class="flex items-center gap-2">
+            <button onclick="event.stopPropagation(); openActivityModal('eventpulse')" class="text-[11px] font-bold px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-orange-400 border border-slate-700 transition">
+              Specs 🔍
+            </button>
+            <a href="https://github.com/satanic47/eventpulse-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+              <span>GitHub 🐙</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- SprintPulse AI: Real-Time Agile Sprint Intelligence Engine -->
-      <div class="activity-card group bg-slate-900/70 border border-slate-800 hover:border-blue-500/60 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="openActivityModal('sprintpulse')">
-        <div class="absolute top-0 right-0 w-28 h-28 bg-blue-500/15 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
+      <!-- SprintPulse AI: Voice-First Agile Standup & Sprint Sync (WeMakeDevs × Wispr Flow) -->
+      <div class="activity-card group bg-slate-900/70 border-2 border-cyan-500/70 hover:border-cyan-400 rounded-2xl p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden backdrop-blur project-card" data-category="ai" onclick="window.open('/sprintpulse', '_blank')">
+        <div class="absolute top-0 right-0 w-28 h-28 bg-cyan-500/20 rounded-full blur-2xl group-hover:opacity-100 transition"></div>
         <div>
           <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-blue-400 border border-slate-700/60">
-              ⚡ MLH Global Hack Week
+            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800/80 text-cyan-400 border border-slate-700/60">
+              🎙️ WeMakeDevs × Wispr Flow "No Hands"
             </span>
-            <span class="text-[11px] font-semibold text-blue-400 flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
-              Vercel Deployed 🚀
+            <span class="text-[11px] font-semibold text-cyan-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+              Live Portal Active 🟢
             </span>
           </div>
-          <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition leading-snug">
-            SprintPulse AI: Real-Time Agile Sprint Intelligence Engine
+          <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition leading-snug">
+            SprintPulse AI: Voice-First Sprint Sync &amp; PR Generator
           </h3>
           <p class="mt-2.5 text-slate-400 text-xs leading-relaxed">
-            Engineering velocity analytics &amp; automated sprint burndown copilot. Analyzes commit pacing, pull request cycle times, and blocker alerts with interactive predictive velocity charts.
+            Built 100% by voice with Wispr Flow for the WeMakeDevs Hackathon. Dictated at 172 WPM (4.1x faster than typing) with reactive 36-bar audio visualizer, client-side secret scrubber, and 1-click synthesis into Daily Standups, PRs, Jira/Linear updates, and release notes.
           </p>
           <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">MLH Hackathon</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Vercel Cloud</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">TypeScript</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Velocity Predictor</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-cyan-300 border border-cyan-500/30">Live Portal: /sprintpulse</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">WeMakeDevs Hackathon</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Wispr Flow (172 WPM)</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Audio Spectrum DSP</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Vercel &amp; Slack Block Kit</span>
           </div>
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-          <a href="https://sprintpulse-ai.vercel.app" target="_blank" onclick="event.stopPropagation();" class="text-xs text-blue-400 font-semibold hover:text-blue-300 transition flex items-center gap-1">
-            <span>Live App</span>
-            <span>→</span>
+          <a href="/sprintpulse" target="_blank" onclick="event.stopPropagation();" class="text-xs text-cyan-400 font-semibold hover:text-cyan-300 transition flex items-center gap-1">
+            <span>Live Portal (/sprintpulse)</span>
+            <span>🎙️</span>
           </a>
-          <a href="https://github.com/satanic47/sprintpulse-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
-            <span>GitHub 🐙</span>
-          </a>
+          <div class="flex items-center gap-2">
+            <button onclick="event.stopPropagation(); openActivityModal('sprintpulse')" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-orange-400 border border-slate-700 transition">
+              Specs 🔍
+            </button>
+            <a href="https://github.com/satanic47/sprintpulse-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+              <span>GitHub 🐙</span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -578,9 +589,9 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-purple-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture</span>
-            <span>→</span>
-          </span>
+            <span>Live Portal (/agentmesh-ai)</span>
+            <span>🤖</span>
+          </a>
           <a href="https://github.com/satanic47/agentmesh-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
           </a>
@@ -649,8 +660,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/civicpulse-tricity" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -682,8 +693,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/receiptdesk-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -715,8 +726,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/trailbird-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -748,8 +759,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/arc53/DocsGPT/pull/3068" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -781,8 +792,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/receiptdesk-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -814,8 +825,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -847,8 +858,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -880,8 +891,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/SpookyJam-Site" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -913,8 +924,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/socratic-neural-sandbox" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -946,8 +957,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -979,8 +990,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1012,8 +1023,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1045,8 +1056,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1078,8 +1089,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1111,8 +1122,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/Mycelium-Mod-Network/Modtoberfest-Site/pull/46" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1144,8 +1155,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1177,8 +1188,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1247,8 +1258,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/vscode-nbt" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1280,8 +1291,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/packwiz-website" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1313,8 +1324,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/CraftTweaker-Documentation" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1346,8 +1357,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/fabric-docs" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1379,8 +1390,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/Clumps" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1412,8 +1423,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/receiptdesk-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1445,8 +1456,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/trailbird-ai" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -1478,8 +1489,8 @@
         </div>
         <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between">
           <span class="text-xs text-orange-400 font-semibold group-hover:translate-x-1 transition flex items-center gap-1">
-            <span>View Architecture & Stats</span>
-            <span>→</span>
+            <span>Live Portal (/civicpulse)</span>
+            <span>🏛️</span>
           </span>
           <a href="https://github.com/satanic47/sample-app" target="_blank" onclick="event.stopPropagation();" class="text-[11px] font-bold px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
             <span>GitHub 🐙</span>
@@ -2382,7 +2393,7 @@
             </span>
             <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              23 Events Verified
+              37 Events Verified
             </span>
           </div>
           <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-1">
@@ -2730,7 +2741,7 @@
         <!-- MLH Profile -->
         <a href="https://www.mlh.com/account/profile#event-participations" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-blue-500/50 transition flex items-center space-x-1.5">
           <span>👾</span>
-          <span>MLH: 23 Events • 31 Projects</span>
+          <span>MLH: 37 Events • 31 Projects</span>
         </a>
 
       </div>

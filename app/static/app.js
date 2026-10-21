@@ -106,8 +106,12 @@ const ACTIVITIES_DATA = {
     "image": "/static/images/eventpulse_screenshot.png",
     "actions": [
       {
-        "text": "Open Live Demo 🚀",
+        "text": "Launch Live Portal (/eventpulse) ⚡",
         "primary": true,
+        "href": "/eventpulse"
+      },
+      {
+        "text": "GitHub Pages Demo 🚀",
         "href": "https://satanic47.github.io/eventpulse-ai/"
       },
       {
@@ -117,9 +121,9 @@ const ACTIVITIES_DATA = {
     ]
   },
   "sprintpulse": {
-    "badge": "⚡ MLH Global Hack Week Octoberfest 2026",
-    "title": "SprintPulse AI: Real-Time Agile Sprint Intelligence Engine",
-    "subtitle": "Vercel Deployed • Engineering Velocity & Automated Burndown Analytics",
+    "badge": "🎙️ WeMakeDevs × Wispr Flow \"No Hands\" Hackathon",
+    "title": "SprintPulse AI: Voice-First Agile Standup & Sprint Sync",
+    "subtitle": "Wispr Flow (172 WPM) • WeMakeDevs Hackathon • Live Portal at /sprintpulse",
     "stats": [
       {
         "label": "Deployment",
@@ -143,8 +147,12 @@ const ACTIVITIES_DATA = {
     "image": "/static/images/cursor_mini_app_running_screenshot.png",
     "actions": [
       {
-        "text": "Open SprintPulse AI ⚡",
+        "text": "Launch Live Portal (/sprintpulse) 🎙️",
         "primary": true,
+        "href": "/sprintpulse"
+      },
+      {
+        "text": "Vercel Production App ⚡",
         "href": "https://sprintpulse-ai.vercel.app"
       },
       {
@@ -180,8 +188,12 @@ const ACTIVITIES_DATA = {
     "image": "/static/images/cursor_mini_app_running_screenshot.png",
     "actions": [
       {
-        "text": "View GitHub Repo 🐙",
+        "text": "Launch Live Portal (/agentmesh-ai) 🤖",
         "primary": true,
+        "href": "/agentmesh-ai"
+      },
+      {
+        "text": "View GitHub Repo 🐙",
         "href": "https://github.com/satanic47/agentmesh-ai"
       }
     ]

@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="EventPulse AI - Autonomous Celebration and Event Planner Copilot for Weddings, Birthdays, and Community Hackathons." />
+  <title>EventPulse AI — Autonomous Celebration & Event Planner Copilot</title>
+  <style>
+:root {
+  --bg-dark: #0a0c16;
+  --bg-card: rgba(18, 22, 38, 0.75);
+  --bg-card-hover: rgba(26, 32, 54, 0.85);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(131, 56, 236, 0.35);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --gold: #ffb703;
+  --gold-glow: rgba(255, 183, 3, 0.25);
+  --violet: #8338ec;
+  --violet-glow: rgba(131, 56, 236, 0.25);
+  --rose: #ff006e;
+  --rose-glow: rgba(255, 0, 110, 0.25);
+  --emerald: #06d6a0;
+  --emerald-glow: rgba(6, 214, 160, 0.25);
+  --blue: #3a86ff;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 25px var(--border-glow);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Accessibility: Skip Link & High Contrast Focus */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--gold);
+  color: #000;
+  padding: 8px 16px;
+  font-weight: 700;
+  z-index: 1000;
+  transition: top 0.2s;
+  text-decoration: none;
+  border-radius: 0 0 6px 0;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(131, 56, 236, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(255, 183, 3, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 110, 0.05) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--violet), var(--rose));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  box-shadow: 0 0 20px var(--rose-glow);
+}
+
+.brand-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ffffff, var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.brand-tagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.telemetry-bar {
+  display: flex;
+  gap: 0.85rem;
+}
+
+.stat-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  text-align: right;
+}
+
+.stat-val {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.stat-lbl {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Nav Tabs */
+.tabs-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background: rgba(18, 22, 38, 0.5);
+  padding: 0.4rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 0.65rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, var(--violet), #5a189a);
+  color: #ffffff;
+  box-shadow: 0 4px 15px var(--violet-glow);
+}
+
+/* Preset Cards */
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.preset-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.preset-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--violet);
+  box-shadow: var(--shadow-glow);
+  background: var(--bg-card-hover);
+}
+
+.preset-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--border-color);
+  transition: background 0.25s ease;
+}
+
+.preset-card:hover::before {
+  background: linear-gradient(to bottom, var(--gold), var(--rose));
+}
+
+.preset-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.preset-icon {
+  font-size: 1.5rem;
+}
+
+.preset-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 183, 3, 0.15);
+  color: var(--gold);
+}
+
+.preset-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.preset-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Layout Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.75rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Glass Panels */
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 1.75rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.panel-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(10, 12, 22, 0.7);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--violet);
+  box-shadow: 0 0 12px var(--violet-glow);
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+input[type="range"] {
+  flex: 1;
+  accent-color: var(--gold);
+}
+
+.slider-val {
+  min-width: 60px;
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 0.95rem;
+}
+
+/* Buttons */
+.btn {
+  background: linear-gradient(135deg, var(--gold), #fb8500);
+  color: #0c0d14;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px var(--gold-glow);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--gold-glow);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--violet);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Timeline Components */
+.timeline {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 6px;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--violet), var(--gold), var(--rose));
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -1.5rem;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 10px var(--gold-glow);
+}
+
+.timeline-card {
+  background: rgba(10, 12, 22, 0.6);
+  border: 1px solid var(--border-color);
+  padding: 0.85rem 1.15rem;
+  border-radius: var(--radius-md);
+}
+
+.timeline-time {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.timeline-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin: 0.2rem 0;
+}
+
+.timeline-desc {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+/* Budget Allocation Bars */
+.budget-bar-group {
+  margin-bottom: 1rem;
+}
+
+.budget-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.825rem;
+  margin-bottom: 0.35rem;
+}
+
+.progress-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* Chat Assistant Panel */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 420px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.chat-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  max-width: 85%;
+  line-height: 1.5;
+}
+
+.chat-bubble.bot {
+  background: rgba(131, 56, 236, 0.15);
+  border: 1px solid rgba(131, 56, 236, 0.3);
+  align-self: flex-start;
+  color: var(--text-main);
+}
+
+.chat-bubble.user {
+  background: rgba(255, 183, 3, 0.15);
+  border: 1px solid rgba(255, 183, 3, 0.3);
+  align-self: flex-end;
+  color: #fff;
+}
+
+.chat-input-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* Tab Panels */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+</style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%220%22%20%22100%22%20%22100%22><text y=%22.9em%22 font-size=%2290%22>🎉</text></svg>">
+</head>
+<body>
+
+  <!-- Hub Navigation Banner -->
+  <div style="background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid rgba(255, 183, 3, 0.3); padding: 0.5rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 999; backdrop-filter: blur(8px);">
+    <a href="/" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffb703; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
+      <span>←</span>
+      <span>Back to Halloween Hub (shivysidinfo.tech)</span>
+    </a>
+    <div style="display: flex; items-center; gap: 0.75rem;">
+      <span style="font-size: 0.75rem; color: #06d6a0; background: rgba(6, 214, 160, 0.1); border: 1px solid rgba(6, 214, 160, 0.3); padding: 0.2rem 0.6rem; rounded: 9999px; border-radius: 9999px; font-weight: 600;">
+        PromptWars Virtual Challenge 5 • Score 93.76
+      </span>
+      <a href="https://github.com/satanic47/eventpulse-ai" target="_blank" style="font-size: 0.75rem; color: #f8fafc; background: #1e293b; border: 1px solid #334155; padding: 0.2rem 0.6rem; border-radius: 9999px; text-decoration: none;">
+        GitHub 🐙
+      </a>
+    </div>
+  </div>
+
+  <!-- WCAG 2.1 AA Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="container">
+    <!-- Header -->
+    <header role="banner">
+      <div class="brand">
+        <div class="logo-badge" aria-hidden="true">🎉</div>
+        <div>
+          <h1 class="brand-title">EventPulse AI</h1>
+          <p class="brand-tagline">Autonomous Celebration & Event Planner Copilot • Hack2skill Challenge 5</p>
+        </div>
+      </div>
+      <div class="telemetry-bar" aria-label="Event Live Metrics" role="region">
+        <div class="stat-pill">
+          <div class="stat-val" id="header-budget-stat" aria-live="polite">$12,000</div>
+          <div class="stat-lbl">Total Budget</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-val" id="header-guests-stat" aria-live="polite">150</div>
+          <div class="stat-lbl">Guest Capacity</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-val" id="header-cpg-stat" aria-live="polite">$80</div>
+          <div class="stat-lbl">Cost / Guest</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Region -->
+    <main id="main-content" role="main">
+      <!-- 1-Click Event Presets -->
+      <section aria-labelledby="presets-heading">
+        <h2 id="presets-heading" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Celebration Archetypes</h2>
+        <div class="presets-grid" role="region" aria-label="Pre-configured celebration templates">
+          <button class="preset-card" data-preset="hackathon" aria-label="Load National Hackathon Gala template, 180 guests" style="text-align: left; width: 100%;">
+            <div class="preset-header">
+              <span class="preset-icon" aria-hidden="true">🏆</span>
+              <span class="preset-badge">180 Guests</span>
+            </div>
+            <h3 class="preset-title">Hackathon Gala</h3>
+            <p class="preset-desc">Awards ceremony, live synth DJ, demo stages, and late-night food trucks.</p>
+          </button>
+
+          <button class="preset-card" data-preset="wedding" aria-label="Load Sunset Wedding template, 120 guests" style="text-align: left; width: 100%;">
+            <div class="preset-header">
+              <span class="preset-icon" aria-hidden="true">💍</span>
+              <span class="preset-badge">120 Guests</span>
+            </div>
+            <h3 class="preset-title">Sunset Wedding</h3>
+            <p class="preset-desc">Champagne welcome, acoustic quartet, 3-course dinner, and sparkler exit.</p>
+          </button>
+
+          <button class="preset-card" data-preset="launch" aria-label="Load Product Launch template, 90 guests" style="text-align: left; width: 100%;">
+            <div class="preset-header">
+              <span class="preset-icon" aria-hidden="true">🚀</span>
+              <span class="preset-badge">90 Guests</span>
+            </div>
+            <h3 class="preset-title">Product Launch</h3>
+            <p class="preset-desc">Keynote reveal, investor VIP lounge, signature cocktails, and press wall.</p>
+          </button>
+
+          <button class="preset-card" data-preset="birthday" aria-label="Load Retro 30th Birthday template, 65 guests" style="text-align: left; width: 100%;">
+            <div class="preset-header">
+              <span class="preset-icon" aria-hidden="true">🎂</span>
+              <span class="preset-badge">65 Guests</span>
+            </div>
+            <h3 class="preset-title">Retro Birthday</h3>
+            <p class="preset-desc">Speakeasy arcade, custom neon photo booth, craft cocktails, and dessert bar.</p>
+          </button>
+        </div>
+      </section>
+
+      <!-- Nav Tabs -->
+      <nav class="tabs-nav" role="tablist" aria-label="Event Planner Modules">
+        <button class="tab-btn active" role="tab" id="tab-btn-overview" aria-selected="true" aria-controls="tab-overview" data-tab="tab-overview" onclick="switchTab('tab-overview')">⚡ Planner Engine</button>
+        <button class="tab-btn" role="tab" id="tab-btn-budget" aria-selected="false" aria-controls="tab-budget" data-tab="tab-budget" onclick="switchTab('tab-budget')">📊 Smart Budget & Drinks</button>
+        <button class="tab-btn" role="tab" id="tab-btn-timeline" aria-selected="false" aria-controls="tab-timeline" data-tab="tab-timeline" onclick="switchTab('tab-timeline')">⏱️ Run-of-Show Schedule</button>
+        <button class="tab-btn" role="tab" id="tab-btn-vendors" aria-selected="false" aria-controls="tab-vendors" data-tab="tab-vendors" onclick="switchTab('tab-vendors')">🤝 Vendor & Invites</button>
+        <button class="tab-btn" role="tab" id="tab-btn-copilot" aria-selected="false" aria-controls="tab-copilot" data-tab="tab-copilot" onclick="switchTab('tab-copilot')">🧠 AI Copilot Chat</button>
+      </nav>
+
+      <!-- TAB 1: Planner Engine -->
+      <section id="tab-overview" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-overview" tabindex="0">
+        <div class="dashboard-grid">
+          <!-- Configuration Form -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2 class="panel-title">🎯 Event Parameters</h2>
+              <span class="preset-badge" style="background: rgba(6, 214, 160, 0.15); color: var(--emerald);">Dynamic Context Active</span>
+            </div>
+
+            <div class="form-group">
+              <label for="event-title-input">Event Name / Celebration Title</label>
+              <input type="text" id="event-title-input" value="Hackathon Afterparty & Awards Gala" aria-required="true" />
+            </div>
+
+            <div class="form-group">
+              <label for="event-type-select">Event Category</label>
+              <select id="event-type-select" aria-label="Celebration Category">
+                <option value="hackathon">Hackathon Celebration & Community Demo Day</option>
+                <option value="wedding">Wedding Ceremony & Reception</option>
+                <option value="launch">Product Launch & Milestone Party</option>
+                <option value="birthday">Milestone Birthday / Social Bash</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="guests-slider">Expected Guest Count</label>
+              <div class="slider-container">
+                <input type="range" id="guests-slider" min="20" max="500" step="5" value="150" aria-label="Guest count" aria-valuemin="20" aria-valuemax="500" aria-valuenow="150" />
+                <span class="slider-val" id="guests-display" aria-live="polite">150</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="budget-slider">Target Budget ($ USD)</label>
+              <div class="slider-container">
+                <input type="range" id="budget-slider" min="2000" max="100000" step="500" value="12000" aria-label="Total Budget" aria-valuemin="2000" aria-valuemax="100000" aria-valuenow="12000" />
+                <span class="slider-val" id="budget-display" aria-live="polite">$12,000</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="duration-slider">Event Duration (Hours)</label>
+              <div class="slider-container">
+                <input type="range" id="duration-slider" min="2" max="10" step="1" value="5" aria-label="Event duration in hours" aria-valuemin="2" aria-valuemax="10" aria-valuenow="5" />
+                <span class="slider-val" id="duration-display" aria-live="polite">5 hrs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Intelligence Summary -->
+          <div>
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">🧠 Smart Pacing & Insights</h2>
+              </div>
+              <div style="font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.85rem;" role="region" aria-label="Calculated event specifications">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                  <span>Venue Space Needed:</span>
+                  <strong style="color: var(--gold);">~3,000 sq.ft (Standing/Lounge)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                  <span>Recommended Bartenders:</span>
+                  <strong style="color: var(--emerald);">2 Bartenders (1 per 75 guests)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                  <span>Catering Service Staff:</span>
+                  <strong style="color: var(--blue);">4 Servers + 1 Event Captain</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                  <span>Sound & AV Requirement:</span>
+                  <strong style="color: var(--violet);">Dual Wireless Mics + 2kW Subwoofers</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 0.25rem;">
+                  <span>Contingency Buffer:</span>
+                  <strong style="color: var(--rose);">$600 (Reserved for overruns)</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">📋 1-Click Operations Export</h2>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Copy the synthesized event manifest, timeline, and vendor allocations directly to clipboard.
+              </p>
+              <button class="btn" style="width: 100%;" onclick="copyText('vendor-email-draft', 'copy-btn-manifest')" id="copy-btn-manifest" aria-label="Copy executive manifest to clipboard">
+                📋 Copy Executive Manifest
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Budget Breakdown & Drinks Math -->
+      <section id="tab-budget" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-budget" tabindex="0">
+        <div class="dashboard-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <h2 class="panel-title">💰 Dynamic Budget Allocation</h2>
+            </div>
+
+            <div class="budget-bar-group">
+              <div class="budget-bar-header">
+                <span>🏛️ Venue & Permits (30%)</span>
+                <span id="alloc-venue-val" aria-live="polite">$3,600 (30%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width: 30%; background: var(--violet);"></div></div>
+            </div>
+
+            <div class="budget-bar-group">
+              <div class="budget-bar-header">
+                <span>🍽️ Food & Catering (35%)</span>
+                <span id="alloc-catering-val" aria-live="polite">$4,200 (35%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width: 35%; background: var(--gold);"></div></div>
+            </div>
+
+            <div class="budget-bar-group">
+              <div class="budget-bar-header">
+                <span>🎧 Audio/Visual, DJ & Lighting (15%)</span>
+                <span id="alloc-prod-val" aria-live="polite">$1,800 (15%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width: 15%; background: var(--blue);"></div></div>
+            </div>
+
+            <div class="budget-bar-group">
+              <div class="budget-bar-header">
+                <span>🍸 Beverages & Bar Service (10%)</span>
+                <span id="alloc-bev-val" aria-live="polite">$1,200 (10%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width: 10%; background: var(--emerald);"></div></div>
+            </div>
+
+            <div class="budget-bar-group">
+              <div class="budget-bar-header">
+                <span>🌸 Decor, Photo Ops & Print (5%)</span>
+                <span id="alloc-decor-val" aria-live="polite">$600 (5%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width: 5%; background: var(--rose);"></div></div>
+            </div>
+
+            <div class="budget-bar-group">
+              <div class="budget-bar-header">
+                <span>🛡️ Emergency Contingency Buffer (5%)</span>
+                <span id="alloc-cont-val" aria-live="polite">$600 (5%)</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width: 5%; background: #64748b;"></div></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h2 class="panel-title">🍷 Beverage Calculation Formula</h2>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+              Calculated dynamically based on guest count and hours to prevent mid-party stockouts:
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.9rem;" role="region" aria-label="Beverage quantities breakdown">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                <span>Total Estimated Drink Servings:</span>
+                <strong style="color: var(--gold);" id="bev-total-drinks" aria-live="polite">1,125 drinks</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                <span>Wine Bottles Needed (Red/White):</span>
+                <strong style="color: var(--rose);" id="bev-wine-bottles" aria-live="polite">90 bottles</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                <span>Craft Beer Quantity:</span>
+                <strong style="color: var(--blue);" id="bev-beer-cases" aria-live="polite">19 cases (450 cans)</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-top: 0.25rem;">
+                <span>Non-Alcoholic & Mocktails:</span>
+                <strong style="color: var(--emerald);" id="bev-mocktails" aria-live="polite">225 servings</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: Hour-by-Hour Run-of-Show Timeline -->
+      <section id="tab-timeline" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-timeline" tabindex="0">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">⏱️ Precision Run-of-Show Schedule</h2>
+            <span class="preset-badge">Synchronized Schedule</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+            Dynamic milestone pacing designed to maintain high energy, prevent guest fatigue, and keep vendors coordinated.
+          </p>
+
+          <div class="timeline" id="timeline-container" role="feed" aria-label="Event Run-of-Show Timeline">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: Vendor & Invites Suite -->
+      <section id="tab-vendors" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-vendors" tabindex="0">
+        <!-- Interactive Vendor Checklist -->
+        <div class="panel" style="margin-bottom: 1.5rem;">
+          <div class="panel-header">
+            <h2 class="panel-title">📋 Vendor Checklist & Milestone Tracker</h2>
+            <span class="preset-badge" id="checklist-progress-badge" aria-live="polite">0 / 6 Completed</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Keep vendors aligned across key milestones to ensure flawless day-of operations:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem;" id="vendor-checklist-container">
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; text-transform: none; color: var(--text-main); font-size: 0.875rem; background: rgba(10, 12, 22, 0.6); padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <input type="checkbox" onchange="updateChecklistProgress()" style="width: auto; accent-color: var(--emerald);" checked aria-label="Venue Contract and 50 percent Deposit Secured" />
+              <span>🏛️ Venue Contract & 50% Deposit Secured</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; text-transform: none; color: var(--text-main); font-size: 0.875rem; background: rgba(10, 12, 22, 0.6); padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <input type="checkbox" onchange="updateChecklistProgress()" style="width: auto; accent-color: var(--emerald);" checked aria-label="Catering Tasting and Dietary Split Confirmation" />
+              <span>🍽️ Tasting & Dietary Split (~35% Veg/Vegan)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; text-transform: none; color: var(--text-main); font-size: 0.875rem; background: rgba(10, 12, 22, 0.6); padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <input type="checkbox" onchange="updateChecklistProgress()" style="width: auto; accent-color: var(--emerald);" aria-label="AV DJ Sound Check and Mic Test" />
+              <span>🎧 AV / DJ Sound Check & Mic Test</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; text-transform: none; color: var(--text-main); font-size: 0.875rem; background: rgba(10, 12, 22, 0.6); padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <input type="checkbox" onchange="updateChecklistProgress()" style="width: auto; accent-color: var(--emerald);" aria-label="Beverage Delivery and Bartender Scheduling" />
+              <span>🍷 Beverage Delivery & Bartender Scheduling</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; text-transform: none; color: var(--text-main); font-size: 0.875rem; background: rgba(10, 12, 22, 0.6); padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <input type="checkbox" onchange="updateChecklistProgress()" style="width: auto; accent-color: var(--emerald);" aria-label="Photography and Key Moment Shot List" />
+              <span>📸 Photography & Key Moment Shot List</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; text-transform: none; color: var(--text-main); font-size: 0.875rem; background: rgba(10, 12, 22, 0.6); padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <input type="checkbox" onchange="updateChecklistProgress()" style="width: auto; accent-color: var(--emerald);" aria-label="Rain and Weather Contingency Confirmed" />
+              <span>☔ Rain & Weather Contingency Confirmed</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <label for="vendor-email-draft" class="panel-title" style="margin: 0; cursor: default;">✉️ Caterer & Vendor Negotiation Draft</label>
+              <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;" onclick="copyText('vendor-email-draft', 'copy-btn-email')" id="copy-btn-email" aria-label="Copy vendor email draft">Copy Email</button>
+            </div>
+            <textarea id="vendor-email-draft" rows="12" style="font-family: monospace; font-size: 0.825rem;" aria-label="Vendor email draft content"></textarea>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <label for="rsvp-invite-draft" class="panel-title" style="margin: 0; cursor: default;">💌 RSVP Invitation Copy (WhatsApp / Email)</label>
+              <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;" onclick="copyText('rsvp-invite-draft', 'copy-btn-rsvp')" id="copy-btn-rsvp" aria-label="Copy RSVP invitation draft">Copy Invite</button>
+            </div>
+            <textarea id="rsvp-invite-draft" rows="12" style="font-family: monospace; font-size: 0.825rem;" aria-label="RSVP invitation draft content"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: AI Event Copilot Chat -->
+      <section id="tab-copilot" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-copilot" tabindex="0">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">🧠 EventPulse AI Copilot</h2>
+            <span class="preset-badge" style="background: rgba(131, 56, 236, 0.2); color: var(--violet);">Context-Aware Assistant</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Ask real-time contingency questions: rain backups, budget trimming strategies, beverage calculations, or playlist transitions.
+          </p>
+
+          <div class="chat-container">
+            <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Event Copilot Chat History">
+              <div class="chat-bubble bot">
+                👋 Hi! I'm your <strong>EventPulse Copilot</strong>. I'm dynamically tracking your celebration parameters. Ask me anything:
+                <br><small style="color: var(--text-muted); margin-top: 0.3rem; display: block;">Try: <em>"What if it rains?"</em> or <em>"How do I cut 15% from catering?"</em> or <em>"Recommend music vibe"</em></small>
+              </div>
+            </div>
+
+            <div class="chat-input-bar">
+              <label for="chat-input" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Type planning question</label>
+              <input type="text" id="chat-input" placeholder="Type a planning question (e.g. 'What if it rains during cocktail hour?')..." aria-label="Ask EventPulse Copilot a question" />
+              <button class="btn" onclick="sendChatMessage()" aria-label="Send question to AI Copilot">Ask Copilot</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+      <p>EventPulse AI • Built for Hack2skill PromptWars Virtual: Challenge 5 (Celebration & Event Planner)</p>
+      <p style="margin-top: 0.35rem; font-size: 0.75rem; color: var(--text-muted);">
+        Powered by Google Antigravity & Modern Web AI Architecture. Single branch, lightweight (&lt; 2 MB).
+      </p>
+    </footer>
+  </div>
+
+  <script>
+/**
+ * EventPulse AI - High-Efficiency Autonomous Celebration & Event Planner Copilot
+ * Built for Hack2skill PromptWars Virtual Challenge 5: Celebration & Event Planner
+ * 
+ * Features:
+ * - RequestAnimationFrame debounced DOM recalculations (zero UI stutter, 60fps)
+ * - Cached DOM selector lookup table (prevents repeated querying and layout thrashing)
+ * - LocalStorage state persistence
+ * - JSDoc typed interface declarations
+ * - Strict mode compliance
+ */
+
+"use strict";
+
+/**
+ * @typedef {Object} EventState
+ * @property {string} title - Celebration name or theme
+ * @property {string} type - Event category archetype
+ * @property {number} guests - Estimated attendee count
+ * @property {number} budget - Total fiscal budget in USD
+ * @property {number} durationHours - Event duration in hours
+ * @property {string} vibe - Tone and music atmosphere
+ * @property {number} alcoholRatio - Projected percentage of drinking attendees
+ * @property {number} dietaryVegRatio - Percentage of vegetarian meal requests
+ * @property {string} venueType - Physical space configuration
+ */
+
+/** @type {EventState} */
+let eventState = {
+  title: "Hackathon Afterparty & Awards Gala",
+  type: "hackathon",
+  guests: 150,
+  budget: 12000,
+  durationHours: 5,
+  vibe: "energetic",
+  alcoholRatio: 70,
+  dietaryVegRatio: 40,
+  venueType: "industrial_loft"
+};
+
+/**
+ * Cached DOM elements lookup map to eliminate layout thrashing and repetitive querySelector overhead.
+ * @type {Record<string, HTMLElement|null>}
+ */
+const DOM = {};
+
+/**
+ * Event Archetype Presets dictionary.
+ * @type {Record<string, Object>}
+ */
+const EVENT_PRESETS = Object.freeze({
+  hackathon: {
+    title: "National Hackathon Gala & Tech Celebration",
+    type: "hackathon",
+    guests: 180,
+    budget: 15000,
+    durationHours: 6,
+    vibe: "cyberpunk_neon",
+    alcoholRatio: 60,
+    dietaryVegRatio: 45,
+    venueType: "tech_hub_atrium",
+    description: "High-energy awards ceremony with live synth music, sponsor booths, and late-night pizza."
+  },
+  wedding: {
+    title: "Golden Hour Sunset Wedding & Reception",
+    type: "wedding",
+    guests: 120,
+    budget: 35000,
+    durationHours: 7,
+    vibe: "luxury_romantic",
+    alcoholRatio: 80,
+    dietaryVegRatio: 30,
+    venueType: "botanical_glasshouse",
+    description: "Champagne welcome, acoustic string quartet, gourmet seated dinner, and sparkler farewell."
+  },
+  launch: {
+    title: "Series A Milestone & Product Launch Party",
+    type: "launch",
+    guests: 90,
+    budget: 20000,
+    durationHours: 4,
+    vibe: "modern_executive",
+    alcoholRatio: 75,
+    dietaryVegRatio: 35,
+    venueType: "skyline_rooftop",
+    description: "Keynote presentation, signature branded cocktails, VIP investor lounge, and media photo wall."
+  },
+  birthday: {
+    title: "Neon Retro 30th Birthday Celebration",
+    type: "birthday",
+    guests: 65,
+    budget: 6500,
+    durationHours: 5,
+    vibe: "retro_funk",
+    alcoholRatio: 85,
+    dietaryVegRatio: 25,
+    venueType: "vintage_speakeasy",
+    description: "Custom cocktail menu, retro arcade games, custom neon photo booth, and dessert bar."
+  }
+});
+
+/**
+ * RequestAnimationFrame debouncing handle.
+ * @type {number|null}
+ */
+let scheduledRaf = null;
+
+/**
+ * Initialize cached DOM references once on DOMContentLoaded.
+ */
+function initDOMCache() {
+  const ids = [
+    "header-budget-stat", "header-guests-stat", "header-cpg-stat",
+    "budget-slider", "budget-display",
+    "guests-slider", "guests-display",
+    "duration-slider", "duration-display",
+    "event-title-input", "event-type-select",
+    "alloc-venue-val", "alloc-catering-val", "alloc-prod-val",
+    "alloc-bev-val", "alloc-decor-val", "alloc-cont-val",
+    "bev-total-drinks", "bev-wine-bottles", "bev-beer-cases", "bev-mocktails",
+    "timeline-container", "vendor-email-draft", "rsvp-invite-draft",
+    "chat-messages", "chat-input", "checklist-progress-badge"
+  ];
+  ids.forEach(id => {
+    DOM[id] = document.getElementById(id);
+  });
+}
+
+/**
+ * Switch active navigation tab with full ARIA state synchronization.
+ * @param {string} tabId - ID of tabpanel element to display.
+ */
+function switchTab(tabId) {
+  document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(el => {
+    el.classList.remove("active");
+    el.setAttribute("aria-selected", "false");
+  });
+  
+  const targetContent = document.getElementById(tabId);
+  if (targetContent) targetContent.classList.add("active");
+
+  const targetBtn = document.querySelector(`[data-tab="${tabId}"]`);
+  if (targetBtn) {
+    targetBtn.classList.add("active");
+    targetBtn.setAttribute("aria-selected", "true");
+  }
+}
+
+/**
+ * Load celebration archetype preset and refresh calculated outputs.
+ * @param {string} key - Archetype preset identifier.
+ */
+function loadPreset(key) {
+  const preset = EVENT_PRESETS[key];
+  if (!preset) return;
+
+  eventState = { ...eventState, ...preset };
+
+  if (DOM["event-title-input"]) DOM["event-title-input"].value = preset.title;
+  if (DOM["event-type-select"]) DOM["event-type-select"].value = preset.type;
+  if (DOM["guests-slider"]) DOM["guests-slider"].value = preset.guests;
+  if (DOM["guests-display"]) DOM["guests-display"].innerText = String(preset.guests);
+  if (DOM["budget-slider"]) DOM["budget-slider"].value = preset.budget;
+  if (DOM["budget-display"]) DOM["budget-display"].innerText = `$${preset.budget.toLocaleString()}`;
+  if (DOM["duration-slider"]) DOM["duration-slider"].value = preset.durationHours;
+  if (DOM["duration-display"]) DOM["duration-display"].innerText = `${preset.durationHours} hrs`;
+
+  scheduleRecalculate();
+}
+
+/**
+ * High-efficiency debounced recalculation trigger using requestAnimationFrame.
+ * Prevents redundant computations and layout thrashing during fast slider dragging.
+ */
+function scheduleRecalculate() {
+  if (scheduledRaf !== null) {
+    cancelAnimationFrame(scheduledRaf);
+  }
+  scheduledRaf = requestAnimationFrame(() => {
+    recalculateAll();
+    scheduledRaf = null;
+  });
+}
+
+/**
+ * Core mathematical budgeting and pacing recalculation engine.
+ */
+function recalculateAll() {
+  if (!DOM["budget-slider"] || !DOM["guests-slider"] || !DOM["duration-slider"]) return;
+
+  const budget = parseFloat(DOM["budget-slider"].value) || 1000;
+  const guests = parseInt(DOM["guests-slider"].value, 10) || 1;
+  const duration = parseInt(DOM["duration-slider"].value, 10) || 1;
+  const title = (DOM["event-title-input"] && DOM["event-title-input"].value.trim()) || "Grand Celebration";
+
+  eventState.budget = budget;
+  eventState.guests = guests;
+  eventState.durationHours = duration;
+  eventState.title = title;
+
+  const costPerGuest = Math.round(budget / Math.max(1, guests));
+
+  // Telemetry KPIs
+  if (DOM["header-budget-stat"]) DOM["header-budget-stat"].innerText = `$${budget.toLocaleString()}`;
+  if (DOM["header-guests-stat"]) DOM["header-guests-stat"].innerText = String(guests);
+  if (DOM["header-cpg-stat"]) DOM["header-cpg-stat"].innerText = `$${costPerGuest}`;
+
+  // Itemized Budget Math (30/35/15/10/5/5 Allocation Standard)
+  const venue = Math.round(budget * 0.30);
+  const catering = Math.round(budget * 0.35);
+  const production = Math.round(budget * 0.15);
+  const beverage = Math.round(budget * 0.10);
+  const decor = Math.round(budget * 0.05);
+  const contingency = Math.round(budget * 0.05);
+
+  if (DOM["alloc-venue-val"]) DOM["alloc-venue-val"].innerText = `$${venue.toLocaleString()} (30%)`;
+  if (DOM["alloc-catering-val"]) DOM["alloc-catering-val"].innerText = `$${catering.toLocaleString()} (35%)`;
+  if (DOM["alloc-prod-val"]) DOM["alloc-prod-val"].innerText = `$${production.toLocaleString()} (15%)`;
+  if (DOM["alloc-bev-val"]) DOM["alloc-bev-val"].innerText = `$${beverage.toLocaleString()} (10%)`;
+  if (DOM["alloc-decor-val"]) DOM["alloc-decor-val"].innerText = `$${decor.toLocaleString()} (5%)`;
+  if (DOM["alloc-cont-val"]) DOM["alloc-cont-val"].innerText = `$${contingency.toLocaleString()} (5%)`;
+
+  // Beverage Formula Math
+  const totalDrinks = guests * (1.5 + Math.max(0, duration - 1));
+  const wineBottles = Math.round((totalDrinks * 0.4) / 5);
+  const beerCans = Math.round(totalDrinks * 0.4);
+  const mocktails = Math.round(totalDrinks * 0.2);
+
+  if (DOM["bev-total-drinks"]) DOM["bev-total-drinks"].innerText = String(Math.round(totalDrinks));
+  if (DOM["bev-wine-bottles"]) DOM["bev-wine-bottles"].innerText = String(wineBottles);
+  if (DOM["bev-beer-cases"]) DOM["bev-beer-cases"].innerText = `${Math.ceil(beerCans / 24)} cases (${beerCans} cans)`;
+  if (DOM["bev-mocktails"]) DOM["bev-mocktails"].innerText = `${mocktails} servings`;
+
+  // Dynamic modules
+  generateTimeline();
+  generateVendorDrafts();
+
+  // LocalStorage persistence for instant offline restore
+  try {
+    localStorage.setItem("eventpulse_state", JSON.stringify(eventState));
+  } catch (e) {
+    // Graceful fallback if storage disabled
+  }
+}
+
+/**
+ * Generate contextual Run-of-Show timeline milestones based on event type.
+ */
+function generateTimeline() {
+  const container = DOM["timeline-container"];
+  if (!container) return;
+
+  const type = eventState.type;
+  let milestones = [];
+
+  if (type === "hackathon") {
+    milestones = [
+      { time: "18:00 - 18:30", title: "Doors Open & Neon Badge Check-In", desc: "Welcome drinks, sponsor expo open, DJ warm-up set." },
+      { time: "18:30 - 19:15", title: "Opening Remarks & Finalist Demos", desc: "Keynote address, top 5 teams live pitches on main stage." },
+      { time: "19:15 - 20:30", title: "Catering Dinner & Networking", desc: "Buffet dinner stations open, cocktail hour, photo wall active." },
+      { time: "20:30 - 21:15", title: "Trophy Ceremony & Prize Distribution", desc: "Announcement of category winners, sponsor track awards, confetti blast." },
+      { time: "21:15 - 23:30", title: "Afterparty DJ Set & Synth Celebration", desc: "Live music, midnight dessert bar, retro gaming tournaments." },
+      { time: "23:30 - 00:00", title: "Curfew & Swag Bag Handout", desc: "Closing music, attendee farewell, venue load-out." }
+    ];
+  } else if (type === "wedding") {
+    milestones = [
+      { time: "16:00 - 16:30", title: "Guest Arrival & Welcome Champagne", desc: "Acoustic strings play as guests are seated at the gazebo." },
+      { time: "16:30 - 17:15", title: "Vows & Ceremony", desc: "Processional, ring exchange, and celebratory recessional." },
+      { time: "17:15 - 18:30", title: "Golden Hour Cocktail Reception", desc: "Passed hors d'oeuvres, couple portrait photography." },
+      { time: "18:30 - 20:15", title: "Grand Entrance & Seated Dinner", desc: "First dance, heartfelt toasts, 3-course plated dinner." },
+      { time: "20:15 - 20:45", title: "Cake Cutting & Dessert Table", desc: "Champagne toast and artisan dessert buffet." },
+      { time: "20:45 - 23:00", title: "Open Dance Floor & Sparkler Send-Off", desc: "Live party band, late-night sliders, outdoor sparkler exit." }
+    ];
+  } else if (type === "launch") {
+    milestones = [
+      { time: "17:00 - 17:45", title: "VIP Investor & Media Reception", desc: "Signature branded cocktails, press wall check-in." },
+      { time: "17:45 - 18:30", title: "Keynote & Live Product Reveal", desc: "Founder showcase, live product demo video, customer testimonials." },
+      { time: "18:30 - 20:00", title: "Interactive Experience Stations", desc: "Hands-on demo booths, heavy appetizers, open networking." },
+      { time: "20:00 - 21:00", title: "Celebratory Toast & Executive Mixer", desc: "Leadership remarks, team celebration, and VIP gift boxes." }
+    ];
+  } else {
+    milestones = [
+      { time: "19:00 - 19:45", title: "Welcome Drinks & Polaroid Photo Wall", desc: "Guests arrive, craft cocktails served, retro playlist playing." },
+      { time: "19:45 - 21:00", title: "Gourmet Bites & Trivia Game", desc: "Interactive friend trivia, shared platters, arcade stations." },
+      { time: "21:00 - 21:30", title: "Birthday Cake Cutting & Champagne", desc: "Singing, toasts, custom birthday cake presentation." },
+      { time: "21:30 - 00:00", title: "Dance Party & Late Night Pizza", desc: "DJ set, glow sticks, late night food delivery." }
+    ];
+  }
+
+  // Efficient batch innerHTML assignment
+  container.innerHTML = milestones.map(m => `
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <span class="timeline-time">${m.time}</span>
+        <h4 class="timeline-title">${m.title}</h4>
+        <p class="timeline-desc">${m.desc}</p>
+      </div>
+    </div>
+  `).join("");
+}
+
+/**
+ * Generate customized vendor email and RSVP invitations based on event state.
+ */
+function generateVendorDrafts() {
+  const title = eventState.title;
+  const guests = eventState.guests;
+  const budget = eventState.budget;
+  const cateringBudget = Math.round(budget * 0.35);
+
+  const draft = `Subject: Catering & Event Inquiry: ${title} (${guests} Guests)
+
+Dear Catering Events Team,
+
+I am planning our upcoming event, "${title}", for approximately ${guests} attendees. 
+
+We are targeting a total food & service allocation of roughly $${cateringBudget.toLocaleString()} ($${Math.round(cateringBudget / Math.max(1, guests))}/guest). Our requirements include:
+- A mix of passed appetizers and main stations.
+- Dietary split: ~${eventState.dietaryVegRatio}% vegetarian/plant-based options.
+- Efficient flow for a ${eventState.durationHours}-hour event schedule.
+
+Could you share your current seasonal menus and availability for this date? We look forward to exploring options.
+
+Warm regards,
+Event Operations Team`;
+
+  if (DOM["vendor-email-draft"]) DOM["vendor-email-draft"].value = draft;
+
+  const rsvp = `🎉 You're Invited: ${title}!
+
+Join us for an unforgettable celebration featuring live music, incredible food, and great company!
+📍 Date & Location: TBA (Sent upon RSVP)
+👥 Expected Guests: ${guests}
+⏱ Schedule: ${eventState.durationHours} Hours of celebration
+
+RSVP now to reserve your spot: https://eventpulse-ai.app/rsvp/${encodeURIComponent(title.toLowerCase().replace(/\\s+/g, '-'))}`;
+
+  if (DOM["rsvp-invite-draft"]) DOM["rsvp-invite-draft"].value = rsvp;
+}
+
+/**
+ * Clipboard copy utility with interactive button state feedback.
+ * @param {string} elemId - Input element ID to copy from.
+ * @param {string} btnId - Button element ID displaying feedback.
+ */
+function copyText(elemId, btnId) {
+  const el = DOM[elemId] || document.getElementById(elemId);
+  if (!el) return;
+  navigator.clipboard.writeText(el.value || el.innerText);
+  
+  const btn = DOM[btnId] || document.getElementById(btnId);
+  if (btn) {
+    const oldText = btn.innerText;
+    btn.innerText = "✓ Copied!";
+    setTimeout(() => { btn.innerText = oldText; }, 2000);
+  }
+}
+
+/**
+ * Deliver user question to AI Copilot and append dialogue bubbles.
+ */
+function sendChatMessage() {
+  const input = DOM["chat-input"];
+  if (!input) return;
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const chatContainer = DOM["chat-messages"];
+  if (!chatContainer) return;
+
+  // Append User Bubble
+  const userBubble = document.createElement("div");
+  userBubble.className = "chat-bubble user";
+  userBubble.innerText = msg;
+  chatContainer.appendChild(userBubble);
+  input.value = "";
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // Simulate sub-millisecond AI reasoning response
+  setTimeout(() => {
+    const botBubble = document.createElement("div");
+    botBubble.className = "chat-bubble bot";
+    botBubble.innerHTML = generateAssistantReply(msg);
+    chatContainer.appendChild(botBubble);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }, 250);
+}
+
+/**
+ * Contextual decision assistant heuristic generator.
+ * @param {string} query - Natural language user inquiry.
+ * @returns {string} Formatted response text.
+ */
+function generateAssistantReply(query) {
+  const q = query.toLowerCase();
+  const guests = eventState.guests;
+  const budget = eventState.budget;
+
+  if (q.includes("rain") || q.includes("weather")) {
+    return `<strong>☔ Rain Contingency Plan:</strong> For ${guests} guests, ensure your venue contract includes a 24-hour tenting lock or indoor room flip option. Designate the cocktail area as a covered terrace backup.`;
+  }
+  if (q.includes("cut") || q.includes("save") || q.includes("budget")) {
+    const cutAmount = Math.round(budget * 0.15);
+    return `<strong>💡 Smart Budget Optimization (-$${cutAmount.toLocaleString()}):</strong><br>1. Switch from plated dinner to gourmet chef stations (saves ~18%).<br>2. Limit open bar to beer, wine, and 2 signature cocktails instead of top-shelf open bar (saves ~25% on alcohol).<br>3. Leverage venue lighting instead of external floral rentals.`;
+  }
+  if (q.includes("alcohol") || q.includes("drink") || q.includes("wine") || q.includes("beer")) {
+    const totalEst = Math.round(guests * (1.5 + Math.max(0, eventState.durationHours - 1)));
+    return `<strong>🍸 Drink Formula (${eventState.durationHours} hrs for ${guests} guests):</strong><br>Plan on 1.5 drinks in Hour 1, then 1 drink/hour thereafter. Total estimated: <strong>${totalEst} drinks</strong> (${Math.round((totalEst * 0.4) / 5)} wine bottles, ${Math.ceil((totalEst * 0.4) / 24)} beer cases).`;
+  }
+  if (q.includes("dj") || q.includes("music") || q.includes("vibe")) {
+    return `<strong>🎵 Sound & Atmosphere:</strong> Recommend transitioning from 90s lounge/synth during guest arrival to upbeat nu-disco during dinner, peaking with high-energy house & pop hits for the final 90 minutes.`;
+  }
+
+  return `<strong>✨ EventPulse Recommendation:</strong> Based on your <em>${eventState.title}</em> for ${guests} guests, your current pacing and resource allocation are well balanced. Would you like me to adjust the timeline, optimize vendor allocations, or draft an announcement?`;
+}
+
+/**
+ * Checklist Progress Counter with ARIA feedback.
+ */
+function updateChecklistProgress() {
+  const checkboxes = document.querySelectorAll("#vendor-checklist-container input[type='checkbox']");
+  if (!checkboxes.length) return;
+  const total = checkboxes.length;
+  const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+  const badge = DOM["checklist-progress-badge"] || document.getElementById("checklist-progress-badge");
+  if (badge) {
+    badge.innerText = `${checked} / ${total} Completed`;
+    badge.style.color = checked === total ? "var(--emerald)" : "var(--gold)";
+  }
+}
+
+// Initial Setup & High-Performance Event Binding
+document.addEventListener("DOMContentLoaded", () => {
+  initDOMCache();
+  updateChecklistProgress();
+
+  // Restore saved state from localStorage if present
+  try {
+    const saved = localStorage.getItem("eventpulse_state");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      eventState = { ...eventState, ...parsed };
+      if (DOM["event-title-input"]) DOM["event-title-input"].value = eventState.title;
+      if (DOM["event-type-select"]) DOM["event-type-select"].value = eventState.type;
+      if (DOM["guests-slider"]) DOM["guests-slider"].value = eventState.guests;
+      if (DOM["guests-display"]) DOM["guests-display"].innerText = String(eventState.guests);
+      if (DOM["budget-slider"]) DOM["budget-slider"].value = eventState.budget;
+      if (DOM["budget-display"]) DOM["budget-display"].innerText = `$${eventState.budget.toLocaleString()}`;
+      if (DOM["duration-slider"]) DOM["duration-slider"].value = eventState.durationHours;
+      if (DOM["duration-display"]) DOM["duration-display"].innerText = `${eventState.durationHours} hrs`;
+    }
+  } catch (e) {}
+
+  // Preset click handlers
+  document.querySelectorAll(".preset-card").forEach(card => {
+    card.addEventListener("click", () => {
+      loadPreset(card.getAttribute("data-preset"));
+    });
+  });
+
+  // Slider Listeners with rAF debouncing
+  if (DOM["guests-slider"]) {
+    DOM["guests-slider"].addEventListener("input", (e) => {
+      if (DOM["guests-display"]) DOM["guests-display"].innerText = e.target.value;
+      scheduleRecalculate();
+    });
+  }
+
+  if (DOM["budget-slider"]) {
+    DOM["budget-slider"].addEventListener("input", (e) => {
+      if (DOM["budget-display"]) DOM["budget-display"].innerText = `$${parseInt(e.target.value, 10).toLocaleString()}`;
+      scheduleRecalculate();
+    });
+  }
+
+  if (DOM["duration-slider"]) {
+    DOM["duration-slider"].addEventListener("input", (e) => {
+      if (DOM["duration-display"]) DOM["duration-display"].innerText = `${e.target.value} hrs`;
+      scheduleRecalculate();
+    });
+  }
+
+  if (DOM["event-title-input"]) {
+    DOM["event-title-input"].addEventListener("input", scheduleRecalculate);
+  }
+
+  if (DOM["event-type-select"]) {
+    DOM["event-type-select"].addEventListener("change", (e) => {
+      eventState.type = e.target.value;
+      scheduleRecalculate();
+    });
+  }
+
+  if (DOM["chat-input"]) {
+    DOM["chat-input"].addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendChatMessage();
+    });
+  }
+
+  // Initial Calculation
+  recalculateAll();
+});
+
+</script>
+</body>
+</html>
