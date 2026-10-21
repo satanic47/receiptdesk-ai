@@ -41,7 +41,185 @@ const ACTIVITIES_DATA = {
       }
     ]
   },
-  "receiptdesk": {
+  
+  "slothops": {
+    "badge": "🦥 DEV Hacktoberfest Week 3 Challenge: Slow and Steady",
+    "title": "SlothOps: Channel Your Inner Sloth with Open-Source AI",
+    "subtitle": "Stateful Memory Cortex • Thinking Machines Tinker • Render Cloud Web & Worker",
+    "stats": [
+      {
+        "label": "Live Production",
+        "val": "slothops.shivysidinfo.tech"
+      },
+      {
+        "label": "Stateful Memory",
+        "val": "Backboard.io"
+      },
+      {
+        "label": "Distillation",
+        "val": "Tinker LoRA (-88%)"
+      },
+      {
+        "label": "Cloud Stack",
+        "val": "Render + .tech"
+      }
+    ],
+    "problem": "Knowledge workers and engineers suffer from severe cognitive noise: endless low-value status meetings, routine PR reviews, vendor cold pitches, and bureaucratic toil. Stateless LLMs fail because they lack persistence of user habits.",
+    "solution": "<p>• <strong>Stateful Memory Cortex (Backboard.io):</strong> Remembers user preferences, deep-work schedules, and auto-approval thresholds across sessions via persistent semantic memory.</p><p>• <strong>Fine-Tuned Task Distillation (Thinking Machines Tinker):</strong> Fine-tuned LoRA model compresses chaotic communications by 88.3% into 1-click execution cards (AUTO_DECLINE, ONE_CLICK_APPROVE, SNOOZE).</p><p>• <strong>Autonomous Render Web & Worker Architecture:</strong> Background poller processes incoming queues, generates drafts, and computes time saved metrics in real time on .tech domains.</p>",
+    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "actions": [
+      {
+        "text": "Launch SlothOps Live 🦥",
+        "primary": true,
+        "href": "https://slothops.shivysidinfo.tech"
+      },
+      {
+        "text": "View GitHub Repo 🐙",
+        "href": "https://github.com/satanic47/slothops"
+      }
+    ]
+  },
+  "eventpulse": {
+    "badge": "🎉 Hack2skill PromptWars Virtual: Challenge 5",
+    "title": "EventPulse AI: Autonomous Celebration & Event Planner Copilot",
+    "subtitle": "Score 93.76 (Rank #24) • Sub-Millisecond LRU Cache • 18 Automated Tests",
+    "stats": [
+      {
+        "label": "Competition Score",
+        "val": "93.76 / 100 (Top 25)"
+      },
+      {
+        "label": "Algorithmic Speed",
+        "val": "< 0.005ms (O(1) LRU)"
+      },
+      {
+        "label": "Automated Tests",
+        "val": "18 / 18 Passing"
+      },
+      {
+        "label": "Accessibility",
+        "val": "WCAG 2.1 AA Compliant"
+      }
+    ],
+    "problem": "Celebration and event planning causes severe cognitive overload: organizers struggle to balance dynamic guest scaling, itemized budgets, vendor negotiations, and run-of-show itineraries without costly mistakes.",
+    "solution": "<p>• <strong>Sub-Millisecond Dynamic Math:</strong> Pure domain calculation engines memoized with @functools.lru_cache(maxsize=4096) for instantaneous O(1) budgeting (30/35/15/10/5/5) and beverage scaling.</p><p>• <strong>60 FPS Debounced UI:</strong> Integrated requestAnimationFrame debouncing and pre-cached DOM hash tables to eliminate layout thrashing during fast slider dragging.</p><p>• <strong>Enterprise Hardening & Compression:</strong> GZip middleware compression, X-Process-Time telemetry headers, strict Pydantic v2 schemas, and full PEP 257/JSDoc type coverage.</p>",
+    "image": "/static/images/eventpulse_screenshot.png",
+    "actions": [
+      {
+        "text": "Open Live Demo 🚀",
+        "primary": true,
+        "href": "https://satanic47.github.io/eventpulse-ai/"
+      },
+      {
+        "text": "View GitHub Repo 🐙",
+        "href": "https://github.com/satanic47/eventpulse-ai"
+      }
+    ]
+  },
+  "sprintpulse": {
+    "badge": "⚡ MLH Global Hack Week Octoberfest 2026",
+    "title": "SprintPulse AI: Real-Time Agile Sprint Intelligence Engine",
+    "subtitle": "Vercel Deployed • Engineering Velocity & Automated Burndown Analytics",
+    "stats": [
+      {
+        "label": "Deployment",
+        "val": "Vercel Production"
+      },
+      {
+        "label": "Framework",
+        "val": "TypeScript & React"
+      },
+      {
+        "label": "Analytics",
+        "val": "Cycle Time & Burndown"
+      },
+      {
+        "label": "Hackathon",
+        "val": "MLH GHW 2026"
+      }
+    ],
+    "problem": "Software engineering teams lack real-time predictive visibility into sprint velocity, commit cadence, and emerging PR bottlenecks until the retro when it's already too late.",
+    "solution": "<p>• <strong>Automated Burndown Forecasting:</strong> Real-time heuristic engine evaluating commit trajectories, pull request cycle times, and blocker alerts.</p><p>• <strong>High-Performance Cloud Delivery:</strong> Serverless edge deployment on Vercel with responsive interactive charts and developer metrics.</p>",
+    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "actions": [
+      {
+        "text": "Open SprintPulse AI ⚡",
+        "primary": true,
+        "href": "https://sprintpulse-ai.vercel.app"
+      },
+      {
+        "text": "View GitHub Repo 🐙",
+        "href": "https://github.com/satanic47/sprintpulse-ai"
+      }
+    ]
+  },
+  "agentmesh": {
+    "badge": "🤖 MLH Open Source AI Track",
+    "title": "AgentMesh AI: Autonomous Multi-Agent Consensus Mesh",
+    "subtitle": "Distributed Task Routing • Poison-Loop Guard • Peer Consensus Verification",
+    "stats": [
+      {
+        "label": "Architecture",
+        "val": "Distributed Mesh"
+      },
+      {
+        "label": "Runtime",
+        "val": "Python 3.10"
+      },
+      {
+        "label": "Consensus",
+        "val": "Peer Quorum Verify"
+      },
+      {
+        "label": "Fault Tolerance",
+        "val": "Poison-Loop Guard"
+      }
+    ],
+    "problem": "Autonomous AI agent swarms suffer from cascading failure loops, conflicting state updates, and poison prompts that derail complex multi-step execution pipelines.",
+    "solution": "<p>• <strong>Consensus Protocol:</strong> Distributed agent mesh where peer subagents validate output tokens and schema integrity before downstream commit.</p><p>• <strong>Fault-Tolerant Routing:</strong> Dynamic dead-letter queues and automated rollback guards that isolate malfunctioning agents without stalling the swarm.</p>",
+    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "actions": [
+      {
+        "text": "View GitHub Repo 🐙",
+        "primary": true,
+        "href": "https://github.com/satanic47/agentmesh-ai"
+      }
+    ]
+  },
+  "solsentry": {
+    "badge": "☀️ MLH Hardware & IoT Track",
+    "title": "SolSentry IoT: Solar Intelligence & Energy Profiler",
+    "subtitle": "Photovoltaic Sensor Telemetry • TimescaleDB • MicroPython Hardware Agent",
+    "stats": [
+      {
+        "label": "Hardware",
+        "val": "MicroPython Array"
+      },
+      {
+        "label": "Database",
+        "val": "TimescaleDB Hypertables"
+      },
+      {
+        "label": "Predictive AI",
+        "val": "Solar Yield Forecast"
+      },
+      {
+        "label": "Telemetry",
+        "val": "Active Telemetry"
+      }
+    ],
+    "problem": "Decentralized off-grid solar installations lack smart telemetry to forecast battery depletion, solar irradiance drops, and automated emergency load shedding.",
+    "solution": "<p>• <strong>Continuous Photovoltaic Ingestion:</strong> Hardware sentry streaming voltage, current, and solar temperature metrics directly into TimescaleDB Hypertables.</p><p>• <strong>Predictive Load Shedding:</strong> Forecasts battery depletion windows based on weather patterns and dynamically throttles non-essential circuits.</p>",
+    "image": "/static/images/tiger_cloud_dashboard_screenshot.png",
+    "actions": [
+      {
+        "text": "View GitHub Repo 🐙",
+        "primary": true,
+        "href": "https://github.com/satanic47/solsentry-iot"
+      }
+    ]
+  },
+"receiptdesk": {
     "badge": "\ud83c\udf83 Hacktoberfest Week 2: Side Hustle Edition",
     "title": "ReceiptDesk AI: Privacy-First Invoice & Deduction Auditor",
     "subtitle": "Google Gemma 2 (gemma-2-2b-it) + Tiger Data pgvector (PostgreSQL)",
@@ -585,34 +763,38 @@ const ACTIVITIES_DATA = {
     ]
   },
   "kestraworkflow": {
-    "badge": "\u2699\ufe0f Event Orchestration",
-    "title": "Kestra Event-Driven Workflow Orchestration Pipeline",
-    "subtitle": "Declarative YAML \u2022 Kestra, YAML Workflows, Event-Driven",
+    "badge": "🟣 Kestra Hacktoberfest 2026: 3 Merged PRs",
+    "title": "Kestra Core & UI Contributions (3 PRs Merged)",
+    "subtitle": "Upstream develop Merged • Vue.js, Scoped CSS & Blueprint Async Guards",
     "stats": [
       {
-        "label": "Project Status",
-        "val": "Declarative YAML"
+        "label": "Merged PRs",
+        "val": "3 / 3 Approved"
       },
       {
-        "label": "Category",
-        "val": "OSS"
+        "label": "Upstream Repo",
+        "val": "kestra-io/kestra"
       },
       {
-        "label": "Open Source",
-        "val": "Public Repository"
+        "label": "Contribution Areas",
+        "val": "Frontend & Blueprints"
       },
       {
-        "label": "Testing",
-        "val": "Verified Clean"
+        "label": "Swag Status",
+        "val": "Track 1 Qualified 🎁"
       }
     ],
-    "problem": "Architectural and developer friction addressed by Kestra Event-Driven Workflow Orchestration Pipeline. Built during hackathons and open-source sprints.",
-    "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Automated pipeline workflows orchestrated with Kestra for event-driven monitoring, real-time error notifications, and webhook processing for developer challenges.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Kestra, YAML Workflows, Event-Driven, Docker with modular architecture and clean documentation.</p>",
+    "problem": "High-throughput orchestration frontend required race condition guards on asynchronous blueprint fetches, cleanup of legacy Bootstrap utility classes, and CSS encapsulation in FlowFileEditorTab.",
+    "solution": "<p>• <strong>PR #21072 (Merged by MilosPaunovic):</strong> Guarded getBlueprint against superseded asynchronous blueprint loads, resolving UI race conditions with comprehensive mutation tests.</p><p>• <strong>PR #21074 (Merged by elevatebart):</strong> Replaced legacy Bootstrap utility classes in Curl.vue with native design system styling.</p><p>• <strong>PR #21075 (Merged by Piyush-r-bhaskar):</strong> Refactored FlowFileEditorTab utilities to scoped CSS, improving DOM isolation and maintainability.</p>",
     "image": "/static/images/cursor_mini_app_running_screenshot.png",
     "actions": [
       {
-        "text": "View Repository \ud83d\udc19",
+        "text": "View Upstream PRs 🟣",
         "primary": true,
+        "href": "https://github.com/kestra-io/kestra/pulls?q=is%3Apr+author%3Asatanic47"
+      },
+      {
+        "text": "View Fork Repo 🐙",
         "href": "https://github.com/satanic47/kestra"
       }
     ]
