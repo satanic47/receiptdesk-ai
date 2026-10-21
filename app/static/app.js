@@ -28,7 +28,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Indian municipal corporations struggle with fragmented citizen feedback systems. In Chandigarh Tricity, over 70% of grassroots citizens speak Punjabi or Hindi, while legacy complaint portals require rigid English forms. Moreover, municipal ward budgets lack real-time geospatial demand hotspot intelligence, leaving critical hazards unaddressed.",
     "solution": "<p>\u2022 <strong>Omnichannel Voice & Text Ingestion:</strong> Citizens speak or text in Punjabi Gurmukhi, Devanagari Hindi, or English via Voice Notes, WhatsApp, and Web.</p><p>\u2022 <strong>Google Gemini Multilingual Normalization:</strong> Normalizes colloquial dialect input into canonical structured schemas with automated 1-10 hazard urgency scoring and municipal department routing (B&R Roads, Water, Power, Sanitation).</p><p>\u2022 <strong>Le Corbusier Sector Grid Geocoding:</strong> Maps colloquial landmarks (Kiran Cinema, Patel Market, PU Gate 2) directly to Chandigarh sector centroids, wards, and demographics.</p><p>\u2022 <strong>Municipal Capital DPR Copilot:</strong> Gemini AI synthesizes demand hotspots with ward census data and budgets to generate executive Detailed Project Reports (DPRs) with cost estimates for smart city engineers.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/civicpulse_screenshot.png",
     "actions": [
       {
         "text": "View GitHub Repo \ud83d\udc19",
@@ -66,7 +66,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Knowledge workers and engineers suffer from severe cognitive noise: endless low-value status meetings, routine PR reviews, vendor cold pitches, and bureaucratic toil. Stateless LLMs fail because they lack persistence of user habits.",
     "solution": "<p>• <strong>Stateful Memory Cortex (Backboard.io):</strong> Remembers user preferences, deep-work schedules, and auto-approval thresholds across sessions via persistent semantic memory.</p><p>• <strong>Fine-Tuned Task Distillation (Thinking Machines Tinker):</strong> Fine-tuned LoRA model compresses chaotic communications by 88.3% into 1-click execution cards (AUTO_DECLINE, ONE_CLICK_APPROVE, SNOOZE).</p><p>• <strong>Autonomous Render Web & Worker Architecture:</strong> Background poller processes incoming queues, generates drafts, and computes time saved metrics in real time on .tech domains.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/slothops_screenshot.png",
     "actions": [
       {
         "text": "Launch SlothOps Live 🦥",
@@ -144,7 +144,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Software engineering teams lack real-time predictive visibility into sprint velocity, commit cadence, and emerging PR bottlenecks until the retro when it's already too late.",
     "solution": "<p>• <strong>Automated Burndown Forecasting:</strong> Real-time heuristic engine evaluating commit trajectories, pull request cycle times, and blocker alerts.</p><p>• <strong>High-Performance Cloud Delivery:</strong> Serverless edge deployment on Vercel with responsive interactive charts and developer metrics.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/sprintpulse_screenshot.png",
     "actions": [
       {
         "text": "Launch Live Portal (/sprintpulse) 🎙️",
@@ -185,7 +185,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Autonomous AI agent swarms suffer from cascading failure loops, conflicting state updates, and poison prompts that derail complex multi-step execution pipelines.",
     "solution": "<p>• <strong>Consensus Protocol:</strong> Distributed agent mesh where peer subagents validate output tokens and schema integrity before downstream commit.</p><p>• <strong>Fault-Tolerant Routing:</strong> Dynamic dead-letter queues and automated rollback guards that isolate malfunctioning agents without stalling the swarm.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/agentmesh_screenshot.png",
     "actions": [
       {
         "text": "Launch Live Portal (/agentmesh-ai) 🤖",
@@ -325,7 +325,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "When users executed rapid consecutive file additions or removals on the same knowledge source, asynchronous Celery task redeliveries caused race conditions. Knowledge sources were penalized with a 24-hour lockout or trapped in poison ingestion loops.",
     "solution": "<p>\u2022 <strong>Atomic Task Deduplication:</strong> Added Redis-backed idempotency tokens preventing identical task redelivery within ingestion windows.</p><p>\u2022 <strong>Poison-Loop Thresholds:</strong> Guarded consecutive file management operations so failed parsing passes release locks immediately instead of triggering exponential 24-hour backoff.</p><p>\u2022 <strong>Regression Test Suite:</strong> Wrote automated pytest scenarios verifying sequential file addition and removal operations on the same source complete safely without locking.</p>",
-    "image": "/static/images/grok_bot_challenge_7_combined.png",
+    "image": "/static/images/docsgpt_screenshot.png",
     "actions": [
       {
         "text": "View PR #3068 on GitHub \ud83d\udc19",
@@ -361,7 +361,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "High-frequency transactional streams and financial audit records overwhelm standard relational databases, creating painful query slowdowns when generating real-time analytics and running vector similarity queries.",
     "solution": "<p>\u2022 <strong>Hypertables & Real-Time Aggregates:</strong> Created partitioned time-series hypertables and materialized continuous aggregates (CAGGs) that calculate rolling hourly and daily expense metrics instantly.</p><p>\u2022 <strong>Tiger Cloud pgvector:</strong> Integrated pgvector extension for sub-5ms cosine similarity indexing on financial item embeddings.</p><p>\u2022 <strong>Agent Integration:</strong> Configured automated data retention and chunking rules using Tiger MCP agent toolsets.</p>",
-    "image": "/static/images/tiger_cloud_dashboard_screenshot.png",
+    "image": "/static/images/tiger_pipeline_screenshot.jpg",
     "actions": [
       {
         "text": "View Pipeline Repository \ud83d\udc19",
@@ -397,7 +397,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Evaluating code generation ergonomics and multi-turn reasoning across frontier LLMs under competitive hackathon time constraints.",
     "solution": "<p>\u2022 <strong>Copilot Adventure Game:</strong> Generated a full-featured retro terminal RPG dungeon crawler with state management, item inventory, and dynamic enemy encounters.</p><p>\u2022 <strong>Comparative Benchmark:</strong> Developed automated benchmark scripts evaluating Grok 4.7 High and Claude Opus 5.5 on syntax accuracy, token generation velocity, and bug refactoring speed.</p><p>\u2022 <strong>Hackathon Check-Ins:</strong> Attended daily workshops, collected attendance codes, and completed interactive live-stream challenges.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/agentmesh_screenshot.png",
     "actions": [
       {
         "text": "View MLH GHW Schedule \ud83d\udc7e",
@@ -433,7 +433,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Popular open-source Minecraft mod repositories suffered from outdated documentation links, broken Astro template layouts, and missing package metadata.",
     "solution": "<p>\u2022 <strong>CraftTweaker Documentation:</strong> Modernized broken tutorials, updated API method signatures, and resolved dead hyperlinks.</p><p>\u2022 <strong>Astro Components:</strong> Fixed navigation and responsive drawer layouts on the documentation site templates.</p><p>\u2022 <strong>Open Standards:</strong> Aligned PRs with Modtoberfest guidelines and GitHub Actions automated linter workflows.</p>",
-    "image": "/static/images/gartictober_day11.png",
+    "image": "/static/images/modtoberfest_screenshot.png",
     "actions": [
       {
         "text": "Modtoberfest Hub \ud83c\udf41",
@@ -469,7 +469,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Crafting lightweight, visually striking Halloween atmosphere and custom entities without dragging client frame rates down.",
     "solution": "<p>\u2022 <strong>Festive Shaders:</strong> Designed optimized particle shaders for haunted mist, glowing pumpkins, and atmospheric lighting.</p><p>\u2022 <strong>Community Showcase:</strong> Formatted entry for the official SpookyJam Halloween festival site and participating mod packs.</p>",
-    "image": "/static/images/gartictober_day11.png",
+    "image": "/static/images/spookyjam_screenshot.png",
     "actions": [
       {
         "text": "SpookyJam Info \ud83d\udd78\ufe0f",
@@ -501,7 +501,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Socratic Neural Sandbox: In-Browser Feedforward Engine. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> An interactive educational neural network engine written from scratch in vanilla JavaScript. Handles forward propagation, backpropagation, and weight regularizations directly in the browser without third-party ML dependencies.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Vanilla JavaScript, Neural Networks, Backpropagation, Math & Canvas with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/agentmesh_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -534,7 +534,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Tiger MCP Agent Integration & Auto-Schema Discovery. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Engineered a production Model Context Protocol (MCP) server enabling autonomous coding agents to inspect Timescale hypertables, execute CAGGs, and run pgvector semantic similarity queries directly.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Model Context Protocol, Tiger CLI, Python, Tool Calling with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/tiger_pipeline_screenshot.jpg",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -567,7 +567,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by IoT Smart Sensor Fleet Telemetry Simulator. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Simulated multi-node smart city environmental sensor telemetry with automated partition chunking, rolling aggregations, and high-performance columnar compression in TimescaleDB.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using TimescaleDB, Hypertables, IoT Telemetry, Continuous Aggs with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/tiger_cloud_dashboard_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -633,7 +633,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Grok Bot Relay & Multi-Agent Browser Automation. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Implemented an autonomous two-bot launch relay executing sequential browser workflows, multi-step form verification, and headless DOM automation.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Grok Bot, Browser Automation, Agent Relay, No-Code & Scripts with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/grok_bot_challenge_7_combined.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -666,7 +666,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Arduino Halloween Sentry: Smart Ultrasonic Motion Guard. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Microcontroller firmware driving an ultrasonic distance sensor, animated spooky LED eyes, and sound buzzer triggers for an automated Halloween front-porch perimeter sentry.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Arduino C++, Ultrasonic HC-SR04, PWM LEDs, Embedded Systems with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/spookyjam_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -699,7 +699,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Modtoberfest Official Site Landing Countdown Fix. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Rebased and resolved merge conflicts on Mycelium-Mod-Network/Modtoberfest-Site PR #46. Fixed Astro component reactivity and end-state timer rendering for the 2026 festival.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Astro 4.0, TypeScript, Tailwind, Git Rebase with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/modtoberfest_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -732,7 +732,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Campus Opportunities & Hackathon Scout Database. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Engineered a comprehensive relational database cataloging student developer grants, hackathons, and open-source fellowships with automated categorization and query indexes.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using SQLite, Python, Indexing, Student Programs with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/tiger_cloud_dashboard_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -765,7 +765,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by 128-Dimensional Semantic Vector Search Engine. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Zero-dependency cosine distance vector retrieval engine with dual backends: Tiger Data pgvector in cloud production and local SQLite vector table for 100% offline edge caching.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using pgvector, Embeddings, Cosine Distance, Vector Indexing with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/docsgpt_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -798,7 +798,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "High-throughput orchestration frontend required race condition guards on asynchronous blueprint fetches, cleanup of legacy Bootstrap utility classes, and CSS encapsulation in FlowFileEditorTab.",
     "solution": "<p>• <strong>PR #21072 (Merged by MilosPaunovic):</strong> Guarded getBlueprint against superseded asynchronous blueprint loads, resolving UI race conditions with comprehensive mutation tests.</p><p>• <strong>PR #21074 (Merged by elevatebart):</strong> Replaced legacy Bootstrap utility classes in Curl.vue with native design system styling.</p><p>• <strong>PR #21075 (Merged by Piyush-r-bhaskar):</strong> Refactored FlowFileEditorTab utilities to scoped CSS, improving DOM isolation and maintainability.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/tiger_pipeline_screenshot.jpg",
     "actions": [
       {
         "text": "View Upstream PRs 🟣",
@@ -868,7 +868,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Packwiz Modpack Distribution & Sync Pipeline. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Automated index verification, SHA-256 integrity hashing, and multi-loader dependency synchronization for the packwiz-website Minecraft distribution engine.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Go, TOML, Shell Scripting, Mod Packaging with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/modtoberfest_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -901,7 +901,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by CraftTweaker ZenScript Documentation Engine. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Updated comprehensive API documentation, recipe builders, script execution hooks, and event handler guides for CraftTweaker across Modern Minecraft versions.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Astro, Markdown, ZenScript, Technical Writing with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/crafttweaker_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -934,7 +934,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Fabric Toolchain & Modding Guide Modernization. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Contributed curated tutorials, mixin documentation, and lifecycle registration guides for the official Fabric open-source Minecraft modding framework.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Java, Docusaurus, Fabric Loader, Gradle with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/fabricdocs_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -967,7 +967,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Clumps XP & Item Entity Aggregation Optimizer. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> Maintained and tested entity aggregation algorithms for Clumps, grouping floating XP orbs and drop items into single entities to drastically eliminate server tick-rate lag.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Java, Minecraft Forge, Fabric, Performance with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/modtoberfest_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -1033,7 +1033,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Real-Time Web Audio DSP Spectrogram Analyzer. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> HTML5 Canvas audio spectrum visualizer computing logarithmic frequency bins and amplitude heatmaps in real time via the Web Audio API without requiring backend server processing.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using Web Audio API, Fast Fourier Transform, HTML5 Canvas, DSP with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/sprintpulse_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
@@ -1066,7 +1066,7 @@ const ACTIVITIES_DATA = {
     ],
     "problem": "Architectural and developer friction addressed by Microservices API Gateway & Health Check Testbed. Built during hackathons and open-source sprints.",
     "solution": "<p>\u2022 <strong>Engineered Solution:</strong> High-throughput reverse proxy routing layer with dynamic health probes, distributed request tracing, and automated Docker healthcheck routines.</p><p>\u2022 <strong>Tech Highlights:</strong> Built using FastAPI, Docker, Reverse Proxy, Health Probes with modular architecture and clean documentation.</p>",
-    "image": "/static/images/cursor_mini_app_running_screenshot.png",
+    "image": "/static/images/civicpulse_screenshot.png",
     "actions": [
       {
         "text": "View Repository \ud83d\udc19",
